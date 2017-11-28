@@ -10,8 +10,7 @@ use JWTAuth;
 class Client extends Authenticatable {
 
     use Notifiable;
-
-use SoftDeletes;
+    use SoftDeletes;
 
     public $table = 'users';
     public static $BACKEND_TYPE = 1;
@@ -56,14 +55,27 @@ use SoftDeletes;
         'IDCardFile',
         'licenseFile'
     ];
+    
+    
+    /**
+     * Apply the scope to a given Eloquent query builder.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $builder
+     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @return void
+     */
+    public function apply(Builder $builder, Model $model)
+    {
+        $builder->where('type', self::$CLIENT_TYPE);
+    }
 
     /**
      * Get the user's login complete profile.
      * @return boolean
      */
-    public function getIsCompleteProfileAttribute() {
-        return $this->email ? 1 : 0;
-    }
+//    public function getIsCompleteProfileAttribute() {
+//        return $this->email ? 1 : 0;
+//    }
 
     /**
      * Get the user's login token.

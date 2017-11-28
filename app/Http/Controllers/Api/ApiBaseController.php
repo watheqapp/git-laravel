@@ -42,7 +42,7 @@ class ApiBaseController extends BaseController {
             'message' => __('api.success', [], 'en'),
             'data' => $data ? $data : null
         ];
-        return response()->json($response, 200);
+        return response()->json($response, 200, [], JSON_NUMERIC_CHECK);
     }
 
     public function getErrorJsonResponse(array $errors = array(), $message = 'error') {

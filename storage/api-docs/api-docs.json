@@ -19,6 +19,31 @@
         "https"
     ],
     "paths": {
+        "/api/auth/category/list": {
+            "get": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "List request categories",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Logged in User access token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                }
+            }
+        },
         "/api/client/login": {
             "post": {
                 "tags": [

@@ -32,6 +32,9 @@ Route::group(['middleware' => ['CheckApiAuth']], function() {
         Route::post('client/registerDeviceToken', 'Api\ClientController@registerDevice');
         Route::post('client/logout', 'Api\ClientController@logout');
         
+        Route::get('category/list', 'Api\CategoryController@listCategories');
+
+
         // Laywer
         Route::post('lawyer/completeProfile', 'Api\LawyerController@completeProfile');
         Route::post('lawyer/completeFiles', 'Api\LawyerController@completeLawerFiles');
