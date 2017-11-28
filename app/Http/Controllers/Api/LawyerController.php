@@ -147,7 +147,7 @@ class LawyerController extends ApiBaseController {
                     'name' => 'sometimes|min:3|max:100',
                     'phone' => 'sometimes|saudi_phone',
                     'email' => 'sometimes|email',
-                    'language' => 'sometimes|in:ar,en',
+                    'language' => 'sometimes|in:ar,en'
         ]);
 
         if ($validator->fails()) {
@@ -182,6 +182,22 @@ class LawyerController extends ApiBaseController {
                 }
             }
         }
+        
+        if ($request->has('IDCardFile')) {
+            $fileNameWithoutExt = 'lawyer-idcard-' . rand(1111, 9999) . time();
+            $fileName = $this->saveBase64Image($request->IDCardFile, $fileNameWithoutExt);
+            if ($fileName) {
+                $lawyer->IDCardFile = $fileName;
+            }
+        }
+        
+        if ($request->has('licenseFile')) {
+            $fileNameWithoutExt = 'lawyer-license-' . rand(1111, 9999) . time();
+            $fileName = $this->saveBase64Image($request->licenseFile, $fileNameWithoutExt);
+            if ($fileName) {
+                $lawyer->licenseFile = $fileName;
+            }
+        }
 
         $lawyer->save();
 
@@ -213,73 +229,6 @@ class LawyerController extends ApiBaseController {
         } catch (Exception $ex) {
             return false;
         }
-    }
-
-    /**
-     * @SWG\Post(
-     *     path="/api/auth/lawyer/completeFiles",
-     *     summary="Complete Lawyer ID Card and License files",
-     *     tags={"Lawyer"},
-     *     consumes={"multipart/form-data"},
-     *     produces={"application/json"},
-     *     @SWG\Parameter(
-     *          in="header", name="Authorization", description="Logged in User access token", required=true, type="string",
-     *      ),
-     *     @SWG\Parameter(
-     *          in="formData",name="IDCardFile", description="National ID Card file png,jpg,jpeg,pdf,docx,doc", required=true, type="file",
-     *      ),
-     *     @SWG\Parameter(
-     *          in="formData",name="licenseFile", description="License File png,jpg,jpeg,pdf,docx,doc", required=true, type="file",
-     *      ),
-     *     @SWG\Response(response="405",description="Invalid input"),
-     *      @SWG\Response(
-     *         response=200,
-     *         description="Successful operation",
-     *         @SWG\Schema(ref="#/definitions/LawyerLoginResponses")
-     *     ),
-     *     @SWG\SecurityScheme(
-     *         securityDefinition="X-Api-Token",
-     *         type="apiKey",
-     *         in="header",
-     *         name="X-Api-Token"
-     *    ),
-     * )
-     */
-    function completeLawerFiles(Request $request) {
-        $validator = Validator::make($request->all(), [
-                    'IDCardFile' => 'required|mimes:png,jpg,jpeg,pdf,docx,doc|max:4096',
-                    'licenseFile' => 'required|mimes:png,jpg,jpeg,pdf,docx,doc|max:4096'
-        ]);
-
-        if ($validator->fails()) {
-            return $this->getErrorJsonResponse($validator->errors()->all());
-        }
-
-        $lawyer = Auth()->user();
-        $lawyer->IDCardFile = $this->uploadLawyerFiles($request, 'IDCardFile');
-        $lawyer->licenseFile = $this->uploadLawyerFiles($request, 'licenseFile');
-        $lawyer->save();
-
-        $lawyer = Lawyer::find($lawyer->id);
-
-        return $this->getSuccessJsonResponse($lawyer);
-    }
-
-    private function uploadLawyerFiles($request, $name) {
-        $lawyer = Auth()->user();
-        $uploadPath = public_path('/uploads/');
-
-        $extension = $request->file($name)->getClientOriginalExtension();
-        $fileName = 'lawyer-' . $name . '-' . rand(1111, 9999) . time() . '.' . $extension;
-
-        $request->file($name)->move($uploadPath, $fileName);
-
-        $oldFile = $lawyer->$name;
-        if ($oldFile) {
-            @unlink(public_path('uploads/' . $oldFile));
-        }
-
-        return $fileName;
     }
 
     /**
