@@ -64,18 +64,18 @@ class Client extends Authenticatable {
      * @param  \Illuminate\Database\Eloquent\Model  $model
      * @return void
      */
-    public function apply(Builder $builder, Model $model)
-    {
-        $builder->where('type', self::$CLIENT_TYPE);
-    }
+//    public function apply(Builder $builder, Model $model)
+//    {
+//        $builder->where('type', self::$CLIENT_TYPE);
+//    }
 
     /**
      * Get the user's login complete profile.
      * @return boolean
      */
-//    public function getIsCompleteProfileAttribute() {
-//        return $this->email ? 1 : 0;
-//    }
+    public function getIsCompleteProfileAttribute() {
+        return $this->email ? 1 : 0;
+    }
 
     /**
      * Get the user's login token.

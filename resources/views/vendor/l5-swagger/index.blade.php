@@ -150,7 +150,7 @@ if (app()->environment() != 'testing') {
     <div class='api-doc'>
         <p>All API'S use Content Type application/json request body.</p>
         <p>
-            You must send "X-Api-Token: OPERATING_API_KEY" in header when calling any services.
+            You must send "X-Api-Key: OPERATING_API_KEY" in header when calling any services.
             <br />
             <pre>
             Android Key "U2F0PDe4bSEQzBMi2SET8xaMNSB8amET" <br />
@@ -171,12 +171,12 @@ if (app()->environment() != 'testing') {
             </pre>
         </p>
         <p>
-            Sending Invalid API token will result in a 403 Forbidden response. 
+            Sending Invalid API Key will result in a 403 Forbidden response. 
             <pre>
                 {
                     "code": 403,
                     "status": "error",
-                    "message": "Invalid API token"
+                    "message": "Invalid API Key"
                     "errors": null
                 }
             </pre>

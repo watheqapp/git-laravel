@@ -47,7 +47,8 @@ class ClientController extends ApiBaseController {
      */
     public function login(Request $request) {
         $validator = Validator::make($request->all(), [
-                    'phone' => 'required|saudi_phone',
+//                    'phone' => 'required|saudi_phone',
+                    'phone' => 'required|numeric',
         ]);
 
         if ($validator->fails()) {
@@ -144,7 +145,8 @@ class ClientController extends ApiBaseController {
     public function updateProfile(Request $request) {
         $validator = Validator::make($request->all(), [
                     'name' => 'sometimes|min:3|max:100',
-                    'phone' => 'sometimes|saudi_phone',
+//                    'phone' => 'required|saudi_phone',
+                    'phone' => 'required|numeric',
                     'email' => 'sometimes|email',
                     'language' => 'sometimes|in:ar,en',
         ]);
