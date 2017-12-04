@@ -26,5 +26,9 @@ class Category extends Model {
     public function getNameLocal() {
         return $this->attributes['name' . ucfirst(\App::getLocale())];
     }
+    
+    public function getDiscriptionLocal() {
+        return $this->attributes['description' . ucfirst(\App::getLocale())];
+    }
 
 }

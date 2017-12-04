@@ -18,6 +18,8 @@ class CreateCategoriesTable extends Migration
             $table->increments('id');
             $table->string('nameAr', 150);
             $table->string('nameEn', 150);
+            $table->text('descriptionAr');
+            $table->text('descriptionEn');
             $table->integer('parent')->nullable();
             $table->boolean('leave')->default(false);
             $table->string('cost', 10)->default(0);

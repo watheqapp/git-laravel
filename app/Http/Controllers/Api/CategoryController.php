@@ -49,6 +49,7 @@ class CategoryController extends ApiBaseController {
         foreach ($parentCategories as $category) {
             $categories[] = [
                 'name' => $category->getNameLocal(),
+                'discription' => $category->getDiscriptionLocal(),
                 'cost' => $category->cost,
                 'hasSubs' => $category->leave ? 0 : 1,
                 'subs' => $category->leave ? null : $this->prepareCategoriesWithSubs($category->subCategories()),
