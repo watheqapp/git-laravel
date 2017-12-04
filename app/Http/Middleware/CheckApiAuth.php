@@ -58,17 +58,17 @@ class CheckApiAuth
         
         
         // inject language in request
-//        $request->request->add(['language' => 'ar']);
-//        if(array_key_exists('X-Api-Language', $headers) && in_array($headers['X-Api-Language'], ['ar', 'en'])) {
-//            $request->request->add(['language' => $headers['X-Api-Language']]);
-//        }
+        $request->request->add(['language' => 'ar']);
+        if(array_key_exists('X-Api-Language', $headers) && in_array($headers['X-Api-Language'], ['ar', 'en'])) {
+            $request->request->add(['language' => $headers['X-Api-Language']]);
+        }
         
         $operatingType = array_search($headers[$keyName], $AppsKey);
 
         $request->request->add(['operator' => $operatingTypes[$operatingType]]);
         
-        App::setLocale('ar');
-        
+        App::setLocale($request->language);
+
         return $next($request);
     }
 }

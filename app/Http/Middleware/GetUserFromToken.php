@@ -69,7 +69,7 @@ class GetUserFromToken extends BaseMiddleware
 
         $this->events->fire('tymon.jwt.valid', $user);
         
-        App::setLocale($user->language);
+//        App::setLocale($user->language);
 
         return $next($request);
     }

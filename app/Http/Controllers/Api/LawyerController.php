@@ -25,6 +25,9 @@ class LawyerController extends ApiBaseController {
      *     consumes={"application/json"},
      *     produces={"application/json"},
      *     @SWG\Parameter(
+     *          in="header", name="X-Api-Language", description="['ar','en'] default is 'ar'", type="string",
+     *      ),
+     *     @SWG\Parameter(
      *          in="body",
      *          name="body",
      *          description="Request body", 
@@ -73,6 +76,9 @@ class LawyerController extends ApiBaseController {
      *     consumes={"application/json"},
      *     produces={"application/json"},
      *     @SWG\Parameter(
+     *          in="header", name="X-Api-Language", description="['ar','en'] default is 'ar'", type="string",
+     *      ),
+     *     @SWG\Parameter(
      *          in="header", name="Authorization", description="Logged in User access token", required=true, type="string",
      *      ),
      *     @SWG\Parameter(
@@ -119,6 +125,9 @@ class LawyerController extends ApiBaseController {
      *     tags={"Lawyer"},
      *     consumes={"application/json"},
      *     produces={"application/json"},
+     *     @SWG\Parameter(
+     *          in="header", name="X-Api-Language", description="['ar','en'] default is 'ar'", type="string",
+     *      ),
      *     @SWG\Parameter(
      *          in="header", name="Authorization", description="Logged in User access token", required=true, type="string",
      *      ),
@@ -241,6 +250,9 @@ class LawyerController extends ApiBaseController {
      *     consumes={"application/json"},
      *     produces={"application/json"},
      *     @SWG\Parameter(
+     *          in="header", name="X-Api-Language", description="['ar','en'] default is 'ar'", type="string",
+     *      ),
+     *     @SWG\Parameter(
      *          in="header", name="Authorization", description="Logged in User access token", required=true, type="string",
      *      ),
      *     @SWG\Parameter(
@@ -294,6 +306,9 @@ class LawyerController extends ApiBaseController {
      *     tags={"Lawyer"},
      *     consumes={"application/json"},
      *     produces={"application/json"},
+     *     @SWG\Parameter(
+     *          in="header", name="X-Api-Language", description="['ar','en'] default is 'ar'", type="string",
+     *      ),
      *     @SWG\Parameter(
      *          in="header", name="Authorization", description="Logged in User access token", required=true, type="string",
      *      ),

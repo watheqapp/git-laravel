@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Api\ApiBaseController;
 use Illuminate\Http\Request;
+use App;
 use App\Category;
 use App\Setting;
 
@@ -19,6 +20,9 @@ class CategoryController extends ApiBaseController {
      *     summary="List request categories",
      *     tags={"Category"},
      *     produces={"application/json"},
+     *     @SWG\Parameter(
+     *          in="header", name="X-Api-Language", description="['ar','en'] default is 'ar'", type="string",
+     *      ),
      *     @SWG\Parameter(
      *          in="header", name="Authorization", description="Logged in User access token", required=true, type="string",
      *      ),

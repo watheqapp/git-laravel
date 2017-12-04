@@ -34,7 +34,7 @@ use App\Device;
  * )
  */
 class ApiBaseController extends BaseController {
-
+    
     public function getSuccessJsonResponse($data=false) {
         $response = [
             'status' => 'success',
