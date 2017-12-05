@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api\Models\Lawyer;
 
 /**
  * @author Ahmad Gamal <eng.asgamal@gamil.com>
- * @SWG\Definition(type="object", @SWG\Xml(name="LawyerLoginResponses"))
+ * @SWG\Definition(type="object", @SWG\Xml(name="LawyerShortData"))
  */
-class LawyerLoginResponses {
+class LawyerShortData {
 
     /**
      * @SWG\Property(example=15)
@@ -45,12 +45,6 @@ class LawyerLoginResponses {
     public $created_at;
 
     /**
-     * @SWG\Property(example=1)
-     * @var boolean
-     */
-    public $isCompleteProfile;
-    
-    /**
      * @SWG\Property(example="40.7324319")
      * @var string
      */
@@ -61,11 +55,5 @@ class LawyerLoginResponses {
      * @var string
      */
     public $longitude;
-    
-    /**
-     * @SWG\Property(example="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsImlzcyI6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hcGkvY2xpZW50L2xvZ2luIiwiaWF0IjoxNTExNzI2MTkxLCJleHAiOjE1MTE3Mjk3OTEsIm5iZiI6MTUxMTcyNjE5MSwianRpIjoiSXFMck1NTU5sTlNFSVdBayJ9.B765ouFHZLcA1KyRVoDghO3zlvGey8glZ7wxIvL89To")
-     * @var string
-     */
-    public $token;
 
 }

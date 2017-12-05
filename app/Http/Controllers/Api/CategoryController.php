@@ -48,6 +48,7 @@ class CategoryController extends ApiBaseController {
         $categories = [];
         foreach ($parentCategories as $category) {
             $categories[] = [
+                'id' => $category->id,
                 'name' => $category->getNameLocal(),
                 'discription' => $category->getDiscriptionLocal(),
                 'cost' => $category->cost,

@@ -107,7 +107,9 @@ class LawyerController extends ApiBaseController {
                     'name' => 'required|min:3|max:100',
                     'email' => 'required|email',
                     'lawyerType' => 'required|in:authorized,clerk',
-        ]);
+                    'latitude' => 'required',
+                    'longitude' => 'required'
+            ]);
 
         if ($validator->fails()) {
             return $this->getErrorJsonResponse($validator->errors()->all());
@@ -158,7 +160,9 @@ class LawyerController extends ApiBaseController {
 //                    'phone' => 'required|saudi_phone',
                     'phone' => 'required|numeric',
                     'email' => 'sometimes|email',
-                    'language' => 'sometimes|in:ar,en'
+                    'language' => 'sometimes|in:ar,en',
+                    'latitude' => 'required',
+                    'longitude' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -181,7 +185,9 @@ class LawyerController extends ApiBaseController {
         $lawyer->email = $request->email ? $request->email : $lawyer->email;
         $lawyer->lawyerType = $request->lawyerType ? $request->lawyerType : $lawyer->lawyerType;
         $lawyer->language = $request->language ? $request->language : $lawyer->language;
-
+        $lawyer->latitude = $request->latitude ? $request->latitude : $lawyer->latitude;
+        $lawyer->longitude = $request->longitude ? $request->longitude : $lawyer->longitude;
+        
         if ($request->has('image')) {
             $fileNameWithoutExt = 'lawyer-' . rand(1111, 9999) . time();
             $fileName = $this->saveBase64Image($request->image, $fileNameWithoutExt);

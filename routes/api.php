@@ -32,8 +32,8 @@ Route::group(['middleware' => ['CheckApiAuth']], function() {
         Route::post('client/registerDeviceToken', 'Api\ClientController@registerDevice');
         Route::post('client/logout', 'Api\ClientController@logout');
         
+        // Category
         Route::get('category/list', 'Api\CategoryController@listCategories');
-
 
         // Laywer
         Route::post('lawyer/completeProfile', 'Api\LawyerController@completeProfile');
@@ -42,6 +42,14 @@ Route::group(['middleware' => ['CheckApiAuth']], function() {
         Route::post('lawyer/registerDeviceToken', 'Api\LawyerController@registerDevice');
         Route::post('lawyer/logout', 'Api\LawyerController@logout');
         
+        // Order
+        Route::post('order', 'Api\OrderController@order');
+        Route::get('orderDetails', 'Api\LawyerOrderController@orderDetails');
 
+        // Laywer-Order
+        Route::get('lawyer/order/accept', 'Api\LawyerOrderController@acceptOrder');
+        
+        
+        
     });
 });

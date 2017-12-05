@@ -169,6 +169,7 @@ return [
         Laravel\Tinker\TinkerServiceProvider::class,
         L5Swagger\L5SwaggerServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+        LaravelFCM\FCMServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -231,6 +232,8 @@ return [
         // Custom
         'JWTAuth' => 'Tymon\JWTAuth\Facades\JWTAuth',
         'JWTFactory' => 'Tymon\JWTAuth\Facades\JWTFactory',
+        'FCM'      => LaravelFCM\Facades\FCM::class,
+	'FCMGroup' => LaravelFCM\Facades\FCMGroup::class,
 
     ],
 

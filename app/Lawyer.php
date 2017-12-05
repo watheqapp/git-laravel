@@ -35,7 +35,9 @@ class Lawyer extends Model  {
         'language',
         'lawyerType',
         'IDCardFile',
-        'licenseFile'
+        'licenseFile',
+        'latitude',
+        'longitude',
     ];
     protected $appends = [
         'isCompleteProfile',
