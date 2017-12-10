@@ -119,6 +119,55 @@ class LawyerController extends ApiBaseController {
 
         return $this->getSuccessJsonResponse($lawyer);
     }
+    
+    /**
+     * @SWG\Post(
+     *     path="/api/auth/lawyer/completeFiles",
+     *     summary="Complete lawyer files",
+     *     tags={"Lawyer"},
+     *     consumes={"application/json"},
+     *     produces={"application/json"},
+     *     @SWG\Parameter(
+     *          in="header", name="X-Api-Language", description="['ar','en'] default is 'ar'", type="string",
+     *      ),
+     *     @SWG\Parameter(
+     *          in="header", name="Authorization", description="Logged in User access token", required=true, type="string",
+     *      ),
+     *     @SWG\Parameter(
+     *          in="body",
+     *          name="body",
+     *          description="Request body", 
+     *          required=true,
+     *          @SWG\Schema(ref="#/definitions/LawyerCompleteFilesRequest"),
+     *      ),
+     *   @SWG\Response(response="405",description="Invalid input"),
+     *      @SWG\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @SWG\Schema(ref="#/definitions/LawyerLoginResponses")
+     *     ),
+     *     @SWG\SecurityScheme(
+     *         securityDefinition="X-Api-Token",
+     *         type="apiKey",
+     *         in="header",
+     *         name="X-Api-Token"
+     *    ),
+     * )
+     */
+    public function completeFiles(Request $request) {
+        $validator = Validator::make($request->all(), [
+                    'IDCardFile' => 'required',
+                    'licenseFile' => 'required'
+            ]);
+
+        if ($validator->fails()) {
+            return $this->getErrorJsonResponse($validator->errors()->all());
+        }
+
+        $lawyer = $this->updateUserObj($request);
+
+        return $this->getSuccessJsonResponse($lawyer);
+    }
 
     /**
      * @SWG\Post(

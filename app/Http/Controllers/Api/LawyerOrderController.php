@@ -11,7 +11,8 @@ use \App\User;
 use App\Category;
 use App\Order;
 use App\Setting;
-use App\Helpers\Notification;
+use App\Helpers\OrderOperations;
+use App\LogOrderProcess as OrderLogger;
 
 /**
  * Handle api lawyers orders auth
@@ -81,18 +82,11 @@ class LawyerOrderController extends OrderController {
         $order->status = Order::$PENDING_STATUS;
         $order->accepted_at = date('Y-m-d H:i:s');
         $order->save();
-        
-        // Send push notification to client
-        $notificaiton = new Notification();
-        
-        $notificationData = [
-          'title' => __('api.Laywer Accept order title'),
-          'content' => __('api.Laywer Accept order content'),
-          'type' => 'AcceptedRequest',
-          'id' => $order->id,
-        ];
-        
-        $result = $notificaiton->sendNotification([$order->client], $notificationData);
+                
+        $orderOperations = new OrderOperations();
+        $orderOperations->logOrderProcess($order, OrderLogger::$ACCEPT_TYPE);
+                
+        $orderOperations->sendClientAcceptNotification($order);
         
         $order = Order::find($order->id);
         return $this->getSuccessJsonResponse($this->prepareOrderDetails($order));

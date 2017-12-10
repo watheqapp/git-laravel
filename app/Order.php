@@ -17,16 +17,16 @@ class Order extends Model {
         'delivery',
         'latitude',
         'longitude',
+        'created_at_timestamp',
     ];
-    
-    public static $NEW_STATUS='New';
-    public static $PENDING_STATUS='Pending';
-    public static $CLOSED_STATUS='Closed';
+    public static $NEW_STATUS = 'New';
+    public static $PENDING_STATUS = 'Pending';
+    public static $CLOSED_STATUS = 'Closed';
 
     public function client() {
         return $this->belongsTo('App\User', 'client_id')->withTrashed();
     }
-    
+
     public function lawyer() {
         return $this->belongsTo('App\User', 'lawyer_id')->withTrashed();
     }

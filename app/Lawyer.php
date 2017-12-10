@@ -41,6 +41,7 @@ class Lawyer extends Model  {
     ];
     protected $appends = [
         'isCompleteProfile',
+        'isCompleteFiles',
         'token',
     ];
 
@@ -77,6 +78,14 @@ class Lawyer extends Model  {
      */
     public function getIsCompleteProfileAttribute() {
         return $this->email ? 1 : 0;
+    }
+    
+    /**
+     * Get the user's login complete files.
+     * @return boolean
+     */
+    public function getIsCompleteFilesAttribute() {
+        return $this->IDCardFile ? 1 : 0;
     }
 
     /**

@@ -11,6 +11,8 @@ use \App\User;
 use App\Category;
 use App\Order;
 use App\Setting;
+use App\Helpers\OrderOperations;
+use App\LogOrderProcess as OrderLogger;
 
 /**
  * Handle api Clients auth
@@ -84,11 +86,16 @@ class OrderController extends ApiBaseController {
         $requestData['cost'] = $cost;
         $requestData['client_id'] = $user->id;
         $requestData['category_id'] = $category->id;
+        $requestData['created_at_timestamp'] = time();
 
         $id = Order::create($requestData)->id;
         $order = Order::find($id);
-
-        // Queue services
+        
+        $orderOperations = new OrderOperations();
+        $orderOperations->logOrderProcess($order, OrderLogger::$CREATE_TYPE);
+        
+        // Send nearby 5K lawyers notification
+        $orderOperations->notifyNearbyLawyers($order, [0, 5]);
 
         return $this->getSuccessJsonResponse($this->prepareOrderDetails($order));
     }

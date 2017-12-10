@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-//        Commands\sendPushNotification::class,
+        Commands\ProcessOrderRequests::class,
 
     ];
 
@@ -28,7 +28,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')
         //          ->hourly();
         
-//        $schedule->command('notification:send')->everyMinute()->withoutOverlapping();
+        $schedule->command('requests:process')->everyMinute()->withoutOverlapping();
     }
 
     /**

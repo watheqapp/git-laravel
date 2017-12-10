@@ -25,6 +25,9 @@ class CreateOrdersTable extends Migration
             $table->string('longitude', 20);
             $table->string('status', 10)->default('New');
             $table->boolean('lock')->default(false);
+            $table->boolean('isNotifyNearby10')->default(false);
+            $table->boolean('isNotifyNearby20')->default(false);
+            $table->bigInteger('created_at_timestamp');
             $table->softDeletes();
             $table->timestamps();
         });

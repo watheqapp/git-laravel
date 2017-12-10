@@ -207,6 +207,11 @@ if (app()->environment() != 'testing') {
                 }
             </pre>
         </p>
+        <h1>
+            <u>
+                <a target="_blank" class="text-warning" href="{{url('order/log')}}">Check order requests status</a>
+            </u>
+        </h1>
     </div>
 </div>
 <div id="message-bar" class="swagger-ui-wrap" data-sw-translate>&nbsp;</div>
