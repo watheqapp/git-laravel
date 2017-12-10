@@ -264,7 +264,8 @@ class LawyerController extends ApiBaseController {
                 $lawyer->licenseFile = $fileName;
             }
         }
-
+        
+        $lawyer->active = true;
         $lawyer->save();
 
         return Lawyer::find($lawyer->id);

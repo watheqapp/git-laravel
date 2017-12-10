@@ -40,12 +40,13 @@
                                     <th class="text-center">{{__('api.Order ID', [], 'ar')}}</th>
                                     <th class="text-center">{{__('api.Log type', [], 'ar')}}</th>
                                     <th class="text-center">{{__('api.Message', [], 'ar')}}</th>
+                                    <th class="text-center">{{__('api.CreateAt', [], 'ar')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @if(!$log)
                                 <tr>
-                                    <td colspan="3">{{__('api.No log for this order request', [], 'ar')}}</td>
+                                    <td colspan="4">{{__('api.No log for this order request', [], 'ar')}}</td>
                                 </tr>
                                 @else
                                 @foreach($log as $record)
@@ -53,6 +54,7 @@
                                     <td>{{$record->order_id}}</td>
                                     <td>{{__('api.'.$record->type, [], 'ar')}}</td>
                                     <td>{!! $record->message !!}</td>
+                                    <td>{!! $record->created_at !!}</td>
                                 </tr>
                                 @endforeach
                                 @endif

@@ -21,13 +21,13 @@ class OrderRequest {
     public $delivery;
 
     /**
-     * @SWG\Property(example="40.7324319")
+     * @SWG\Property(example="31.217951")
      * @var string
      */
     public $latitude;
 
     /**
-     * @SWG\Property(example="42.7324319")
+     * @SWG\Property(example="29.942465")
      * @var string
      */
     public $longitude;

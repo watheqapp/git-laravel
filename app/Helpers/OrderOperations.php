@@ -20,7 +20,7 @@ class OrderOperations {
      * @param Array $distanceBetween
      */
     public function notifyNearbyLawyers($order, $distanceBetween) {
-        $lawyers = $this->getNearbyLawyers($order->latitude, $order->longitude, $distanceBetween);
+        $lawyers = $this->getNearbyLawyers($order, $distanceBetween);
         if (count($lawyers) > 0) {
             $this->sendLawyerNotification($lawyers, $order->id);
         }
@@ -39,56 +39,64 @@ class OrderOperations {
         switch ($type) {
             case OrderLogger::$CREATE_TYPE:
                 $message = __('api.order_created_log', [
-                        'date' => $order->created_at,
-                        'user' => $order->client->name
-                    ], 'ar');
+                    'user' => $order->client->name
+                        ], 'ar');
                 break;
-            
+
             case OrderLogger::$ACCEPT_TYPE:
                 $lawyer = $order->lawyer;
                 $message = __('api.order_accepted_log', [
-                        'date' => $order->created_at,
-                        'lawyer' => $lawyer ? $lawyer->name : '--',
-                        'direction' => $lawyer ? "[" .$lawyer->latitude . ',' . $lawyer->longitude ."]" : '--'
-                    ], 'ar');
+                    'lawyer' => $lawyer ? $lawyer->name : '--',
+                    'direction' => $lawyer ? "[" . $lawyer->latitude . ',' . $lawyer->longitude . "]" : '--'
+                        ], 'ar');
+                break;
+
+            case OrderLogger::$FORCE_SELECT_LAWYER_TYPE:
+                $lawyer = $order->lawyer;
+                $message = __('api.force_select_lawyer_log', [
+                    'lawyer' => $lawyer ? $lawyer->name : '--',
+                        ], 'ar');
                 break;
             
+            case OrderLogger::$NOTIFY_LAWYER_FORCE_SELECT_TYPE:
+                $lawyer = $order->lawyer;
+                $message = __('api.notify_lawyer_force_select_log', [
+                    'lawyer' => $lawyer ? $order->lawyer->name : '--',
+                        ], 'ar');
+                break;
+
             case OrderLogger::$NOTIFY_CLIENT_ACCEPT_TYPE:
                 $lawyer = $order->lawyer;
                 $message = __('api.order_notify_client_accept_log', [
-                        'date' => $order->created_at,
-                        'lawyer' => $lawyer ? $order->lawyer->name : '--',
-                        'client' => $order->client ? $order->client->name : '--',
-                    ], 'ar');
+                    'lawyer' => $lawyer ? $order->lawyer->name : '--',
+                    'client' => $order->client ? $order->client->name : '--',
+                        ], 'ar');
                 break;
-            
+
             case OrderLogger::$NOTIFY_CLIENT_NOT_ACCEPT_TYPE:
                 $message = __('api.order_notify_client_not_accept_log', [
-                        'date' => $order->created_at,
-                        'client' => $order->client ? $order->client->name : '--',
-                    ], 'ar');
+                    'client' => $order->client ? $order->client->name : '--',
+                        ], 'ar');
                 break;
-            
+
             case OrderLogger::$NOTIFY_LAWYER_TYPE:
                 $lawyerStr = '<ul>';
                 foreach ($lawyers as $lawyer) {
-                    $lawyerStr = '<li>';
+                    $lawyerStr .= '<li>';
                     $lawyerStr .= $lawyer->name;
-                    $lawyerStr .= ' [';
+                    $lawyerStr .= ' -';
                     $lawyerStr .= $lawyer->latitude;
                     $lawyerStr .= ',';
                     $lawyerStr .= $lawyer->longitude;
-                    $lawyerStr .= '] ';
-                    $lawyerStr = '</li>';
+                    $lawyerStr .= '</li>';
                 }
                 $lawyerStr .= '</ul>';
-                
+
                 $message = __('api.order_notify_lawyer_log', [
-                        'date' => $order->created_at,
-                        'lawyers' => $lawyerStr,
-                        'lawyersCount' => $lawyers ? count($lawyers) : 0,
-                        'distance' => $distance ? implode(',', $distance) : '--'
-                    ], 'ar');
+                    'lawyers' => $lawyerStr,
+                    'lawyersCount' => $lawyers ? count($lawyers) : 0,
+                    'distance' => $distance ? implode(',', $distance) : '--'
+                        ], 'ar');
                 break;
         }
 
@@ -111,7 +119,7 @@ class OrderOperations {
      *  @return array
      */
 
-    public function getNearbyLawyers($clientLat, $clientLong, $distanceBetween) {
+    public function getNearbyLawyers($order, $distanceBetween) {
         $distance_select = sprintf(
                 "ROUND(( %d * acos( cos( radians(%s) ) " .
                 " * cos( radians(`latitude`) ) " .
@@ -119,13 +127,15 @@ class OrderOperations {
                 " + sin( radians(%s) ) * sin( radians(`latitude`) ) " .
                 " ) " .
                 "), 2 )" .
-                "AS distance", 6371, $clientLat, $clientLong, $clientLat
+                "AS distance", 6371, $order->latitude, $order->longitude, $order->latitude
         );
 
         $lawyers = User::select(DB::raw('users.*,' . $distance_select))
                 ->having('distance', '>=', $distanceBetween[0])
                 ->having('distance', '<', $distanceBetween[1])
                 ->where('type', User::$LAWYER_TYPE)
+                ->where('active', true)
+                ->where('lawyerType', $order->getCategoryType($order->category))
                 ->orderBy('distance', 'ASC')
                 ->get();
 
@@ -161,6 +171,29 @@ class OrderOperations {
 
         return $notificaiton->sendNotification($lawyers, $notificationData);
     }
+    
+    
+    /**
+     * @param type $lawyers
+     * @param type $orderId
+     * @return boolean
+     */
+    public function sendLawyerForceAcceptNotification($lawyers, $order) {
+        if (count($lawyers) == 0)
+            return false;
+
+        $notificaiton = new Notification();
+
+        $notificationData = [
+            'title' => __('api.Assigned order request title'),
+            'content' => __('api.Assigned order request content'),
+            'type' => 'AssignedRequest',
+            'id' => $order->id,
+        ];
+
+        $notificaiton->sendNotification($lawyers, $notificationData);
+        $this->logOrderProcess($order, OrderLogger::$NOTIFY_LAWYER_FORCE_SELECT_TYPE);
+    }
 
     /**
      * @param object $order
@@ -179,7 +212,7 @@ class OrderOperations {
         $notificaiton->sendNotification([$order->client], $notificationData);
         $this->logOrderProcess($order, OrderLogger::$NOTIFY_CLIENT_NOT_ACCEPT_TYPE);
     }
-    
+
     /**
      * @param object $order
      * @return type
@@ -188,12 +221,12 @@ class OrderOperations {
         $notificaiton = new Notification();
 
         $notificationData = [
-          'title' => __('api.Laywer Accept order title'),
-          'content' => __('api.Laywer Accept order content'),
-          'type' => 'AcceptedRequest',
-          'id' => $order->id,
+            'title' => __('api.Laywer Accept order title'),
+            'content' => __('api.Laywer Accept order content'),
+            'type' => 'AcceptedRequest',
+            'id' => $order->id,
         ];
-        
+
         $notificaiton->sendNotification([$order->client], $notificationData);
         $this->logOrderProcess($order, OrderLogger::$NOTIFY_CLIENT_ACCEPT_TYPE);
     }

@@ -34,5 +34,9 @@ class Order extends Model {
     public function category() {
         return $this->belongsTo('App\Category', 'category_id');
     }
+    
+    public function getCategoryType($category) {
+        return $category->id == 13 ? Lawyer::$LAWYER_CLERK_SUBTYPE : Lawyer::$LAWYER_AUTHORIZED_SUBTYPE;
+    }
 
 }

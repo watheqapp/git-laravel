@@ -156,7 +156,7 @@ class OrderController extends ApiBaseController {
             'clientLat' => $order->latitude,
             'clientLong' => $order->longitude,
             'category' => $this->prepareCategoryDetails($order->category),
-            'lawyer' => $order->lawyer ? $this->prepareUserDetails($order->category) : null,
+            'lawyer' => $order->lawyer ? $this->prepareUserDetails($order->lawyer) : null,
             'client' => $order->client ? $this->prepareUserDetails($order->client) : null,
             'accepted_at' => $order->accepted_at ? strtotime($order->accepted_at) : null,
             'created_at' => time($order->created_at)
@@ -180,6 +180,53 @@ class OrderController extends ApiBaseController {
             'lat' => $user->latitude,
             'long' => $user->longitude
         ];
+    }
+    
+    /**
+     * @SWG\Get(
+     *     path="/api/auth/order/laywersList",
+     *     summary="List laywers related to order request",
+     *     tags={"Order"},
+     *     produces={"application/json"},
+     *     @SWG\Parameter(
+     *          in="header", name="X-Api-Language", description="['ar','en'] default is 'ar'", type="string",
+     *      ),
+     *     @SWG\Parameter(
+     *          in="header", name="Authorization", description="Logged in User access token", required=true, type="string",
+     *      ),
+     *     @SWG\Parameter(
+     *          in="query", name="orderId", description="Client order id", required=true, type="string",
+     *      ),
+     *     @SWG\Response(response="405",description="Invalid input"),
+     *     @SWG\SecurityScheme(
+     *         securityDefinition="X-Api-Token",
+     *         type="apiKey",
+     *         in="header",
+     *         name="X-Api-Token"
+     *    ),
+     * )
+     */
+    public function listOrderLawyers(Request $request) {
+        $validator = Validator::make($request->all(), [
+                    'orderId' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return $this->getErrorJsonResponse($validator->errors()->all());
+        }
+
+        $order = Order::find($request->orderId);
+        if (!$order) {
+            return $this->getErrorJsonResponse([], __('api.Wrong order id'));
+        }
+        
+        $lawyers = \App\Lawyer::where('type', User::$LAWYER_TYPE)
+                         ->where('active', true)
+                         ->where('lawyerType', $order->getCategoryType($order->category))
+                         ->get();
+                
+        
+        return $this->getSuccessJsonResponse($lawyers);
     }
 
 }
