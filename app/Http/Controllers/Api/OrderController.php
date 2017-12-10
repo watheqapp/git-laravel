@@ -24,7 +24,7 @@ class OrderController extends ApiBaseController {
      * @SWG\Post(
      *     path="/api/auth/order",
      *     summary="Order a lawyers",
-     *     tags={"Order"},
+     *     tags={"Client"},
      *     consumes={"application/json"},
      *     produces={"application/json"},
      *     @SWG\Parameter(
@@ -104,7 +104,7 @@ class OrderController extends ApiBaseController {
      * @SWG\Get(
      *     path="/api/auth/orderDetails",
      *     summary="List order details by id",
-     *     tags={"Order"},
+     *     tags={"Client"},
      *     consumes={"application/json"},
      *     produces={"application/json"},
      *     @SWG\Parameter(
@@ -186,7 +186,7 @@ class OrderController extends ApiBaseController {
      * @SWG\Get(
      *     path="/api/auth/order/laywersList",
      *     summary="List laywers related to order request",
-     *     tags={"Order"},
+     *     tags={"Client"},
      *     produces={"application/json"},
      *     @SWG\Parameter(
      *          in="header", name="X-Api-Language", description="['ar','en'] default is 'ar'", type="string",

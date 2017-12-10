@@ -24,7 +24,7 @@ class LawyerOrderController extends OrderController {
      * @SWG\Get(
      *     path="/api/auth/lawyer/order/accept",
      *     summary="Accept client orders",
-     *     tags={"Order"},
+     *     tags={"Lawyer"},
      *     consumes={"application/json"},
      *     produces={"application/json"},
      *     @SWG\Parameter(
