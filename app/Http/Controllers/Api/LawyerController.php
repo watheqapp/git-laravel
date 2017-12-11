@@ -106,7 +106,6 @@ class LawyerController extends ApiBaseController {
         $validator = Validator::make($request->all(), [
                     'name' => 'required|min:3|max:100',
                     'email' => 'required|email',
-                    'lawyerType' => 'required|in:authorized,clerk',
                     'latitude' => 'required',
                     'longitude' => 'required'
             ]);
@@ -156,6 +155,7 @@ class LawyerController extends ApiBaseController {
      */
     public function completeFiles(Request $request) {
         $validator = Validator::make($request->all(), [
+                    'lawyerType' => 'required|in:authorized,clerk',
                     'IDCardFile' => 'required',
                     'licenseFile' => 'required'
             ]);

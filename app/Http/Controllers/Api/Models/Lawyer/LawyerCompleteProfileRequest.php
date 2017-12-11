@@ -19,12 +19,6 @@ class LawyerCompleteProfileRequest {
      * @var string
      */
     public $email;
-
-    /**
-     * @SWG\Property(enum={"authorized", "clerk"})
-     * @var string
-     */
-    public $lawyerType;
     
     /**
      * @SWG\Property(example="40.7324319")
