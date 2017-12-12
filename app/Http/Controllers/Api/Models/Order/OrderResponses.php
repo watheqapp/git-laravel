@@ -67,6 +67,12 @@ class OrderResponses {
      * @var LawyerShortData[]
      */
     public $lawyer;
+    
+    /**
+     * @SWG\Property(enum={1, 0})
+     * @var integer
+     */
+    public $isInAcceptLawyerPeriod;
 
     /**
      * @SWG\Property(example=1511649843)
