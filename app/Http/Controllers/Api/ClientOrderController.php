@@ -78,6 +78,10 @@ class ClientOrderController extends OrderController {
         if ($order->status != Order::$NEW_STATUS) {
             return $this->getErrorJsonResponse([], __('api.Order accepted before'));
         }
+        
+        if (!$order->lock) {
+            return $this->getErrorJsonResponse([], __('api.Order still in lawyer accept period'));
+        }
 
         $lawyer = \App\Lawyer::where('id', $request->lawyerId)
                 ->where('active', true)
