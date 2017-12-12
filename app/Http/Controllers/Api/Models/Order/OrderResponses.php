@@ -25,6 +25,24 @@ class OrderResponses {
      * @var string
      */
     public $delivery;
+    
+    /**
+     * @SWG\Property(example="Mostafa shady")
+     * @var string
+     */
+    public $clientName;
+    
+    /**
+     * @SWG\Property(example="Khaled senawy")
+     * @var string
+     */
+    public $representativeName;
+    
+    /**
+     * @SWG\Property(example="1458787878")
+     * @var string
+     */
+    public $nationalID;
 
     /**
      * @SWG\Property(example="40.7324319")

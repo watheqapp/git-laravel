@@ -18,6 +18,9 @@ class Order extends Model {
         'latitude',
         'longitude',
         'created_at_timestamp',
+        'clientName',
+        'representativeName',
+        'nationalID'
     ];
     public static $NEW_STATUS = 'New';
     public static $PENDING_STATUS = 'Pending';
