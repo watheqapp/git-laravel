@@ -35,7 +35,7 @@
         </div>
     </div>
 
-    <div class="form-group{{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }}">
+<!--    <div class="form-group{{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }}">
         <div class="">
             {!! NoCaptcha::display([], 'ar') !!}
 
@@ -51,7 +51,7 @@
     <div class="form-group">
         <script src='https://www.google.com/recaptcha/api.js'></script>
         <div class="g-recaptcha" data-sitekey="6LcH9TwUAAAAANRweakibi5mGLN8eRTpH8zrxR6E" data-theme="light" ></div>
-    </div>
+    </div>-->
 
 
     <div class="form-actions">
@@ -65,6 +65,4 @@
         <a href="{{ route('password.request') }}" id="forget-password"> {{__('backend.Forgot your password ?')}} </a></p>
     </div>
 </form>
-
-
 @endsection
