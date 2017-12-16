@@ -170,7 +170,11 @@ return [
         L5Swagger\L5SwaggerServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
         LaravelFCM\FCMServiceProvider::class,
-
+        Zizaco\Entrust\EntrustServiceProvider::class,
+        Yajra\Datatables\DatatablesServiceProvider::class,
+        Proengsoft\JsValidation\JsValidationServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
+        
         /*
          * Application Service Providers...
          */
@@ -237,7 +241,11 @@ return [
         'FCM'      => LaravelFCM\Facades\FCM::class,
 	'FCMGroup' => LaravelFCM\Facades\FCMGroup::class,
         'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
-
+        'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
+        'Datatables' => Yajra\Datatables\Facades\Datatables::class,
+        'JsValidator' => Proengsoft\JsValidation\Facades\JsValidatorFacade::class,
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
     ],
 
 ];

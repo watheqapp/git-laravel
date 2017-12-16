@@ -4,7 +4,7 @@
     @include('backend.layouts.menu')
     <div class="page-content-wrapper">
         <div class="page-content">
-            @include('backend.layouts.breadcrumb')
+            @include('backend.layouts.breadcrumb', $breadcrumb)
             @yield('content')
         </div>
     </div>

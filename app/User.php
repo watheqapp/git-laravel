@@ -28,7 +28,8 @@ class User extends Authenticatable {
         'phone',
         'type',
         'admin',
-        'active'
+        'active',
+        'image',
     ];
 
     /**
@@ -40,5 +41,29 @@ class User extends Authenticatable {
         'password',
         'remember_token',
     ];
+    
+    public function hasPermission($permissions) {
+        if ($this->admin || $this->can(explode('|', $permissions))) {
+            return true;
+        }
+
+        return FALSE;
+    }
+
+    public function getActivateTxt() {
+        return __('backend.' . ($this->attributes['active'] ? 'Activated' : 'Deactivated'));
+    }
+    
+    public function getLawyerTypeTxt() {
+        return __('backend.' . $this->attributes['lawyerType']);
+    }
+    
+    /**
+     * The roles that belong to the user.
+     */
+    public function roles()
+    {
+        return $this->belongsToMany('App\Role', 'role_user', 'user_id', 'role_id');
+    }
 
 }

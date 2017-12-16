@@ -1,0 +1,7 @@
+@include('backend.common.fields.image', ['name' => 'image'])
+@include('backend.common.fields.text', ['name' => 'name'])
+@include('backend.common.fields.text', ['name' => 'email'])
+@include('backend.common.fields.select', ['name' => 'roles', 'value' => $roles])
+@include('backend.common.fields.password', ['name' => 'password'])
+@include('backend.common.fields.password', ['name' => 'password_confirmation'])
+@include('backend.common.fields.submit')

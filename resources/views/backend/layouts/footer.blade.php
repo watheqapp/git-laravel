@@ -5,23 +5,6 @@
     <div class="scroll-to-top"> <i class="icon-arrow-up"></i> </div>
 </div>
 <!-- END FOOTER -->
-<!-- BEGIN QUICK NAV --><br>
-<nav class="quick-nav">
-    <ul>
-        <li> <a href="https://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes"
-                target="_blank"
-                class="active">
-                <span>Purchase Metronic</span> <i class="icon-basket"></i> </a> </li>
-        <li> <a href="https://themeforest.net/item/metronic-responsive-admin-dashboard-template/reviews/4021469?ref=keenthemes"
-                target="_blank">
-                <span>Customer Reviews</span> <i class="icon-users"></i> </a> </li>
-        <li> <a href="http://keenthemes.com/showcast/" target="_blank"> <span>Showcase</span>
-                <i class="icon-user"></i> </a> </li>
-        <li> <a href="http://keenthemes.com/metronic-theme/changelog/" target="_blank">
-                <span>Changelog</span> <i class="icon-graph"></i> </a> </li>
-    </ul>
-    <span aria-hidden="true" class="quick-nav-bg"></span> </nav>
-<!-- END QUICK NAV -->
 <!--[if lt IE 9]>
 <script src="{{asset('backend-assets/global/plugins/respond.min.js')}}"></script>
 <script src="{{asset('backend-assets/global/plugins/excanvas.min.js')}}"></script> 
@@ -89,6 +72,13 @@ type="text/javascript"></script>
 <script src="{{asset('backend-assets/layouts/layout4/scripts/demo.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('backend-assets/layouts/global/scripts/quick-sidebar.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('backend-assets/layouts/global/scripts/quick-nav.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('backend-assets/global/scripts/datatable.js')}}" type="text/javascript"></script>
+<script src="{{asset('backend-assets/global/plugins/datatables/datatables.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('backend-assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js')}}" type="text/javascript"></script>
+<script src="{{asset('backend-assets/global/plugins/bootstrap-toastr/toastr.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('backend-assets/pages/scripts/ui-toastr.min.js')}}" type="text/javascript"></script>
+
+@yield('js')
 <!-- END THEME LAYOUT SCRIPTS -->
 <script>
 $(document).ready(function () {

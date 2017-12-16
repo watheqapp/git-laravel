@@ -20,7 +20,7 @@
         url(../fonts/DroidKufi-Bold.ttf) format('truetype');
 }
 
-p, h1, h2, h3, h4, h5, a, span:not(.fa), label {
+p, h1, h2, h3, h4, h5, a, span:not(.fa), label, td, th, div {
     font-family: 'Droid Arabic Kufi' !important;
     font-style: normal !important  
 }

@@ -13,7 +13,8 @@
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.3",
         "proengsoft/laravel-jsvalidation": "^2.1",
-        "yajra/laravel-datatables-oracle": "^7.9"
+        "yajra/laravel-datatables-oracle": "^7.9",
+        "zizaco/entrust": "^1.9"
     },
     "require-dev": {
         "darkaonline/l5-swagger": "~3.0",

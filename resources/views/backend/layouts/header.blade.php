@@ -19,6 +19,9 @@
         <link href="{{asset('backend-assets/global/plugins/morris/morris.css')}}" rel="stylesheet" type="text/css">
         <link href="{{asset('backend-assets/global/plugins/fullcalendar/fullcalendar.min.css')}}" rel="stylesheet" type="text/css">
         <link href="{{asset('backend-assets/global/plugins/jqvmap/jqvmap/jqvmap.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('backend-assets/global/plugins/datatables/datatables.min.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{asset('backend-assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap-rtl.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{asset('backend-assets/global/plugins/bootstrap-toastr/toastr-rtl.min.css')}}" rel="stylesheet" type="text/css" />
         <!-- END PAGE LEVEL PLUGINS -->
 
         <!-- BEGIN THEME GLOBAL STYLES -->
@@ -32,6 +35,8 @@
         <link href="{{asset('backend-assets/layouts/layout4/css/custom-rtl.min.css')}}" rel="stylesheet" type="text/css">
         <link href="{{asset('backend-assets/apps/css/custom-rtl.css')}}" rel="stylesheet" type="text/css">
         <!-- END THEME LAYOUT STYLES -->
+        
+        @yield('css')
 
         <link rel="shortcut icon" href="favicon.ico">
     </head>
