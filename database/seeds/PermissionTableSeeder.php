@@ -31,6 +31,12 @@ class PermissionTableSeeder extends Seeder {
                 'description' => 'Manage lawyer operations',
                 'module' => 'lawyer'
             ],
+            
+            [
+                'name' => 'role-role',
+                'description' => 'Manage roles operations',
+                'module' => 'role'
+            ],
            
 
         ];
