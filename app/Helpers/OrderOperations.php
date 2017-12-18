@@ -50,6 +50,13 @@ class OrderOperations {
                     'direction' => $lawyer ? "[" . $lawyer->latitude . ',' . $lawyer->longitude . "]" : '--'
                         ], 'ar');
                 break;
+            
+            case OrderLogger::$CLOSED_TYPE:
+                $lawyer = $order->lawyer;
+                $message = __('api.order_close_log', [
+                    'lawyer' => $lawyer ? $lawyer->name : '--',
+                    ], 'ar');
+                break;
 
             case OrderLogger::$FORCE_SELECT_LAWYER_TYPE:
                 $lawyer = $order->lawyer;
@@ -68,6 +75,14 @@ class OrderOperations {
             case OrderLogger::$NOTIFY_CLIENT_ACCEPT_TYPE:
                 $lawyer = $order->lawyer;
                 $message = __('api.order_notify_client_accept_log', [
+                    'lawyer' => $lawyer ? $order->lawyer->name : '--',
+                    'client' => $order->client ? $order->client->name : '--',
+                        ], 'ar');
+                break;
+            
+            case OrderLogger::$NOTIFY_CLIENT_CLOSE_TYPE:
+                $lawyer = $order->lawyer;
+                $message = __('api.order_notify_client_close_log', [
                     'lawyer' => $lawyer ? $order->lawyer->name : '--',
                     'client' => $order->client ? $order->client->name : '--',
                         ], 'ar');
@@ -229,6 +244,25 @@ class OrderOperations {
 
         $notificaiton->sendNotification([$order->client], $notificationData);
         $this->logOrderProcess($order, OrderLogger::$NOTIFY_CLIENT_ACCEPT_TYPE);
+    }
+
+    
+    /**
+     * @param object $order
+     * @return type
+     */
+    public function sendClientCloseNotification($order) {
+        $notificaiton = new Notification();
+
+        $notificationData = [
+            'title' => __('api.Laywer Close order title'),
+            'content' => __('api.Laywer Close order content'),
+            'type' => 'CloseRequest',
+            'id' => $order->id,
+        ];
+
+        $notificaiton->sendNotification([$order->client], $notificationData);
+        $this->logOrderProcess($order, OrderLogger::$NOTIFY_CLIENT_CLOSE_TYPE);
     }
 
     /**

@@ -164,6 +164,7 @@ class OrderController extends ApiBaseController {
             'client' => $order->client ? $this->prepareUserDetails($order->client) : null,
             'isInAcceptLawyerPeriod' => $order->lock ? 0 : 1,
             'accepted_at' => $order->accepted_at ? strtotime($order->accepted_at) : null,
+            'closed_at' => $order->closed_at ? strtotime($order->closed_at) : null,
             'created_at' => time($order->created_at)
         ];
     }

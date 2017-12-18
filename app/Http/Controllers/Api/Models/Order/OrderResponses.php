@@ -91,4 +91,10 @@ class OrderResponses {
      * @var integer
      */
     public $accepted_at;
+    
+    /**
+     * @SWG\Property(example=15511649843)
+     * @var integer
+     */
+    public $closed_at;
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateOrdersNationaliDField extends Migration {
+class UpdateOrdersClosedatField extends Migration {
 
     /**
      * Run the migrations.
@@ -13,8 +13,7 @@ class UpdateOrdersNationaliDField extends Migration {
      */
     public function up() {
         Schema::table('orders', function ($table) {
-            $table->renameColumn('nationalID', 'clientNationalID');
-            $table->string('representativeNationalID', 150)->nullable()->after('delivery');
+            $table->timestamp('closed_at')->nullable();
         });
     }
 
