@@ -9,6 +9,8 @@ use Config;
 use Auth;
 use JWTAuth;
 use App\Device;
+use App\ContactUs;
+use Validator;
 
 /**
  * @SWG\Swagger(
@@ -85,6 +87,63 @@ class ApiBaseController extends BaseController {
         }
 
         return strtolower($string);
+    }
+    
+    /**
+     * @SWG\Post(
+     *     path="/api/auth/contactus/create",
+     *     summary="Create contact us message",
+     *     tags={"General"},
+     *     consumes={"application/json"},
+     *     produces={"application/json"},
+     *     @SWG\Parameter(
+     *          in="header", name="X-Api-Language", description="['ar','en'] default is 'ar'", type="string",
+     *      ),
+     *     @SWG\Parameter(
+     *          in="header", name="Authorization", description="Logged in User access token", required=true, type="string",
+     *      ),
+     *     @SWG\Parameter(
+     *          in="body",
+     *          name="body",
+     *          description="Request body", 
+     *          required=true,
+     *          @SWG\Schema(ref="#/definitions/ContactUs"),
+     *     ),
+     *     @SWG\Response(
+     *          response="405",
+     *          description="Invalid input"
+     *     ),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *     ),
+     *     @SWG\SecurityScheme(
+     *         securityDefinition="X-Api-Token",
+     *         type="apiKey",
+     *         in="header",
+     *         name="X-Api-Token"
+     *     ),
+     * )
+     */
+    public function contactUs(Request $request) {
+        $validator = Validator::make($request->all(), [
+                    'title' => 'required|min:3|max:200',
+                    'content' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return $this->getErrorJsonResponse($validator->errors()->all());
+        }
+
+        $requestArr = $request->all();
+        $client = Auth()->user();
+
+        $requestArr['user_id'] = $client->id;
+        $requestArr['user_type'] = $client->type;
+
+        ContactUs::create($requestArr);
+
+        return $this->getSuccessJsonResponse();
     }
 
 }
