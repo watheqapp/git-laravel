@@ -32,5 +32,26 @@ class HomeController extends Controller {
         }
         return view('orderLogPage', compact('log'));
     }
+    
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function terms() {
+        $page = \App\StaticPage::where('page', 'terms')->first();
+        return view('terms', compact('page'));
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function help() {
+        $page = \App\StaticPage::where('page', 'help')->first();
+        return view('help', compact('page'));
+    }
+
 
 }

@@ -91,7 +91,20 @@ Route::group(['prefix' => 'backend', 'middleware' => ['auth', 'backendUser']], f
     Route::get('role/edit/{id}', 'Backend\RoleController@edit')->name('backend.role.edit')->middleware(['permission:role-role']);
     Route::post('role/update/{id}', 'Backend\RoleController@update')->name('backend.role.update')->middleware(['permission:role-role']);
     Route::get('role/{id}', 'Backend\RoleController@destroy')->name('backend.role.delete')->middleware(['permission:role-role']);
+
+    
+    // static pages
+    $this->get('/terms', 'Backend\TermsController@edit')->name('backend.terms.edit');
+    $this->post('/terms', 'Backend\TermsController@update')->name('backend.terms.update');
+    $this->get('/help', 'Backend\HelpController@edit')->name('backend.help.edit');
+    $this->post('/help', 'Backend\HelpController@update')->name('backend.help.update');
+
+
+    
 });
-Auth::routes();
+
+//Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/terms', 'HomeController@terms')->name('frontend.terms');
+Route::get('/help', 'HomeController@help')->name('frontend.help');

@@ -212,6 +212,16 @@ if (app()->environment() != 'testing') {
                 <a target="_blank" class="text-warning" href="{{url('order/log')}}">Check order requests status</a>
             </u>
         </h1>
+        
+        <h1>
+            <u>
+                <a target="_blank" class="text-warning" href="{{url('terms')}}">Terms web page</a>
+            </u>
+            <br />
+            <u>
+                <a target="_blank" class="text-warning" href="{{url('help')}}">Help web page</a>
+            </u>
+        </h1>
     </div>
 </div>
 <div id="message-bar" class="swagger-ui-wrap" data-sw-translate>&nbsp;</div>
