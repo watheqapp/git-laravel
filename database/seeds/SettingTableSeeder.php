@@ -19,6 +19,18 @@ class SettingTableSeeder extends Seeder
             [
                 'setting' => 'DELIVER_REQUEST_TO_HOME',
                 'value' => 150
+            ],
+            [
+                'setting' => 'SOCIAL_FACEBOOK',
+                'value' => 'https://fb.com/watheq'
+            ],
+            [
+                'setting' => 'SOCIAL_TWITTER',
+                'value' => 'https://twitter.com/watheq'
+            ],
+            [
+                'setting' => 'SOCIAL_GOOGLE',
+                'value' => 'https://plus.com/watheq'
             ]
         ]);
         $this->command->info('Settings seeded done!');

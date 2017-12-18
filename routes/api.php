@@ -61,6 +61,7 @@ Route::group(['middleware' => ['CheckApiAuth']], function() {
         
         // General
         Route::post('contactus/create', 'Api\ApiBaseController@contactUs');
+        Route::get('social/links', 'Api\ApiBaseController@socialLinks');
         
         
     });

@@ -145,5 +145,50 @@ class ApiBaseController extends BaseController {
 
         return $this->getSuccessJsonResponse();
     }
+    
+    /**
+     * @SWG\Get(
+     *     path="/api/auth/social/links",
+     *     summary="List social links",
+     *     tags={"General"},
+     *     produces={"application/json"},
+     *     @SWG\Parameter(
+     *          in="header", name="X-Api-Language", description="['ar','en'] default is 'ar'", type="string",
+     *      ),
+     *     @SWG\Parameter(
+     *          in="header", name="Authorization", description="Logged in User access token", required=true, type="string",
+     *      ),
+     *     @SWG\Response(
+     *          response="405",
+     *          description="Invalid input"
+     *     ),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @SWG\Schema(ref="#/definitions/ListSocialResponses")
+     *     ),
+     *     @SWG\SecurityScheme(
+     *         securityDefinition="X-Api-Token",
+     *         type="apiKey",
+     *         in="header",
+     *         name="X-Api-Token"
+     *     ),
+     * )
+     */
+    public function socialLinks(Request $request) {
+        $responses = new \stdClass();
+        
+        $socials = \App\Setting::whereIn('setting', [
+            'SOCIAL_FACEBOOK',
+            'SOCIAL_TWITTER',
+            'SOCIAL_GOOGLE'
+            ])->get()->pluck('value', 'setting')->toArray();
+        
+        $responses->facebook = $socials['SOCIAL_FACEBOOK'];
+        $responses->twitter  = $socials['SOCIAL_TWITTER'];
+        $responses->google   = $socials['SOCIAL_GOOGLE'];
+        
+        return $this->getSuccessJsonResponse($responses);
+    }
 
 }
