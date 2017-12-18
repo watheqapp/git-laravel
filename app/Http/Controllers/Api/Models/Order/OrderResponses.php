@@ -42,7 +42,13 @@ class OrderResponses {
      * @SWG\Property(example="1458787878")
      * @var string
      */
-    public $nationalID;
+    public $clientNationalID;
+    
+    /**
+     * @SWG\Property(example="18587887878")
+     * @var string
+     */
+    public $representativeNationalID;
 
     /**
      * @SWG\Property(example="40.7324319")
