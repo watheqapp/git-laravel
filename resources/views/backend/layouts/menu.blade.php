@@ -60,6 +60,14 @@
                 </a>
             </li>
             @endif
+            @if(Auth::user()->hasPermission('role-setting-social'))
+            <li class="nav-item  {{ strpos(Route::currentRouteName(), 'social') !== false ? 'active' : '' }}">
+                <a href="{{route('backend.social.edit')}}" class="nav-link"> 
+                    <em class="icon-users"></em> 
+                    <span class="title">{{__('backend.Edit social')}}</span>
+                </a>
+            </li>
+            @endif
         </ul>
     </div>
 </div>

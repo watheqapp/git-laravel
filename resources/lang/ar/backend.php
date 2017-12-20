@@ -102,6 +102,13 @@ return [
     'Users Managment' => 'إدارة المستخدمين',
     'Edit price' => 'تعديل اسعار الطلبات',
     'Setting Managment' => 'الاعدادات',
+    'Edit social' => 'تعديل مواقع التواصل ',
+    
+    // Socials
+    'SOCIAL_FACEBOOK' => 'فيس بوك',
+    'SOCIAL_TWITTER' => 'تويتر ',
+    'SOCIAL_GOOGLE' => ' جوجل',
+
     
     
     

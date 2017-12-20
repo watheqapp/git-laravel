@@ -104,6 +104,11 @@ Route::group(['prefix' => 'backend', 'middleware' => ['auth', 'backendUser']], f
     $this->post('/price/update', 'Backend\PricesController@update')->name('backend.price.update')->middleware(['permission:role-setting-prices']);
     
     
+    // Social setting
+    $this->get('/social/edit', 'Backend\SocialController@edit')->name('backend.social.edit')->middleware(['permission:role-setting-social']);
+    $this->post('/social/update', 'Backend\SocialController@update')->name('backend.social.update')->middleware(['permission:role-setting-social']);
+    
+    
 });
 
 //Auth::routes();
