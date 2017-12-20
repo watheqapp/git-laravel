@@ -18,7 +18,7 @@
                 <a href="{{route('backend.client.index')}}" class="nav-link"> 
                     <em class="icon-users"></em> 
                     <span class="title">{{__('backend.List client')}}</span>
-                    <span class="arrow"></span>
+                    
                 </a>
             </li>
             @endif
@@ -27,7 +27,7 @@
                 <a href="{{route('backend.lawyer.index')}}" class="nav-link"> 
                     <em class="icon-users"></em> 
                     <span class="title">{{__('backend.List lawyer')}}</span>
-                    <span class="arrow"></span>
+                    
                 </a>
             </li>
             @endif
@@ -36,7 +36,7 @@
                 <a href="{{route('backend.employee.index')}}" class="nav-link"> 
                     <em class="icon-users"></em> 
                     <span class="title">{{__('backend.List employee')}}</span>
-                    <span class="arrow"></span>
+                    
                 </a>
             </li>
             @endif
@@ -45,7 +45,18 @@
                 <a href="{{route('backend.role.index')}}" class="nav-link"> 
                     <em class="icon-users"></em> 
                     <span class="title">{{__('backend.List role')}}</span>
-                    <span class="arrow"></span>
+                    
+                </a>
+            </li>
+            @endif
+            <li class="heading">
+                <h3 class="uppercase"> {{__('backend.Setting Managment')}}</h3>
+            </li>
+            @if(Auth::user()->hasPermission('role-setting-prices'))
+            <li class="nav-item  {{ strpos(Route::currentRouteName(), 'prices') !== false ? 'active' : '' }}">
+                <a href="{{route('backend.price.edit')}}" class="nav-link"> 
+                    <em class="icon-users"></em> 
+                    <span class="title">{{__('backend.Edit price')}}</span>
                 </a>
             </li>
             @endif

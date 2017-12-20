@@ -99,7 +99,10 @@ Route::group(['prefix' => 'backend', 'middleware' => ['auth', 'backendUser']], f
     $this->get('/help', 'Backend\HelpController@edit')->name('backend.help.edit');
     $this->post('/help', 'Backend\HelpController@update')->name('backend.help.update');
 
-
+    // Prices setting
+    $this->get('/price/edit', 'Backend\PricesController@edit')->name('backend.price.edit')->middleware(['permission:role-setting-prices']);
+    $this->post('/price/update', 'Backend\PricesController@update')->name('backend.price.update')->middleware(['permission:role-setting-prices']);
+    
     
 });
 

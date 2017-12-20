@@ -100,6 +100,8 @@ return [
     
     // Menu
     'Users Managment' => 'إدارة المستخدمين',
+    'Edit price' => 'تعديل اسعار الطلبات',
+    'Setting Managment' => 'الاعدادات',
     
     
     

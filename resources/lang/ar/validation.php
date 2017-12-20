@@ -61,7 +61,7 @@ return [
         'array'   => 'يجب أن يحتوي الحقل :attribute على الأقل على :min عُنصرًا/عناصر',
     ],
     'not_in'               => 'الحقل :attribute لاغٍ',
-    'numeric'              => 'يجب على الحقل :attribute أن يكون رقمًا',
+    'numeric'              => 'يجب على الحقل أن يكون رقمًا',
     'present'              => 'يجب تقديم الحقل :attribute',
     'regex'                => 'صيغة الحقل :attribute .غير صحيحة',
     'required'             => 'الرجاء ادخال قيمة الحقل',

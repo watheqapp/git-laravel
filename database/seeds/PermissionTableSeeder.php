@@ -37,6 +37,21 @@ class PermissionTableSeeder extends Seeder {
                 'description' => 'Manage roles operations',
                 'module' => 'role'
             ],
+            [
+                'name' => 'role-setting-prices',
+                'description' => 'Manage prices settings',
+                'module' => 'prices'
+            ],
+            [
+                'name' => 'role-setting-social',
+                'description' => 'Manage social settings',
+                'module' => 'social'
+            ],
+            [
+                'name' => 'role-setting-pages',
+                'description' => 'Manage pages settings',
+                'module' => 'pages'
+            ],
            
 
         ];
