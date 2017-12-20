@@ -23,7 +23,8 @@ class PricesController extends BackendController {
     public $className = 'price';
     public $formAttributes = ['files' => false];
     protected $editValidationRules = [
-        'priceItem.*' => 'required|numeric'
+        'priceItem.*' => 'required|numeric',
+            'deliveryFees' => 'required|numeric'
     ];
 
     public function edit($id = false) {
@@ -41,8 +42,9 @@ class PricesController extends BackendController {
 
     public function preparedEditForm($id = false) {
         $documents = \App\Category::where('leave', true)->get();
+        $setting = \App\Setting::where('setting', 'DELIVER_REQUEST_TO_HOME')->first();
         $validator = JsValidator::make($this->editValidationRules, [], [], '.form-horizontal');
-        return compact('documents', 'validator');
+        return compact('documents', 'setting', 'validator');
     }
 
     /**
@@ -54,7 +56,8 @@ class PricesController extends BackendController {
      */
     public function update(Request $request) {
         $this->validate($request, [
-            'priceItem.*' => 'required|numeric'
+            'priceItem.*' => 'required|numeric',
+            'deliveryFees' => 'required|numeric'
         ]);
         
         $requestData = $request->get('priceItem');
@@ -62,6 +65,8 @@ class PricesController extends BackendController {
         foreach ($requestData as $id => $cost) {
             \App\Category::where('id', $id)->update(['cost' => $cost]);
         }
+        
+        \App\Setting::where('setting', 'DELIVER_REQUEST_TO_HOME')->update(['value' => $request->deliveryFees]);
 
         Session::flash('success', 'Updated successfuly');
         return redirect()->route('backend.price.edit');

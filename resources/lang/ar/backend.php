@@ -105,6 +105,9 @@ return [
     'Edit social' => 'تعديل مواقع التواصل ',
     'Edit pages' => 'تعديل صفحات الشروط والمساعدة',
     
+    // Prices
+    'deliveryFees' => 'تكلفة التوصيل للمنزل',
+    
     // Socials
     'SOCIAL_FACEBOOK' => 'فيس بوك',
     'SOCIAL_TWITTER' => 'تويتر ',

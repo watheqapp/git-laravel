@@ -37,8 +37,14 @@
                         {!! $errors->first('priceItem.'.$document->id, '<span class="help-block">:message</span>') !!}
                     </div>
                 </div>
-                
                 @endforeach
+                <div class="form-group {{ $errors->has('deliveryFees') ? 'has-error' : ''}}">
+                    {!! Form::label('deliveryFees', __('backend.deliveryFees'), ['class' => 'col-sm-2 control-label']) !!}
+                    <div class="col-sm-10">
+                        {!! Form::text('deliveryFees', old('deliveryFees') ? old('deliveryFees')  : $setting->value, ['class' => 'form-control', 'placeholder' => __('backend.deliveryFees')]) !!}
+                        {!! $errors->first('deliveryFees', '<span class="help-block">:message</span>') !!}
+                    </div>
+                </div>
                 @include('backend.common.fields.submit')
             {!! Form::close() !!}
         </div>
