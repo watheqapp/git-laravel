@@ -68,6 +68,15 @@
                 </a>
             </li>
             @endif
+            
+            @if(Auth::user()->hasPermission('role-setting-pages'))
+            <li class="nav-item  {{ strpos(Route::currentRouteName(), 'pages') !== false ? 'active' : '' }}">
+                <a href="{{route('backend.pages.edit')}}" class="nav-link"> 
+                    <em class="icon-users"></em> 
+                    <span class="title">{{__('backend.Edit pages')}}</span>
+                </a>
+            </li>
+            @endif
         </ul>
     </div>
 </div>

@@ -103,13 +103,16 @@ return [
     'Edit price' => 'تعديل اسعار الطلبات',
     'Setting Managment' => 'الاعدادات',
     'Edit social' => 'تعديل مواقع التواصل ',
+    'Edit pages' => 'تعديل صفحات الشروط والمساعدة',
     
     // Socials
     'SOCIAL_FACEBOOK' => 'فيس بوك',
     'SOCIAL_TWITTER' => 'تويتر ',
     'SOCIAL_GOOGLE' => ' جوجل',
-
     
+    // Pages
+    'terms' => 'الشروط والاحكام ',
+    'help' => ' المساعدة',
     
     
     // Datatables

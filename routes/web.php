@@ -94,11 +94,9 @@ Route::group(['prefix' => 'backend', 'middleware' => ['auth', 'backendUser']], f
 
     
     // static pages
-    $this->get('/terms', 'Backend\TermsController@edit')->name('backend.terms.edit');
-    $this->post('/terms', 'Backend\TermsController@update')->name('backend.terms.update');
-    $this->get('/help', 'Backend\HelpController@edit')->name('backend.help.edit');
-    $this->post('/help', 'Backend\HelpController@update')->name('backend.help.update');
-
+    $this->get('/pages/edit', 'Backend\PagesController@edit')->name('backend.pages.edit')->middleware(['permission:role-setting-pages']);
+    $this->post('/pages/update', 'Backend\PagesController@update')->name('backend.pages.update')->middleware(['permission:role-setting-pages']);
+    
     // Prices setting
     $this->get('/price/edit', 'Backend\PricesController@edit')->name('backend.price.edit')->middleware(['permission:role-setting-prices']);
     $this->post('/price/update', 'Backend\PricesController@update')->name('backend.price.update')->middleware(['permission:role-setting-prices']);
