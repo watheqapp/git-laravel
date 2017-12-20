@@ -53,7 +53,7 @@
                 <h3 class="uppercase"> {{__('backend.Setting Managment')}}</h3>
             </li>
             @if(Auth::user()->hasPermission('role-setting-prices'))
-            <li class="nav-item  {{ strpos(Route::currentRouteName(), 'prices') !== false ? 'active' : '' }}">
+            <li class="nav-item  {{ strpos(Route::currentRouteName(), 'price') !== false ? 'active' : '' }}">
                 <a href="{{route('backend.price.edit')}}" class="nav-link"> 
                     <em class="icon-users"></em> 
                     <span class="title">{{__('backend.Edit price')}}</span>
