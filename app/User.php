@@ -55,7 +55,7 @@ class User extends Authenticatable {
     }
     
     public function getLawyerTypeTxt() {
-        return __('backend.' . $this->attributes['lawyerType']);
+        return $this->attributes['lawyerType'] ? __('backend.' . $this->attributes['lawyerType']) : '';
     }
     
     /**

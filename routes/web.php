@@ -78,6 +78,7 @@ Route::group(['prefix' => 'backend', 'middleware' => ['auth', 'backendUser']], f
     // Client
     Route::get('/lawyer/list', 'Backend\LawyerController@index')->name('backend.lawyer.index')->middleware(['permission:role-lawyer']);
     Route::get('/lawyer/list-data', 'Backend\LawyerController@listData')->name('backend.lawyer.listAjax')->middleware(['permission:role-lawyer']);
+    Route::get('/lawyer/show/{id}', 'Backend\LawyerController@show')->name('backend.lawyer.show')->middleware(['permission:role-lawyer']);
     Route::get('/lawyer/edit/{id}', 'Backend\LawyerController@edit')->name('backend.lawyer.edit')->middleware(['permission:role-lawyer']);
     Route::post('/lawyer/update/{id}', 'Backend\LawyerController@update')->name('backend.lawyer.update')->middleware(['permission:role-lawyer']);
     Route::get('/lawyer/delete/{id}', 'Backend\LawyerController@destroy')->name('backend.lawyer.delete')->middleware(['permission:role-lawyer']);

@@ -66,9 +66,11 @@ class LawyerController extends BackendController {
                 ->latest();
         return Datatables::of($items)
                         ->addColumn('actions', function ($item) {
-                            return '<a class="btn btn-sm green btn-outline" href="' . route('backend.lawyer.edit', ['id' => $item->id]) . '"><i class="fa fa-paste"></i> ' . __('backend.Edit') . '</a> ' .
-                                    '<a class="btn btn-sm blue btn-outline page-scroll dev-list-ajax-action" data-popup="tooltip" data-placement="bottom" data-name="(' . $item->name . ')" title="' . __('backend.' . ($item->active ? 'Deactivate' : 'Activate')) . '" href="javascript:void(0)" data-href="' . route('backend.lawyer.toggleActive', ['id' => $item->id, 'active' => $item->active ? 0 : 1]) . '"><i class="fa fa-' . ($item->active ? "times" : "check") . '"></i> ' . __('backend.' . ($item->active ? 'Deactivate' : 'Activate')) . '</a> ' .
-                                    '<a class="btn btn-sm red btn-outline dev-list-ajax-action" title="' . __('backend.Delete') . '" data-name="(' . $item->name . ')" href="javascript:void(0)" data-href="' . route('backend.lawyer.delete', ['id' => $item->id]) . '"><i class="fa fa-trash"></i> ' . __('backend.Delete') . '</a>';
+                            return 
+                                '<a class="btn btn-sm yellow btn-outline" href="' . route('backend.lawyer.show', ['id' => $item->id]) . '"><i class="fa fa-eye"></i> ' . __('backend.View') . '</a> ' .
+                                '<a class="btn btn-sm green btn-outline" href="' . route('backend.lawyer.edit', ['id' => $item->id]) . '"><i class="fa fa-paste"></i> ' . __('backend.Edit') . '</a> ' .
+                                '<a class="btn btn-sm blue btn-outline page-scroll dev-list-ajax-action" data-popup="tooltip" data-placement="bottom" data-name="(' . $item->name . ')" title="' . __('backend.' . ($item->active ? 'Deactivate' : 'Activate')) . '" href="javascript:void(0)" data-href="' . route('backend.lawyer.toggleActive', ['id' => $item->id, 'active' => $item->active ? 0 : 1]) . '"><i class="fa fa-' . ($item->active ? "times" : "check") . '"></i> ' . __('backend.' . ($item->active ? 'Deactivate' : 'Activate')) . '</a> ' .
+                                '<a class="btn btn-sm red btn-outline dev-list-ajax-action" title="' . __('backend.Delete') . '" data-name="(' . $item->name . ')" href="javascript:void(0)" data-href="' . route('backend.lawyer.delete', ['id' => $item->id]) . '"><i class="fa fa-trash"></i> ' . __('backend.Delete') . '</a>';
                         })
                         ->escapeColumns(['actions'])
                         ->editColumn('active', function ($item) {
@@ -125,6 +127,19 @@ class LawyerController extends BackendController {
 
         Session::flash('success', 'Updated successfuly');
         return redirect('backend/lawyer/list');
+    }
+    
+    public function show($id) {
+        $user = User::where('type', User::$LAWYER_TYPE)->findOrFail($id);
+        
+        $breadcrumb = [
+            'pageLable' => 'Show '.$this->className,
+            'links' => [
+                ['name' => 'List '.$this->className, 'route' => route('backend.'.$this->className.'.index')],
+                ['name' => 'Show '.$this->className]
+            ]
+        ];
+        return view('backend.lawyer.show', compact('user', 'breadcrumb'));
     }
 
     /**

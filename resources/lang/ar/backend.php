@@ -66,6 +66,7 @@ return [
     'Manage lawyer' => 'إدارة الموثقين',
     'Create lawyer' => 'إضافة موثق',
     'Edit lawyer' => 'تعديل موثق',
+    'Show lawyer' => 'عرض معلومات موثق',
     'role-lawyer' => 'إدارة الموثقين',
     'Delete lawyer' => 'حذف موثق',
     'lawyerType' => 'النوع',
@@ -80,6 +81,7 @@ return [
     'Activated' => 'مفعل',
     'Deactivate' => 'ايقاف',
     'Deactivated' => 'موقوف',
+    'View' => 'عرض',
     'Actions' => 'العمليات',
     'image' => 'الصورة',
     'name' => 'الاسم',
@@ -96,7 +98,8 @@ return [
     'Change' => 'تغيير',
     'Remove' => 'حذف',
     'phone' => 'الجوال',
-    
+    'files' => 'الملفات',
+    'Location' => 'الموقع',
     
     // Menu
     'Users Managment' => 'إدارة المستخدمين',
