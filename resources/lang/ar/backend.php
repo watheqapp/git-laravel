@@ -38,6 +38,10 @@ return [
     'Delete role' => 'حذف دور',
     'description' => 'الوصف',
     'permissions' => 'الصلاحيات',
+    'Manage role' => 'إدارة الصلاحيات',
+    'Manage prices' => 'إدارة الاسعار',
+    'Manage social' => 'إدارة مواقع التواصل',
+    'Manage pages' => 'إدارة صفحات المساعدة والشروط',
 
     // Employee
     'employee' => 'موظف',

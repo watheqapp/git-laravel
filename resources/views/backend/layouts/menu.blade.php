@@ -52,7 +52,7 @@
             <li class="heading">
                 <h3 class="uppercase"> {{__('backend.Setting Managment')}}</h3>
             </li>
-            @if(Auth::user()->hasPermission('role-setting-prices'))
+            @if(Auth::user()->hasPermission('role-prices'))
             <li class="nav-item  {{ strpos(Route::currentRouteName(), 'price') !== false ? 'active' : '' }}">
                 <a href="{{route('backend.price.edit')}}" class="nav-link"> 
                     <em class="icon-users"></em> 
@@ -60,7 +60,7 @@
                 </a>
             </li>
             @endif
-            @if(Auth::user()->hasPermission('role-setting-social'))
+            @if(Auth::user()->hasPermission('role-social'))
             <li class="nav-item  {{ strpos(Route::currentRouteName(), 'social') !== false ? 'active' : '' }}">
                 <a href="{{route('backend.social.edit')}}" class="nav-link"> 
                     <em class="icon-users"></em> 
@@ -69,7 +69,7 @@
             </li>
             @endif
             
-            @if(Auth::user()->hasPermission('role-setting-pages'))
+            @if(Auth::user()->hasPermission('role-pages'))
             <li class="nav-item  {{ strpos(Route::currentRouteName(), 'pages') !== false ? 'active' : '' }}">
                 <a href="{{route('backend.pages.edit')}}" class="nav-link"> 
                     <em class="icon-users"></em> 
