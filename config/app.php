@@ -247,6 +247,7 @@ return [
         'JsValidator' => Proengsoft\JsValidation\Facades\JsValidatorFacade::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Assets' => App\Helpers\Assets::class,
     ],
 
 ];

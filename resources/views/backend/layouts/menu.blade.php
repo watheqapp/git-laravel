@@ -49,6 +49,36 @@
                 </a>
             </li>
             @endif
+            
+            
+            <li class="heading">
+                <h3 class="uppercase"> {{__('backend.Orders Managment')}}</h3>
+            </li>
+            @if(Auth::user()->hasPermission('role-order'))
+            <li class="nav-item {{ strpos(Route::currentRouteName(), 'new') !== false ? 'active' : '' }} ">
+                <a href="{{route('backend.order.new')}}" class="nav-link"> 
+                    <em class="icon-camcorder"></em> 
+                    <span class="title">{{__('backend.List new order')}}</span>
+                    <span class="badge badge-success">{{Assets::newOrderCount()}}</span>
+                </a>
+            </li>
+            <li class="nav-item {{ strpos(Route::currentRouteName(), 'pending') !== false ? 'active' : '' }} ">
+                <a href="{{route('backend.order.pending')}}" class="nav-link"> 
+                    <em class="icon-camcorder"></em> 
+                    <span class="title">{{__('backend.List pending order')}}</span>
+                    <span class="badge badge-success">{{Assets::pendingOrderCount()}}</span>
+                </a>
+            </li>
+            <li class="nav-item {{ strpos(Route::currentRouteName(), 'closed') !== false ? 'active' : '' }} ">
+                <a href="{{route('backend.order.closed')}}" class="nav-link"> 
+                    <em class="icon-camcorder"></em> 
+                    <span class="title">{{__('backend.List closed order')}}</span>
+                    <span class="badge badge-success">{{Assets::closedOrderCount()}}</span>
+                </a>
+            </li>
+            @endif
+            
+            
             <li class="heading">
                 <h3 class="uppercase"> {{__('backend.Setting Managment')}}</h3>
             </li>

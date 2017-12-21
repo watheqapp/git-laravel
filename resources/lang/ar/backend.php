@@ -142,6 +142,33 @@ return [
     'activate to sort column ascending' => 'activate to sort column ascending',
     'activate to sort column descending' => 'activate to sort column descending',
     
+    // Order
+    'SAR' => 'ريال',
+    'client_id' => 'المستخدم',
+    'lawyer_id' => 'الموثق',
+    'category_id' => 'نوع الطلب',
+    'cost' => 'التكلفة',
+    'accepted_at' => 'تاريخ قبول الطلب',
+    'closed_at' => 'تاريخ غلق الطلب',
+    'Orders Managment' => 'إدارة الطلبات',
+    'Manage order' => 'إدارة الطلبات',
+    'List new order' => 'قائمة الطلبات الجديدة',
+    'List pending order' => 'قائمة الطلبات الجارية',
+    'List closed order' => 'قائمة الطلبات المغلقة',
+    'The Order' => 'الطلب',
+    'Show order' => 'معلومات الطلب',
+    'status' => 'حالة الطلب',
+    'New' => 'جديده',
+    'Pending' => 'جارية',
+    'Closed' => 'مغلقة',
+    'clientName' => 'الموكل',
+    'clientNationalID' => 'رقم الموكل',
+    'representativeName' => 'الوكيل',
+    'representativeNationalID' => 'رقم الوكيل',
+    'Client Location' => 'موقع العميل',
+    'home' => 'المنزل',
+    'office' => 'المكتب',
+
     
     // Messages
     'Added successfuly' => 'تمت عملية الادخال بنجاح',

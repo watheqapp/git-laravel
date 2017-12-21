@@ -38,6 +38,11 @@ class PermissionTableSeeder extends Seeder {
                 'module' => 'role'
             ],
             [
+                'name' => 'role-order',
+                'description' => 'Manage orders',
+                'module' => 'order'
+            ],
+            [
                 'name' => 'role-prices',
                 'description' => 'Manage prices settings',
                 'module' => 'prices'

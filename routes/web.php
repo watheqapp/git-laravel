@@ -107,7 +107,15 @@ Route::group(['prefix' => 'backend', 'middleware' => ['auth', 'backendUser']], f
     $this->get('/social/edit', 'Backend\SocialController@edit')->name('backend.social.edit')->middleware(['permission:role-setting-social']);
     $this->post('/social/update', 'Backend\SocialController@update')->name('backend.social.update')->middleware(['permission:role-setting-social']);
     
-    
+    // Order
+    Route::get('/order/list-new', 'Backend\OrderController@newOrders')->name('backend.order.new')->middleware(['permission:role-order']);
+    Route::get('/order/list-new-data', 'Backend\OrderController@newOrdersData')->name('backend.order.newAjax')->middleware(['permission:role-order']);
+    Route::get('/order/list-pending', 'Backend\OrderController@pendingOrders')->name('backend.order.pending')->middleware(['permission:role-order']);
+    Route::get('/order/list-pending-data', 'Backend\OrderController@PendingOrdersData')->name('backend.order.pendingAjax')->middleware(['permission:role-order']);
+    Route::get('/order/list-closed', 'Backend\OrderController@closedOrders')->name('backend.order.closed')->middleware(['permission:role-order']);
+    Route::get('/order/list-closed-data', 'Backend\OrderController@closedOrdersData')->name('backend.order.closedAjax')->middleware(['permission:role-order']);
+    Route::get('/order/show/{id}', 'Backend\OrderController@show')->name('backend.order.show')->middleware(['permission:role-order']);
+    Route::get('/order/delete/{id}', 'Backend\OrderController@destroy')->name('backend.order.delete')->middleware(['permission:role-order']);
 });
 
 //Auth::routes();
