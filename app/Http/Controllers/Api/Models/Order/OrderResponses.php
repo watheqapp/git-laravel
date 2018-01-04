@@ -49,6 +49,31 @@ class OrderResponses {
      * @var string
      */
     public $representativeNationalID;
+    
+    
+    /**
+     * @SWG\Property(example="1533")
+     * @var string
+     */
+    public $letterNumber;
+    
+    /**
+     * @SWG\Property(example="12-6-2018")
+     * @var string
+     */
+    public $letterDate;
+    
+    /**
+     * @SWG\Property(example="12-6-2017")
+     * @var string
+     */
+    public $marriageDate;
+    
+    /**
+     * @SWG\Property(example="15:60")
+     * @var string
+     */
+    public $marriageTime;
 
     /**
      * @SWG\Property(example="40.7324319")

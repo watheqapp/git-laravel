@@ -20,7 +20,11 @@ class Order extends Model {
         'created_at_timestamp',
         'clientName',
         'representativeName',
-        'nationalID'
+        'nationalID',
+        'letterNumber',
+        'letterDate',
+        'marriageDate',
+        'marriageTime'
     ];
     public static $NEW_STATUS = 'New';
     public static $PENDING_STATUS = 'Pending';
