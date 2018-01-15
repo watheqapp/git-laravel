@@ -12,16 +12,16 @@ class LawyersTableSeeder extends Seeder {
      * @return void
      */
     public function run() {
-        DB::table('users')->truncate();
-        DB::table('users')->insert([
-            'name' => 'WatheqAdmin',
-            'email' => 'admin@watheq.com',
-            'phone' => '966504422775',
-            'password' => bcrypt('watheq123'),
-            'admin' => true,
-            'type' => \App\User::$BACKEND_TYPE,
-            'created_at' => date('Y-m-m H:i:s')
-        ]);
+//        DB::table('users')->truncate();
+//        DB::table('users')->insert([
+//            'name' => 'WatheqAdmin',
+//            'email' => 'admin@watheq.com',
+//            'phone' => '966504422775',
+//            'password' => bcrypt('watheq123'),
+//            'admin' => true,
+//            'type' => \App\User::$BACKEND_TYPE,
+//            'created_at' => date('Y-m-m H:i:s')
+//        ]);
         $lawyers = [
             [
                 "name" => "99999 أحمد بن سليمان العراجه",
