@@ -207,6 +207,20 @@ class OrderController extends ApiBaseController {
      *     @SWG\Parameter(
      *          in="query", name="orderId", description="Client order id", required=true, type="string",
      *      ),
+     * 	   @SWG\Parameter(
+     * 		name="page",
+     * 		in="query",
+     * 		required=false,
+     * 		type="integer",
+     * 		description="Optional Page Number",
+     * 	   ),
+     * 	   @SWG\Parameter(
+     * 		name="limit",
+     * 		in="query",
+     * 		required=false,
+     * 		type="integer",
+     * 		description="Optional limit of results | Ignored if page is not set",
+     * 	   ),
      *     @SWG\Response(response="405",description="Invalid input"),
      *     @SWG\SecurityScheme(
      *         securityDefinition="X-Api-Token",
@@ -230,11 +244,18 @@ class OrderController extends ApiBaseController {
             return $this->getErrorJsonResponse([], __('api.Wrong order id'));
         }
         
-        $lawyers = \App\Lawyer::where('type', User::$LAWYER_TYPE)
+        $query = \App\Lawyer::where('type', User::$LAWYER_TYPE)
                          ->where('active', true)
-                         ->where('lawyerType', $order->getCategoryType($order->category))
-                         ->get();
-                
+                         ->where('lawyerType', $order->getCategoryType($order->category));        
+        
+        $limit = $request->get('limit', 10);
+        $query->limit($limit);
+
+        $page = $request->get('page', 1);
+        $skip = ($page - 1) * $limit;
+        $query->offset($skip);
+        
+        $lawyers = $query->get();
         
         return $this->getSuccessJsonResponse($lawyers);
     }
