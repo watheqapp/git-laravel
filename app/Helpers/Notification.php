@@ -38,10 +38,13 @@ class Notification {
         $optionBuiler->setTimeToLive(60 * 20);
         $option = $optionBuiler->build();
 
+//        $notificationBuilder = new PayloadNotificationBuilder($notificationData['title']);
+//        $notificationBuilder->setBody($notificationData['content'])
+//                ->setSound('default');
+//        $notification = $notificationBuilder->build($notificationData['title']);
+        
         $notificationBuilder = new PayloadNotificationBuilder();
-        $notificationBuilder->setBody($notificationData['content'])
-                ->setSound('default');
-        $notification = $notificationBuilder->build($notificationData['title']);
+        $notification = $notificationBuilder->build();
 
         $dataBuilder = new PayloadDataBuilder();
         $dataBuilder->addData($notificationData);
