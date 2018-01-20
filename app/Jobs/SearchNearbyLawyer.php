@@ -127,7 +127,8 @@ class SearchNearbyLawyer implements ShouldQueue {
           'title' => __('api.New order request title'),
           'content' => __('api.New order request content'),
           'type' => 'NewRequest',
-          'id' => $this->order->id,
+          'orderId' => $this->order->id,
+          'clientId' => $this->order->client_id,
         ];
         
         return $notificaiton->sendNotification($lawyers, $notificationData);
@@ -140,7 +141,7 @@ class SearchNearbyLawyer implements ShouldQueue {
           'title' => __('api.No Laywer Accept order title'),
           'content' => __('api.No Laywer Accept order content'),
           'type' => 'NotAcceptedRequest',
-          'id' => $this->order->id,
+          'orderId' => $this->order->id,
         ];
         
         return $notificaiton->sendNotification([$this->order->client], $notificationData);

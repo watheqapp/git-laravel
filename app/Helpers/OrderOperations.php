@@ -22,7 +22,7 @@ class OrderOperations {
     public function notifyNearbyLawyers($order, $distanceBetween) {
         $lawyers = $this->getNearbyLawyers($order, $distanceBetween);
         if (count($lawyers) > 0) {
-            $this->sendLawyerNotification($lawyers, $order->id);
+            $this->sendLawyerNotification($lawyers, $order->id, $order->client_id);
         }
         $this->logOrderProcess($order, OrderLogger::$NOTIFY_LAWYER_TYPE, $lawyers, $distanceBetween);
     }
@@ -171,7 +171,7 @@ class OrderOperations {
      * @param type $orderId
      * @return boolean
      */
-    public function sendLawyerNotification($lawyers, $orderId) {
+    public function sendLawyerNotification($lawyers, $orderId, $clientId) {
         if (count($lawyers) == 0)
             return false;
 
@@ -181,7 +181,8 @@ class OrderOperations {
             'title' => __('api.New order request title'),
             'content' => __('api.New order request content'),
             'type' => 'NewRequest',
-            'id' => $orderId,
+            'orderId' => $orderId,
+            'clientId' => $clientId,
         ];
 
         return $notificaiton->sendNotification($lawyers, $notificationData);
@@ -203,8 +204,9 @@ class OrderOperations {
             'title' => __('api.Assigned order request title'),
             'content' => __('api.Assigned order request content'),
             'type' => 'AssignedRequest',
-            'id' => $order->id,
-        ];
+            'orderId' => $order->id,
+            'clientId' => $order->client_id,
+            ];
 
         $notificaiton->sendNotification($lawyers, $notificationData);
         $this->logOrderProcess($order, OrderLogger::$NOTIFY_LAWYER_FORCE_SELECT_TYPE);
@@ -221,7 +223,7 @@ class OrderOperations {
             'title' => __('api.No Laywer Accept order title'),
             'content' => __('api.No Laywer Accept order content'),
             'type' => 'NotAcceptedRequest',
-            'id' => $order->id,
+            'orderId' => $order->id,
         ];
 
         $notificaiton->sendNotification([$order->client], $notificationData);
@@ -239,7 +241,8 @@ class OrderOperations {
             'title' => __('api.Laywer Accept order title'),
             'content' => __('api.Laywer Accept order content'),
             'type' => 'AcceptedRequest',
-            'id' => $order->id,
+            'orderId' => $order->id,
+            'lawyerId' => $order->lawyer_id,
         ];
 
         $notificaiton->sendNotification([$order->client], $notificationData);
@@ -258,7 +261,8 @@ class OrderOperations {
             'title' => __('api.Laywer Close order title'),
             'content' => __('api.Laywer Close order content'),
             'type' => 'CloseRequest',
-            'id' => $order->id,
+            'orderId' => $order->id,
+            'lawyerId' => $order->lawyer_id,
         ];
 
         $notificaiton->sendNotification([$order->client], $notificationData);
