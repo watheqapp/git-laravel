@@ -122,4 +122,4 @@ Route::group(['prefix' => 'backend', 'middleware' => ['auth', 'backendUser']], f
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/terms', 'HomeController@terms')->name('frontend.terms');
-Route::get('/help', 'HomeController@help')->name('frontend.help');
+Route::get('/policy', 'HomeController@help')->name('frontend.policy');

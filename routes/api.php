@@ -52,6 +52,7 @@ Route::group(['middleware' => ['CheckApiAuth']], function() {
         Route::get('client/order/listNewOrders', 'Api\ClientOrderController@listNewOrders');
         Route::get('client/order/listPendingOrders', 'Api\ClientOrderController@listPendingOrders');
         Route::get('client/order/listClosedOrders', 'Api\ClientOrderController@listClosedOrders');
+        Route::post('client/order/rate', 'Api\ClientOrderController@rateOrder');
         
         // Laywer-Order
         Route::get('lawyer/order/accept', 'Api\LawyerOrderController@acceptOrder');

@@ -219,7 +219,7 @@ if (app()->environment() != 'testing') {
             </u>
             <br />
             <u>
-                <a target="_blank" class="text-warning" href="{{url('help')}}">Help web page</a>
+                <a target="_blank" class="text-warning" href="{{url('policy')}}">policy web page</a>
             </u>
         </h1>
     </div>

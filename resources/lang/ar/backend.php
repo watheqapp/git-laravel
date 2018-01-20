@@ -122,7 +122,8 @@ return [
     
     // Pages
     'terms' => 'الشروط والاحكام ',
-    'help' => ' المساعدة',
+    'help' => ' سياسة الخصوصية',
+    'privacy' => ' سياسة الخصوصية',
     
     
     // Datatables
@@ -168,6 +169,7 @@ return [
     'Client Location' => 'موقع العميل',
     'home' => 'المنزل',
     'office' => 'المكتب',
+    'clientRate' => 'تقييم المستخدم',
 
     
     // Messages

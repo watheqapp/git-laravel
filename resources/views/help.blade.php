@@ -8,7 +8,7 @@
         <meta name="author" content="">
         <link rel="icon" href="../../favicon.ico">
 
-        <title>تطبيق وثق  | المساعدة </title>
+        <title>تطبيق وثق  | سياسية الخصوصية </title>
 
         <!-- Bootstrap core CSS -->
         <link href="{{asset('css/bootstrap-terms.min.css')}}" rel="stylesheet">
@@ -23,7 +23,7 @@
             <div class="header clearfix">
                 <div style="text-align: center">
                     <img src="{{asset('img/logo.jpg')}}" />
-                    <h4 style="text-align: center">‎تطبيق وثق - المساعدة</h4>
+                    <h4 style="text-align: center">‎تطبيق وثق -سياسية الخصوصية </h4>
                 </div>
             </div>
 

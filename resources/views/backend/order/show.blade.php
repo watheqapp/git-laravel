@@ -55,6 +55,13 @@
                 </tr>
                 @endif
                 
+                @if($order->status == 'Closed')
+                <tr>
+                    <th class="col-md-2">{{__('backend.clientRate')}}</th>
+                    <td>{{$order->clientRate}}</span></td>
+                </tr>
+                @endif
+                
                 <tr>
                     <th class="col-md-2">{{__('backend.Client Location')}}</th>
                     <td>
