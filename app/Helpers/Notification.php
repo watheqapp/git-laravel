@@ -33,10 +33,10 @@ class Notification {
         
         foreach ($deviceObjs as $device) {
             if(Device::$DEVICE_ANDROID_TYPE) {
-                $devices['android'] = $device->firebaseToken;
+                $devices['android'][] = $device->firebaseToken;
             }
             if(Device::$DEVICE_IOS_TYPE) {
-                $devices['ios'] = $device->firebaseToken;
+                $devices['ios'][] = $device->firebaseToken;
             }
         }
         return $devices;
