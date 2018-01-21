@@ -61,10 +61,10 @@ class Notification {
         $optionBuiler->setTimeToLive(60 * 20);
         $option = $optionBuiler->build();
         
-        $notificationBuilder = new PayloadNotificationBuilder($notificationData['title']);
-        $notificationBuilder->setBody($notificationData['content'])
+        $notificationBuilder = new PayloadNotificationBuilder($data['title']);
+        $notificationBuilder->setBody($data['content'])
                 ->setSound('default');
-        $notification = $notificationBuilder->build($notificationData['title']);
+        $notification = $notificationBuilder->build($data['title']);
         
         $dataBuilder = new PayloadDataBuilder();
         $dataBuilder->addData($data);
@@ -117,10 +117,10 @@ class Notification {
         }
 
         //return Array - you should try to resend the message to the tokens in the array
-        $retryTokens = $downstreamResponse->tokensToRetry();
-        if (!empty($retryTokens)) {
-            $this->sendNotification($retryTokens, $notificationData);
-        }
+//        $retryTokens = $downstreamResponse->tokensToRetry();
+//        if (!empty($retryTokens)) {
+//            $this->sendNotification($retryTokens, $notificationData);
+//        }
         // return Array (key:token, value:errror) - in production you should remove from your database the tokens present in this array 
         $errorTokens = $downstreamResponse->tokensWithError();
         if (!empty($errorTokens)) {
