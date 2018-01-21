@@ -184,7 +184,7 @@ class OrderOperations {
             'orderId' => $orderId,
             'clientId' => $clientId,
         ];
-
+        
         return $notificaiton->sendNotification($lawyers, $notificationData);
     }
     

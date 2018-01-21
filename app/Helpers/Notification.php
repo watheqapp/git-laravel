@@ -10,6 +10,7 @@ use LaravelFCM\Message\PayloadDataBuilder;
 use LaravelFCM\Message\PayloadNotificationBuilder;
 use FCM;
 use App\Device;
+use App\LogNotification;
 
 /**
  * @author Ahmad Gamal <ahmed.gamal@ibtikar.net.sa>
@@ -40,9 +41,20 @@ class Notification {
         }
         return $devices;
     }
+    
+    public function logNotification($users, $data) {
+        foreach ($users as $user) {
+            $data['userId'] = $user->id;
+            LogNotification::create($data);
+        }
+        
+        return true;
+    }
 
     public function sendNotification($users, $data) {
         $tokens = $this->getUsersTokens($users);
+        
+        $this->logNotification($users, $data);
         
         $result = '';
         if(!empty($tokens['ios'])) {

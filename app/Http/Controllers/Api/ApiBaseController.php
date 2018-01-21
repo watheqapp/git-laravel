@@ -148,6 +148,54 @@ class ApiBaseController extends BaseController {
     
     /**
      * @SWG\Get(
+     *     path="/api/auth/notification/list",
+     *     summary="List client/lawyer notifications",
+     *     tags={"General"},
+     *     produces={"application/json"},
+     *     @SWG\Parameter(
+     *          in="header", name="X-Api-Language", description="['ar','en'] default is 'ar'", type="string",
+     *      ),
+     *     @SWG\Parameter(
+     *          in="header", name="Authorization", description="Logged in User access token", required=true, type="string",
+     *      ),
+     *     @SWG\Response(
+     *          response="405",
+     *          description="Invalid input"
+     *     ),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @SWG\Schema(ref="#/definitions/ListNotificationResponses")
+     *     ),
+     *     @SWG\SecurityScheme(
+     *         securityDefinition="X-Api-Token",
+     *         type="apiKey",
+     *         in="header",
+     *         name="X-Api-Token"
+     *     ),
+     * )
+     */
+    public function listNotifications(Request $request) {
+        $user = Auth()->user();
+        
+        $notifications = \App\LogNotification::where('userId', $user->id)->latest()->get();
+        
+        $responses = [];
+        foreach ($notifications as $notification) {
+            $data = new Models\ListNotificationResponses();
+            $data->title = $notification->title;
+            $data->content  = $notification->content;
+            $data->type   = $notification->type;
+            $data->orderId   = $notification->orderId;
+            $data->created_at  = time($notification->created_at);
+            $responses[] = $data;
+        }
+        
+        return $this->getSuccessJsonResponse($responses);
+    }
+    
+    /**
+     * @SWG\Get(
      *     path="/api/auth/social/links",
      *     summary="List social links",
      *     tags={"General"},
