@@ -13,7 +13,7 @@ class UpdateUsersCreditField extends Migration {
      */
     public function up() {
         Schema::table('users', function ($table) {
-            $table->integer('credit', 20)->default(0);
+            $table->integer('credit')->default(0);
         });
     }
 
