@@ -24,30 +24,50 @@ class Notification {
             }
         }
         
-        return Device::whereIn('user_id', $userIds)->pluck('firebaseToken')->toArray();
+        $deviceObjs = Device::whereIn('user_id', $userIds)->get();
+        
+        $devices = [];
+        $devices['android'] = [];
+        $devices['ios'] = [];
+        
+        foreach ($deviceObjs as $device) {
+            if(Device::$DEVICE_ANDROID_TYPE) {
+                $devices['android'] = $device->firebaseToken;
+            }
+            if(Device::$DEVICE_IOS_TYPE) {
+                $devices['ios'] = $device->firebaseToken;
+            }
+        }
+        return $devices;
     }
 
-    public function sendNotification($users, $notificationData) {
+    public function sendNotification($users, $data) {
         $tokens = $this->getUsersTokens($users);
         
-        if (empty($tokens)) {
-            return 'Count: 0';
+        $result = '';
+        if(!empty($tokens['ios'])) {
+            $result .= $this->sendIosNotification($tokens['ios'], $data);
         }
         
+        if(!empty($tokens['android'])) {
+            $result .= $this->sendAndroidNotification($tokens['android'], $data);
+        }
+        
+        return $result;
+    }
+    
+    public function sendIosNotification($tokens, $data) {
         $optionBuiler = new OptionsBuilder();
         $optionBuiler->setTimeToLive(60 * 20);
         $option = $optionBuiler->build();
-
-//        $notificationBuilder = new PayloadNotificationBuilder($notificationData['title']);
-//        $notificationBuilder->setBody($notificationData['content'])
-//                ->setSound('default');
-//        $notification = $notificationBuilder->build($notificationData['title']);
         
-        $notificationBuilder = new PayloadNotificationBuilder();
-        $notification = $notificationBuilder->build();
-
+        $notificationBuilder = new PayloadNotificationBuilder($notificationData['title']);
+        $notificationBuilder->setBody($notificationData['content'])
+                ->setSound('default');
+        $notification = $notificationBuilder->build($notificationData['title']);
+        
         $dataBuilder = new PayloadDataBuilder();
-        $dataBuilder->addData($notificationData);
+        $dataBuilder->addData($data);
         $data = $dataBuilder->build();
 
         try {
@@ -56,6 +76,31 @@ class Notification {
             return 'something wronge';
         }
 
+        return $this->handleNotificationResponses($downstreamResponse);
+    }
+    
+    public function sendAndroidNotification($tokens, $data) {
+        $optionBuiler = new OptionsBuilder();
+        $optionBuiler->setTimeToLive(60 * 20);
+        $option = $optionBuiler->build();
+        
+        $notificationBuilder = new PayloadNotificationBuilder();
+        $notification = $notificationBuilder->build();
+
+        $dataBuilder = new PayloadDataBuilder();
+        $dataBuilder->addData($data);
+        $data = $dataBuilder->build();
+
+        try {
+            $downstreamResponse = \LaravelFCM\Facades\FCM::sendTo($tokens, $option, $notification, $data);
+        } catch (Exception $ex) {
+            return 'something wronge';
+        }
+        
+        return $this->handleNotificationResponses($downstreamResponse);
+    }
+    
+    public function handleNotificationResponses($downstreamResponse){
         $result = 'Count: ';
         //return Array - you must remove all this tokens in your database
         $deleteTokens = $downstreamResponse->tokensToDelete();
@@ -85,7 +130,7 @@ class Notification {
         $result .= $downstreamResponse->numberSuccess() ? $downstreamResponse->numberSuccess() . ' Success' : '';
         $result .= $downstreamResponse->numberFailure() ? $downstreamResponse->numberFailure() . ' Failure' : '';
         $result .= $downstreamResponse->numberModification() ? $downstreamResponse->numberModification() . ' Modify' : '';
-
+        
         return $result;
     }
 
