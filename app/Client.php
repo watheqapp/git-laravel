@@ -53,7 +53,7 @@ class Client extends Authenticatable {
         'remember_token',
         'lawyerType',
         'IDCardFile',
-        'licenseFile'
+        'licenseFile',
         'credit'
     ];
     
