@@ -38,6 +38,7 @@ class Lawyer extends Model  {
         'licenseFile',
         'latitude',
         'longitude',
+        'credit'
     ];
     protected $appends = [
         'isCompleteProfile',
