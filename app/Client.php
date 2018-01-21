@@ -54,6 +54,7 @@ class Client extends Authenticatable {
         'lawyerType',
         'IDCardFile',
         'licenseFile'
+        'credit'
     ];
     
     
