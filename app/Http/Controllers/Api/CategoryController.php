@@ -44,7 +44,7 @@ class CategoryController extends ApiBaseController {
         return $this->getSuccessJsonResponse($responses);
     }
     
-    private function prepareCategoriesWithSubs($parentCategories) {      
+    private function prepareCategoriesWithSubs($parentCategories) {
         $categories = [];
         foreach ($parentCategories as $category) {
             $categories[] = [
@@ -57,5 +57,45 @@ class CategoryController extends ApiBaseController {
             ];
         }
         return $categories;
+    }
+
+    /**
+     * @SWG\Get(
+     *     path="/api/auth/laywer/prices",
+     *     summary="List request categories",
+     *     tags={"Category"},
+     *     produces={"application/json"},
+     *     @SWG\Parameter(
+     *          in="header", name="X-Api-Language", description="['ar','en'] default is 'ar'", type="string",
+     *      ),
+     *     @SWG\Parameter(
+     *          in="header", name="Authorization", description="Logged in User access token", required=true, type="string",
+     *      ),
+     *     @SWG\Response(response="405",description="Invalid input"),
+     *     @SWG\SecurityScheme(
+     *         securityDefinition="X-Api-Token",
+     *         type="apiKey",
+     *         in="header",
+     *         name="X-Api-Token"
+     *    ),
+     * )
+     */
+    public function listLawyerPrices(Request $request) {
+        $parentCategories = Category::whereLeave(true)->get();
+        $responses = new \stdClass();
+        $fees = Setting::where('setting', 'DELIVER_REQUEST_TO_HOME')->first();
+        $responses->deliverToHomeFees = $fees ? $fees->value: 0;
+
+        $categories = [];
+        foreach ($parentCategories as $category) {
+            $categories[] = [
+                'name' => $category->parentCategory ? $category->parentCategory->getNameLocal().'-'.$category->getNameLocal() : $category->getNameLocal(),
+                'discription' => $category->getDiscriptionLocal(),
+                'cost' => $category->cost,
+            ];
+        }
+
+        $responses->categories = $categories;
+        return $this->getSuccessJsonResponse($responses);
     }
 }

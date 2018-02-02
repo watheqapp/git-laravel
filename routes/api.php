@@ -34,6 +34,7 @@ Route::group(['middleware' => ['CheckApiAuth']], function() {
         
         // Category
         Route::get('category/list', 'Api\CategoryController@listCategories');
+        Route::get('laywer/prices', 'Api\CategoryController@listLawyerPrices');
 
         // Laywer
         Route::post('lawyer/completeProfile', 'Api\LawyerController@completeProfile');
