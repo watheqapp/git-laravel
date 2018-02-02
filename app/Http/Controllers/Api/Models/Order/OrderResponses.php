@@ -76,6 +76,24 @@ class OrderResponses {
     public $marriageTime;
 
     /**
+     * @SWG\Property(example="23 alex st.")
+     * @var string
+     */
+    public $address;
+
+    /**
+     * @SWG\Property(example="5 hours")
+     * @var string
+     */
+    public $time;
+
+    /**
+     * @SWG\Property(example="15 kilometer")
+     * @var string
+     */
+    public $distance;
+
+    /**
      * @SWG\Property(example="40.7324319")
      * @var string
      */

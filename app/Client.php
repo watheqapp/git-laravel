@@ -30,7 +30,8 @@ class Client extends Authenticatable {
         'type',
         'admin',
         'active',
-        'language'
+        'language',
+        'totalOrders'
     ];
     protected $appends = [
         'isCompleteProfile',

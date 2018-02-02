@@ -98,6 +98,9 @@ class ClientOrderController extends OrderController {
         $order->accepted_at = date('Y-m-d H:i:s');
         $order->save();
 
+        $lawyer->totalOrders = $lawyer->totalOrders + 1;
+        $lawyer->save();
+
         $orderOperations = new OrderOperations();
         $orderOperations->logOrderProcess($order, OrderLogger::$FORCE_SELECT_LAWYER_TYPE);
 

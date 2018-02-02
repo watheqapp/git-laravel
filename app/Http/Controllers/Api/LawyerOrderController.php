@@ -78,10 +78,14 @@ class LawyerOrderController extends OrderController {
         }
         
         $user = Auth()->user();
+
         $order->lawyer_id = $user->id;
         $order->status = Order::$PENDING_STATUS;
         $order->accepted_at = date('Y-m-d H:i:s');
         $order->save();
+
+        $user->totalOrders = $user->totalOrders + 1;
+        $user->save();
                 
         $orderOperations = new OrderOperations();
         $orderOperations->logOrderProcess($order, OrderLogger::$ACCEPT_TYPE);

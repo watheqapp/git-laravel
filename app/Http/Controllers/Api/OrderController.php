@@ -90,6 +90,9 @@ class OrderController extends ApiBaseController {
 
         $id = Order::create($requestData)->id;
         $order = Order::find($id);
+
+        $user->totalOrders = $user->totalOrders + 1;
+        $user->save();
         
         $orderOperations = new OrderOperations();
         $orderOperations->logOrderProcess($order, OrderLogger::$CREATE_TYPE);
@@ -163,6 +166,9 @@ class OrderController extends ApiBaseController {
             'marriageTime' => $order->marriageTime,
             'clientLat' => $order->latitude,
             'clientLong' => $order->longitude,
+            'address' => $order->address,
+            'time' => $order->time,
+            'distance' => $order->distance,
             'category' => $this->prepareCategoryDetails($order->category),
             'lawyer' => $order->lawyer ? $this->prepareUserDetails($order->lawyer) : null,
             'client' => $order->client ? $this->prepareUserDetails($order->client) : null,
@@ -188,6 +194,7 @@ class OrderController extends ApiBaseController {
             'id' => $user->id,
             'name' => $user->name,
             'phone' => $user->phone,
+            'image' => 'uploads/'.$user->image,
             'lat' => $user->latitude,
             'long' => $user->longitude
         ];
