@@ -47,6 +47,24 @@ return [
     'Message' => 'الرسالة',
     'Check Log' => 'فحص الطلب',
     'CreateAt' => 'وقت التنفيذ',
+
+    // Notifications
+    // For Lawyer - In case if new request
+ 	'New order request title' => 'طلب جديد',
+    'New order request content' => 'طلب توثيق جديد بجوارك ينتظر الموافقه',
+    // For Lawyer - In case of client select lawyer for his request
+    'Assigned order request title' => 'مهمة جديدة',
+    'Assigned order request content' => 'لديك مهمة توثيق مسندة إليك, اضغط للاطلاع على التفاصيل',
+    // For Client - In case of no lawyer accept his request
+    'No Laywer Accept order title' => 'اختر موثقك',
+    'No Laywer Accept order content' => 'لم يرد أحد على طلبك, يرجى اختيار موثقاً آخر',
+    // For Client - In case of lawyer accept his request 
+    'Laywer Accept order title' => 'تمت الموافقة على طلبك',
+    'Laywer Accept order content' => 'اضغط للتحدث مباشرة إلى موثقك المختار',
+    // For Client - In case of lawyer accept his request
+    'Laywer Close order title' => 'تم انهاء طلبك',
+    'Laywer Close order content' => ', شكرا لاستخدامك وثق ,اضغط هنا لتقييم خدمة موثقك',
+
     
     
     
