@@ -187,7 +187,7 @@ class ApiBaseController extends BaseController {
             $data->content  = $notification->content;
             $data->type   = $notification->type;
             $data->orderId   = $notification->orderId;
-            $data->created_at  = time($notification->created_at);
+            $data->created_at  = strtotime($notification->created_at);
             $responses[] = $data;
         }
         
