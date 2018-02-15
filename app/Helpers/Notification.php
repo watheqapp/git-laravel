@@ -32,10 +32,9 @@ class Notification {
         $devices['ios'] = [];
         
         foreach ($deviceObjs as $device) {
-            if(Device::$DEVICE_ANDROID_TYPE) {
+            if($device->operator == Device::$DEVICE_ANDROID_TYPE) {
                 $devices['android'][] = $device->firebaseToken;
-            }
-            if(Device::$DEVICE_IOS_TYPE) {
+            }elseif($device->operator == Device::$DEVICE_IOS_TYPE) {
                 $devices['ios'][] = $device->firebaseToken;
             }
         }
@@ -53,7 +52,7 @@ class Notification {
 
     public function sendNotification($users, $data) {
         $tokens = $this->getUsersTokens($users);
-        
+
         $this->logNotification($users, $data);
         
         $result = '';
