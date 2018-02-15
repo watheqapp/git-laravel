@@ -37,9 +37,12 @@ class ProcessOrderRequests extends Command {
      * @return mixed
      */
     public function handle() {
+        $count = 0;
         while (true) {
+            $this->info('step #'.$count);
             $this->processClientRequests();
             sleep(1);
+            ++$count;
         }
     }
 
@@ -66,6 +69,8 @@ class ProcessOrderRequests extends Command {
                 ])
                 ->havingRaw('created_at_plus30 < ?', [time()])
                 ->get();
+
+        $this->info('After 30 second orders numbers are '.count($after30SOrders));
 
         if (count($after30SOrders) > 0) {
             foreach ($after30SOrders as $after30SOrder) {
@@ -98,6 +103,8 @@ class ProcessOrderRequests extends Command {
                 ->havingRaw('created_at_plus60 < ?', [time()])
                 ->get();
 
+        $this->info('After 60 second orders numbers are '.count($after60SOrders));
+
         if (count($after60SOrders) > 0) {
             foreach ($after60SOrders as $after60SOrder) {
                 $after60SOrder->isNotifyNearby20 = true;
@@ -128,6 +135,8 @@ class ProcessOrderRequests extends Command {
                 ])
                 ->havingRaw('created_at_plus120 < ?', [time()])
                 ->get();
+
+        $this->info('After 120 second orders numbers are '.count($after120SOrders));
 
         if (count($after120SOrders) > 0) {
             foreach ($after120SOrders as $after120SOrder) {
