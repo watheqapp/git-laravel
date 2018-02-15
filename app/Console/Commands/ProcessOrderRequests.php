@@ -69,9 +69,9 @@ class ProcessOrderRequests extends Command {
 
         if (count($after30SOrders) > 0) {
             foreach ($after30SOrders as $after30SOrder) {
-                $orderOperations->notifyNearbyLawyers($after30SOrder, [5, 10]);
                 $after30SOrder->isNotifyNearby10 = true;
                 $after30SOrder->save();
+                $orderOperations->notifyNearbyLawyers($after30SOrder, [5, 10]);
             }
         }
 
@@ -100,9 +100,9 @@ class ProcessOrderRequests extends Command {
 
         if (count($after60SOrders) > 0) {
             foreach ($after60SOrders as $after60SOrder) {
-                $orderOperations->notifyNearbyLawyers($after60SOrder, [10, 20]);
                 $after60SOrder->isNotifyNearby20 = true;
                 $after60SOrder->save();
+                $orderOperations->notifyNearbyLawyers($after60SOrder, [10, 20]);
             }
         }
 
@@ -131,9 +131,9 @@ class ProcessOrderRequests extends Command {
 
         if (count($after120SOrders) > 0) {
             foreach ($after120SOrders as $after120SOrder) {
-                $orderOperations->sendClientNotAcceptNotification($after120SOrder);
                 $after120SOrder->lock = true;
                 $after120SOrder->save();
+                $orderOperations->sendClientNotAcceptNotification($after120SOrder);
             }
         }
 
