@@ -14,7 +14,7 @@
                 </tr>
                 <tr>
                     <th class="col-md-2">{{__('backend.image')}}</th>
-                    <td><img style="width: 30%" class="img-responsive" src="{{$user->image ? asset('uploads/' . $user->image) : '/backend-assets/apps/img/profile.jpg'}}" /></td>
+                    <td><img style="width: 30%" class="img-responsive" src="{{$user->image ? asset('uploads/' . $user->image) : '/backend-assets/pages/media/profile/profile.jpg'}}" /></td>
                 </tr>
                 <tr>
                     <th class="col-md-2">{{__('backend.email')}}</th>

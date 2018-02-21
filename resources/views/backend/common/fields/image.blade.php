@@ -4,7 +4,7 @@
     <div class="col-sm-10">
         <div class="fileinput @if (isset($document) && $document->$name )fileinput-exists @else fileinput-new @endif" data-provides="fileinput">
             <div class="fileinput-new thumbnail" style="width: 150px; height: 150px;">
-                <img src="{!! asset('backend-assets/apps/img/profile.jpg') !!}" >
+                <img src="{!! asset('backend-assets/pages/media/profile/profile.jpg') !!}" >
             </div>
             <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 150px; max-height: 150px;">
                 @if (isset($document) && $document->$name )
