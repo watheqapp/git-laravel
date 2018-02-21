@@ -120,13 +120,13 @@
                                                     <?php $chatUser = $order->client->id == $record->from ? $order->client : $order->lawyer ?>
                                                     <div class="mt-comment-body">
                                                         <div class="mt-comment-info">
-                                                            <span class="mt-comment-author">{{$chatUser->name}}</span>
+                                                            <span class="mt-comment-author">{{$chatUser ?$chatUser->name : ''}}</span>
                                                             <span class="mt-comment-date">
-                                                            {{date('Y-m-d h:i A', $record->timestamp)}}
+                                                            {{$record->timestamp ? date('Y-m-d h:i A', $record->timestamp) : ''}}
                                                             </span>
                                                         </div>
                                                         <div class="mt-comment-text">
-                                                         {{$record->body}}
+                                                         {{$record->body ? $record->body : ''}}
                                                         </div>
                                                        
                                                     </div>
