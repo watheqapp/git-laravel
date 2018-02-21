@@ -13,6 +13,7 @@ use App\Order;
 use App\Setting;
 use App\Helpers\OrderOperations;
 use App\LogOrderProcess as OrderLogger;
+use DB;
 
 /**
  * Handle api Clients auth
@@ -251,10 +252,22 @@ class OrderController extends ApiBaseController {
         if (!$order) {
             return $this->getErrorJsonResponse([], __('api.Wrong order id'));
         }
-        
-        $query = \App\Lawyer::where('type', User::$LAWYER_TYPE)
-                         ->where('active', true)
-                         ->where('lawyerType', $order->getCategoryType($order->category));        
+
+        $distanceSelect = sprintf(
+                "ROUND(( %d * acos( cos( radians(%s) ) " .
+                " * cos( radians(`latitude`) ) " .
+                " * cos( radians(`longitude`) - radians(%s) ) " .
+                " + sin( radians(%s) ) * sin( radians(`latitude`) ) " .
+                " ) " .
+                "), 2 )" .
+                "AS distance", 6371, $order->latitude, $order->longitude, $order->latitude
+        );
+
+        $query = \App\Lawyer::select(DB::raw('users.*,' . $distanceSelect))
+                ->where('type', User::$LAWYER_TYPE)
+                ->where('active', true)
+                ->where('lawyerType', $order->getCategoryType($order->category))
+                ->orderBy('distance', 'DESC');   
         
         $limit = $request->get('limit', 10);
         $query->limit($limit);
