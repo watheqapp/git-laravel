@@ -55,6 +55,7 @@ class LawyerController extends BackendController {
             'name',
             'phone',
             'lawyerType',
+            'credit',
             'created_at',
             'active',
         ];
@@ -89,7 +90,8 @@ class LawyerController extends BackendController {
     public function preparedEditForm($id) {
         $document = User::where(['type' => User::$LAWYER_TYPE])->findOrFail($id);
         $this->createValidationRules ['email'] = 'required|email|unique:users,email,'.$document->id.',id,type,2';
-        $this->createValidationRules ['phone'] = 'required|numeric|unique:users,phone,'.$document->id.',id,type,2';
+        $this->createValidationRules ['phone'] = 'required|unique:users,phone,'.$document->id.',id,type,2';
+        $this->createValidationRules ['credit'] = 'required|numeric';
         $validator = JsValidator::make($this->createValidationRules, [], [], '.form-horizontal');
         return compact('document', 'validator');
     }
@@ -106,15 +108,16 @@ class LawyerController extends BackendController {
         $lawyer = User::where(['type' => User::$LAWYER_TYPE])->findOrFail($id);
         
         $this->createValidationRules ['email'] = 'required|email|unique:users,email,'.$lawyer->id.',id,type,2';
-        $this->createValidationRules ['phone'] = 'required|numeric|unique:users,phone,'.$lawyer->id.',id,type,2';
-       
+        $this->createValidationRules ['phone'] = 'required|unique:users,phone,'.$lawyer->id.',id,type,2';
+        $this->createValidationRules ['credit'] = 'required|numeric';
         
         $this->validate($request, $this->createValidationRules);
 
         $lawyer->name = $request->name;
         $lawyer->phone = $request->phone;
         $lawyer->email = $request->email;
-        
+        $lawyer->credit = $request->credit;
+
         if ($request->hasFile('image')) {
             $uploadPath = public_path('/uploads/');
             $extension = $request->file('image')->getClientOriginalExtension();

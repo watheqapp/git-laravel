@@ -6,7 +6,7 @@
             <li class="nav-item start active open"><a href="javascript:;" class="nav-link nav-toggle"> <em class="icon-home"></em> <span class="title">لوحة التحكم</span><span class="selected"></span></a>
                 <ul class="sub-menu">
                     <li class="nav-item start "> </li>
-                    <li class="nav-item start active open"> <a href="" class="nav-link "> <em class="icon-bulb"></em> <span class="title">التقارير</span><span class="selected"></span><span class="badge badge-success">1</span> </a></li>
+                    <li class="nav-item start active open"> <a href="{{url('/backend')}}" class="nav-link "> <em class="icon-bulb"></em> <span class="title">التقارير</span><span class="selected"></span> </a></li>
                     <li class="nav-item start "> </li>
                 </ul>
             </li>

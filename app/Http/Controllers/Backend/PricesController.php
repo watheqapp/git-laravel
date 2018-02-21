@@ -43,8 +43,10 @@ class PricesController extends BackendController {
     public function preparedEditForm($id = false) {
         $documents = \App\Category::where('leave', true)->get();
         $setting = \App\Setting::where('setting', 'DELIVER_REQUEST_TO_HOME')->first();
+        $orderFeesRate = \App\Setting::where('setting', 'ORDER_FEES_RATE')->first();
+        $orderAllowedTimes = \App\Setting::where('setting', 'ORDER_ALLOWED_TIME')->first();
         $validator = JsValidator::make($this->editValidationRules, [], [], '.form-horizontal');
-        return compact('documents', 'setting', 'validator');
+        return compact('documents', 'setting', 'orderFeesRate', 'orderAllowedTimes', 'validator');
     }
 
     /**
@@ -57,7 +59,9 @@ class PricesController extends BackendController {
     public function update(Request $request) {
         $this->validate($request, [
             'priceItem.*' => 'required|numeric',
-            'deliveryFees' => 'required|numeric'
+            'deliveryFees' => 'required|numeric',
+            'orderFeesRate' => 'required|numeric',
+            'orderAllowedTimes' => 'required|numeric'
         ]);
         
         $requestData = $request->get('priceItem');
@@ -67,6 +71,8 @@ class PricesController extends BackendController {
         }
         
         \App\Setting::where('setting', 'DELIVER_REQUEST_TO_HOME')->update(['value' => $request->deliveryFees]);
+        \App\Setting::where('setting', 'ORDER_FEES_RATE')->update(['value' => $request->orderFeesRate]);
+        \App\Setting::where('setting', 'ORDER_ALLOWED_TIME')->update(['value' => $request->orderAllowedTimes]);
 
         Session::flash('success', 'Updated successfuly');
         return redirect()->route('backend.price.edit');

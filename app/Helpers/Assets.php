@@ -9,6 +9,10 @@ use App\Helpers\Notification;
 use App\User;
 use App\Order;
 use App\LogOrderProcess as OrderLogger;
+use App\Client;
+use App\Lawyer;
+use App\Category;
+use App\Setting;
 
 /**
  * @author Ahmad Gamal <ahmed.gamal@ibtikar.net.sa>
@@ -30,6 +34,51 @@ class Assets {
     public static function countOrdersByStatus($status) {
         return Order::where('status', $status)->count();
     }
+
+    public static function countTotalOrders() {
+        return Order::count();
+    }
+
+    public static function countTotalClients() {
+        return User::where('type', User::$CLIENT_TYPE)->count();
+    }
+
+    public static function countTotalLawyers() {
+        return User::where('type', User::$LAWYER_TYPE)->count();
+    }
+
+    public static function latestThreeClients() {
+        return User::where('type', User::$CLIENT_TYPE)->take(3)->latest()->get();
+    }
+
+    public static function countTotalOrdersCost() {
+        $totalCost = Order::select(DB::raw('SUM(cost) as totalCost'))
+                    ->first();
+        return $totalCost ? $totalCost->totalCost : 0;
+    }
+
+    public static function countTotalAuthorizationCost() {
+        $totalCost = Order::select(DB::raw('SUM(cost) as totalCost'))
+                    ->whereIn('category_id', Category::$authorizationCategories)
+                    ->first();
+        return $totalCost ? $totalCost->totalCost : 0;
+    }
+
+    public static function countTotalContractCost() {
+        $totalCost = Order::select(DB::raw('SUM(cost) as totalCost'))
+                    ->whereIn('category_id', Category::$contracts)
+                    ->first();
+        return $totalCost ? $totalCost->totalCost : 0;
+    }
+
+    public static function countTotalMarriageContractsCost() {
+        $totalCost = Order::select(DB::raw('SUM(cost) as totalCost'))
+                    ->whereIn('category_id', Category::$marriageContracts)
+                    ->first();
+        return $totalCost ? $totalCost->totalCost : 0;
+    }
+
+
 
     /**
      * Log order process from create to accept
@@ -279,6 +328,19 @@ class Assets {
                             'status' => Order::$NEW_STATUS
                         ])
                         ->count() == 0;
+    }
+
+
+    public static function checkLawyerHasCredit($lawyer) {
+        $fees = Setting::where('setting', 'ORDER_FEES_RATE')->first()->value;
+        $permitTimes = Setting::where('setting', 'ORDER_ALLOWED_TIME')->first()->value;
+
+        return $lawyer->credit > -($fees*$permitTimes);
+
+    }
+
+    public static function orderFeesRate() {
+        return Setting::where('setting', 'ORDER_FEES_RATE')->first()->value;
     }
 
 }

@@ -21,6 +21,14 @@ class SettingTableSeeder extends Seeder
                 'value' => 150
             ],
             [
+                'setting' => 'ORDER_FEES_RATE',
+                'value' => 50
+            ],
+            [
+                'setting' => 'ORDER_ALLOWED_TIME',
+                'value' => 4
+            ],
+            [
                 'setting' => 'SOCIAL_FACEBOOK',
                 'value' => 'https://fb.com/watheq'
             ],

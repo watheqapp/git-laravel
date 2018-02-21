@@ -16,11 +16,8 @@ return [
     */
     
     // User API'S
-    'Deactivated Account' => 'This account is disabled',
-    'Access token and access token secret are required' => 'Access token and access token secret are required.',
-    
-   'success' => 'تمت العملية بنجاح',
-    
+    'Deactivated Account' => 'حساب غير مفعل',    
+
     // Logging order process
     'order_created_log' => 'تم إضافة طلب جديد  بواسطة المستخدم :user',
     'order_accepted_log' => 'تم قبول الطلب  بواسطة الموثق :lawyer الذى يقع فى الاحداثيات :direction',
@@ -47,6 +44,8 @@ return [
     'Message' => 'الرسالة',
     'Check Log' => 'فحص الطلب',
     'CreateAt' => 'وقت التنفيذ',
+    'You don\'t has enough credit' => 'لا يوجد لديك رصيد كافى',
+
 
     // Notifications
     // For Lawyer - In case if new request
@@ -65,7 +64,20 @@ return [
     'Laywer Close order title' => 'تم انهاء طلبك',
     'Laywer Close order content' => ', شكرا لاستخدامك وثق ,اضغط هنا لتقييم خدمة موثقك',
 
-    
+    // Error and Success Messages
+    'success' => 'تمت العملية بنجاح',
+    'Must be a client' => 'ينبغي أن تكون مستخدماً',
+    'Wrong order id' => 'رقم طلب خاطئ',
+    'Order accepted before' => 'تم الموافقة على هذا الطلب سابقاً',
+    'Order still in lawyer accept period' => 'لم يوافق الموثق على هذا الطلب بعد',
+    'Lawyer not found' => 'لم يتم العثور على الموثق',
+    'Order must be closed to rate it' => 'يجب أن يكون الطلب منتهياً',
+    'Rate done before' => 'تم التقييم سابقاً',
+    'Must be a lawyer' => 'يجب أن تكون موثقاً',
+    'Order accepted by another lawyer' => 'موثق آخر قبل هذا الطلب',
+    'Order available accept period finished' => 'تم انهاء هذا الطلب',
+    'Order must not in pending status' => 'الطلب ليس في حالة الانتظار',
+    'Wrong category id' => 'تصنيف غير صحيح',
     
     
     ];

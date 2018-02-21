@@ -37,6 +37,15 @@
         <!-- END THEME LAYOUT STYLES -->
         
         @yield('css')
+        <style type="text/css">
+            .dashboard-stat .details {
+                right: 15px;
+                padding-right: 15px;
+            }
+            .dashboard-stat .details .number, .dashboard-stat .details .desc {
+                text-align: right;
+            }
+        </style>
 
         <link rel="shortcut icon" href="favicon.ico">
     </head>
@@ -45,14 +54,14 @@
         <div class="page-header navbar navbar-fixed-top">
             <div class="page-header-inner ">
                 <div class="page-logo">
-                    <a href="index.html">
+                    <a href="{{url('backend')}}">
                         <!--                        {{config('app.name')}}-->
-                        <img src="{{asset('backend-assets//layouts/layout4/img/logo-light.png')}}" alt="logo" class="logo-default">
+                        <img class="img-responsive" width="106" height="20" src="{{asset('backend-assets//layouts/layout4/img/playstore-icon.png')}}" alt="logo" class="logo-default">
                     </a>
                     <div class="menu-toggler sidebar-toggler">&nbsp;&nbsp;&nbsp;&nbsp; <br>
                     </div>
                 </div>
-                <div class="page-actions">
+                <!-- <div class="page-actions">
                     <div class="btn-group">
                         <button type="button" class="btn red-haze btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                             <span class="hidden-sm hidden-xs">عمليات&nbsp;</span>
@@ -67,7 +76,7 @@
                             <li> <a href="javascript:;"> <i class="icon-users"></i> Feedbacks <span class="badge badge-danger">2</span> </a> </li>
                         </ul>
                     </div>
-                </div>
+                </div> -->
                 &nbsp;
                 <div class="page-top">
                     <form class="search-form" action="page_general_search_2.html" method="GET">
@@ -82,7 +91,7 @@
                                     <span class="username username-hide-on-mobile"> علي </span>
                                     <img class="img-circle" src="{{asset('backend-assets/layouts/layout4/img/avatar9.jpg')}}">
                                 </a>
-                                <ul class="dropdown-menu dropdown-menu-default">
+                                <!-- <ul class="dropdown-menu dropdown-menu-default">
                                     <li> <a href="page_user_profile_1.html"> <i class="icon-user"></i>
                                             My Profile </a> </li>
                                     <li> <a href="app_calendar.html"> <i class="icon-calendar"></i>
@@ -98,7 +107,7 @@
                                             Lock Screen </a> </li>
                                     <li> <a href="page_user_login_1.html"> <i class="icon-key"></i>
                                             Log Out </a> </li>
-                                </ul>
+                                </ul> -->
                             </li>
                             &nbsp;&nbsp;
                             <li class="dropdown dropdown-extended quick-sidebar-toggler" onclick="window.location.href ='{{route("logout")}}'"> 

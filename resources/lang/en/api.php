@@ -38,5 +38,22 @@ return [
     // For Client - In case of lawyer accept his request
     'Laywer Close order title' => 'Your mission was done',
     'Laywer Close order content' => 'Tap to rate your agent, thanks for using Watheq',
+    'You don\'t has enough credit' => 'You don\'t has enough credit',
+
+
+    // Error and Success Messages
+    'success' => 'Done successfuly',
+    'Must be a client' => 'Must be a client',
+    'Wrong order id' => 'Wrong order ID',
+    'Order accepted before' => 'Order accepted already',
+    'Order still in lawyer accept period' => 'still in lawyer acceptance period',
+    'Lawyer not found' => 'Lawyer not found',
+    'Order must be closed to rate it' => 'Order must be closed to rate',
+    'Rate done before' => 'Rate done before',
+    'Must be a lawyer' => 'You must be a lawyer',
+    'Order accepted by another lawyer' => 'Accepted by another lawyer',
+    'Order available accept period finished' => 'Available order acceptance finished',
+    'Order must not in pending status' => 'Must not be in pending status',
+    'Wrong category id' => 'Wrong category ID',
     
 ];

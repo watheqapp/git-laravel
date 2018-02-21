@@ -89,6 +89,57 @@
                 </tr>
             </table>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                            <div class="portlet light bordered">
+                                <div class="portlet-title tabbable-line">
+                                    <div class="caption">
+                                        <i class="icon-bubbles font-dark hide"></i>
+                                        <span class="caption-subject font-dark bold uppercase">المحادثات</span>
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="portlet_comments_1" style="max-height: 300px;overflow-y: scroll;">
+                                            @if(!$chat)
+                                                <?php $chat = [] ?>
+                                                <p>لا توجد محادثات</p>
+                                            @endif
+                                            @foreach($chat as $record)
+                                            <div class="mt-comments">
+                                                <div class="mt-comment">
+                                                    <div class="mt-comment-img">
+                                                        @if($order->lawyer && $order->lawyer->image && $order->lawyer->id == $record->from)
+                                                            <img class="img-responsive" src="{{asset('uploads/'.$order->lawyer->image)}}" />
+                                                        @elseif($order->client && $order->client->image && $order->client->id == $record->from)
+                                                            <img class="img-responsive" src="{{asset('uploads/'.$order->client->image)}}" />
+                                                        @else
+                                                            <img class="img-responsive" src="{{asset('backend-assets/pages/media/profile/profile.jpg')}}"> 
+                                                        @endif
+                                                    </div>
+                                                    <?php $chatUser = $order->client->id == $record->from ? $order->client : $order->lawyer ?>
+                                                    <div class="mt-comment-body">
+                                                        <div class="mt-comment-info">
+                                                            <span class="mt-comment-author">{{$chatUser->name}}</span>
+                                                            <span class="mt-comment-date">
+                                                            {{date('Y-m-d h:i A', $record->timestamp)}}
+                                                            </span>
+                                                        </div>
+                                                        <div class="mt-comment-text">
+                                                         {{$record->body}}
+                                                        </div>
+                                                       
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @endforeach
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        </div>
 
 
     </div>

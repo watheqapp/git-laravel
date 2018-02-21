@@ -30,7 +30,8 @@ class User extends Authenticatable {
         'admin',
         'active',
         'image',
-        'totalOrders'
+        'totalOrders',
+        'credit'
     ];
 
     /**

@@ -45,6 +45,21 @@
                         {!! $errors->first('deliveryFees', '<span class="help-block">:message</span>') !!}
                     </div>
                 </div>
+                <hr />
+                <div class="form-group {{ $errors->has('orderFeesRate') ? 'has-error' : ''}}">
+                    {!! Form::label('orderFeesRate', __('backend.orderFeesRate'), ['class' => 'col-sm-2 control-label']) !!}
+                    <div class="col-sm-10">
+                        {!! Form::text('orderFeesRate', old('orderFeesRate') ? old('orderFeesRate')  : $orderFeesRate->value, ['class' => 'form-control', 'placeholder' => __('backend.orderFeesRate')]) !!}
+                        {!! $errors->first('orderFeesRate', '<span class="help-block">:message</span>') !!}
+                    </div>
+                </div>
+                <div class="form-group {{ $errors->has('orderAllowedTimes') ? 'has-error' : ''}}">
+                    {!! Form::label('orderAllowedTimes', __('backend.orderAllowedTimes'), ['class' => 'col-sm-2 control-label']) !!}
+                    <div class="col-sm-10">
+                        {!! Form::text('orderAllowedTimes', old('orderAllowedTimes') ? old('orderAllowedTimes')  : $orderAllowedTimes->value, ['class' => 'form-control', 'placeholder' => __('backend.orderAllowedTimes')]) !!}
+                        {!! $errors->first('orderAllowedTimes', '<span class="help-block">:message</span>') !!}
+                    </div>
+                </div>
                 @include('backend.common.fields.submit')
             {!! Form::close() !!}
         </div>

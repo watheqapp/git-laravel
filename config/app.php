@@ -185,6 +185,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
         JeroenNoten\LaravelCkEditor\ServiceProvider::class,
+        SafeStudio\Firebase\FirebaseServiceProvider::class,
+
 
 
     ],
@@ -248,6 +250,8 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Assets' => App\Helpers\Assets::class,
+        'Firebase' => SafeStudio\Firebase\Facades\FirebaseFacades::class,
+
     ],
 
 ];

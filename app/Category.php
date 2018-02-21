@@ -9,6 +9,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Category extends Model {
 
+    public static $authorizationCategories = [3, 4, 5, 7, 8, 9]; 
+    public static $contracts = [11, 12];
+    public static $marriageContracts = [13];
+
     /**
      * Get the parent category record associated with Category.
      */

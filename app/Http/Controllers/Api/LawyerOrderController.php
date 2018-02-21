@@ -13,6 +13,7 @@ use App\Order;
 use App\Setting;
 use App\Helpers\OrderOperations;
 use App\LogOrderProcess as OrderLogger;
+use App\Helpers\Assets;
 
 /**
  * Handle api lawyers orders auth
@@ -68,6 +69,10 @@ class LawyerOrderController extends OrderController {
         if (!$order) {
             return $this->getErrorJsonResponse([], __('api.Wrong order id'));
         }
+
+        if (!Assets::checkLawyerHasCredit($user)) {
+            return $this->getErrorJsonResponse([], __('api.You don\'t has enough credit'));
+        }
         
         if ($order->status != Order::$NEW_STATUS) {
             return $this->getErrorJsonResponse([], __('api.Order accepted by another lawyer'));
@@ -85,6 +90,7 @@ class LawyerOrderController extends OrderController {
         $order->save();
 
         $user->totalOrders = $user->totalOrders + 1;
+        $user->credit = $user->credit-Assets::orderFeesRate();
         $user->save();
                 
         $orderOperations = new OrderOperations();

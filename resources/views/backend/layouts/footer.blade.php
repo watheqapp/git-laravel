@@ -3,7 +3,28 @@
     <div class="page-footer-inner">جميع الحقوق محفوظة : وثق 2017 - 2018<br>
     </div>
     <div class="scroll-to-top"> <i class="icon-arrow-up"></i> </div>
+    <div class="modal fade" id="confirmationModal" tabindex="-1" role="basic"  aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn green btn-outline dev-confirm">{{__('backend.Yes')}}</button>
+                <button type="button" class="btn red btn-outline" data-dismiss="modal">{{__('backend.Cancel')}}</button>
+            </div>
+        </div>
+    </div>
 </div>
+</div>
+
+<script type="text/javascript">
+	var notificationTrans="{{__('backend.notification')}}";
+</script>
 <!-- END FOOTER -->
 <!--[if lt IE 9]>
 <script src="{{asset('backend-assets/global/plugins/respond.min.js')}}"></script>
@@ -60,12 +81,14 @@ type="text/javascript"></script>
 type="text/javascript"></script>
 <script src="{{asset('backend-assets/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js')}}"
 type="text/javascript"></script>
+
+@yield('jsBefrorDashboard')
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN THEME GLOBAL SCRIPTS -->
 <script src="{{asset('backend-assets/global/scripts/app.min.js')}}" type="text/javascript"></script>
 <!-- END THEME GLOBAL SCRIPTS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
-<script src="{{asset('backend-assets/pages/scripts/dashboard.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('backend-assets/pages/scripts/dashboard.js')}}" type="text/javascript"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 <!-- BEGIN THEME LAYOUT SCRIPTS -->
 <script src="{{asset('backend-assets/layouts/layout4/scripts/layout.min.js')}}" type="text/javascript"></script>

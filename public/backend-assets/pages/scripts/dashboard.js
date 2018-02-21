@@ -223,17 +223,17 @@ var Dashboard = function() {
                 return (Math.floor(Math.random() * (1 + 50 - 20))) + 10;
             }
 
-            var visitors = [
-                ['02/2013', 1500],
-                ['03/2013', 2500],
-                ['04/2013', 1700],
-                ['05/2013', 800],
-                ['06/2013', 1500],
-                ['07/2013', 2350],
-                ['08/2013', 1500],
-                ['09/2013', 1300],
-                ['10/2013', 4600]
-            ];
+            // var orders = [
+            //     ['02/2013', 1500],
+            //     ['03/2013', 2500],
+            //     ['04/2013', 1700],
+            //     ['05/2013', 800],
+            //     ['06/2013', 1500],
+            //     ['07/2013', 2350],
+            //     ['08/2013', 1500],
+            //     ['09/2013', 1300],
+            //     ['10/2013', 4600]
+            // ];
 
 
             if ($('#site_statistics').size() != 0) {
@@ -242,14 +242,14 @@ var Dashboard = function() {
                 $('#site_statistics_content').show();
 
                 var plot_statistics = $.plot($("#site_statistics"), [{
-                        data: visitors,
+                        data: orders,
                         lines: {
                             fill: 0.6,
                             lineWidth: 0
                         },
                         color: ['#f89f9f']
                     }, {
-                        data: visitors,
+                        data: orders,
                         points: {
                             show: true,
                             fill: true,
@@ -306,7 +306,7 @@ var Dashboard = function() {
                             var x = item.datapoint[0].toFixed(2),
                                 y = item.datapoint[1].toFixed(2);
 
-                            showChartTooltip(item.pageX, item.pageY, item.datapoint[0], item.datapoint[1] + ' visits');
+                            showChartTooltip(item.pageX, item.pageY, item.datapoint[0], item.datapoint[1] + ' طلب');
                         }
                     } else {
                         $("#tooltip").remove();
@@ -322,31 +322,31 @@ var Dashboard = function() {
                 $('#site_activities_loading').hide();
                 $('#site_activities_content').show();
 
-                var data1 = [
-                    ['DEC', 300],
-                    ['JAN', 600],
-                    ['FEB', 1100],
-                    ['MAR', 1200],
-                    ['APR', 860],
-                    ['MAY', 1200],
-                    ['JUN', 1450],
-                    ['JUL', 1800],
-                    ['AUG', 1200],
-                    ['SEP', 600]
-                ];
+                // var data1 = [
+                //     ['DEC', 300],
+                //     ['JAN', 600],
+                //     ['FEB', 1100],
+                //     ['MAR', 1200],
+                //     ['APR', 860],
+                //     ['MAY', 1200],
+                //     ['JUN', 1450],
+                //     ['JUL', 1800],
+                //     ['AUG', 1200],
+                //     ['SEP', 600]
+                // ];
 
 
                 var plot_statistics = $.plot($("#site_activities"),
 
                     [{
-                        data: data1,
+                        data: costs,
                         lines: {
                             fill: 0.2,
                             lineWidth: 0,
                         },
                         color: ['#BAD9F5']
                     }, {
-                        data: data1,
+                        data: costs,
                         points: {
                             show: true,
                             fill: true,
@@ -357,7 +357,7 @@ var Dashboard = function() {
                         color: '#9ACAE6',
                         shadowSize: 1
                     }, {
-                        data: data1,
+                        data: costs,
                         lines: {
                             show: true,
                             fill: false,
@@ -410,7 +410,7 @@ var Dashboard = function() {
                             $("#tooltip").remove();
                             var x = item.datapoint[0].toFixed(2),
                                 y = item.datapoint[1].toFixed(2);
-                            showChartTooltip(item.pageX, item.pageY, item.datapoint[0], item.datapoint[1] + 'M$');
+                            showChartTooltip(item.pageX, item.pageY, item.datapoint[0], item.datapoint[1] + ' ريال');
                         }
                     }
                 });
@@ -1396,3 +1396,42 @@ if (App.isAngularJsApp() === false) {
         Dashboard.init(); // init metronic core componets
     });
 }
+
+
+function showConfirmationBox(confimationMessage, onConfirmFunction, confirmationBoxTitle, onCancelFunction) {
+        var $confirmationModal = $('#confirmationModal');
+        if (confirmationBoxTitle) {
+            $confirmationModal.find('.modal-title').html(confirmationBoxTitle);
+        } else {
+            $confirmationModal.find('.modal-title').html();
+        }
+        
+        $confirmationModal.find('.modal-body').text(confimationMessage);
+        $confirmationModal.modal({keyboard: true});
+        $confirmationModal.on('shown.bs.modal', function () {
+            if (window.location == window.parent.location) {
+                $confirmationModal.find('button.dev-confirm').focus();
+            }
+        });
+        
+        $confirmationModal.modal('show');
+        $confirmationModal.on('hidden.bs.modal', function (e) {
+            if (onCancelFunction)
+                    onCancelFunction();
+        });
+        callbackFunction = onConfirmFunction;
+    }
+
+    function showNotification(type, txt) {
+        toastr.options.rtl = true;
+        toastr.options.positionClass = 'toast-top-left';
+        toastr.options.progressBar = true;
+
+        if (type == 'error') {
+            toastr.error(txt, notificationTrans)
+        }
+
+        if (type == 'success') {
+            toastr.success(txt, notificationTrans)
+        }
+    }

@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Base\BaseController;
 use App\Http\Requests;
 use Illuminate\Http\Request;
-
+use App\Helpers\Assets;
+use App\User;
+use DB;
+use Firebase;
 /**
  * Handle backend operations
  * @author Ahmad Gamal <eng.asgamal@gmail.com>
@@ -22,7 +25,41 @@ class BackendController extends BaseController {
             'pageLable' => $this->className,
             'links' => []
         ];
-        return view('backend.backend', compact('breadcrumb'));
+
+
+        $ordersByDays = DB::table('orders')
+                          ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as totalOrders'), DB::raw('SUM(cost) as totalCost'))
+                          ->groupBy('date')
+                          ->take(10)
+                          ->latest()
+                          ->get()
+                          ->toArray();
+
+        $ordersByDaysStatistics = [];
+        foreach ($ordersByDays as $day) {
+            $ordersByDaysStatistics[] = [date('d-m', strtotime($day->date)), $day->totalOrders];
+            $costsByDaysStatistics[] = [date('d-m', strtotime($day->date)), $day->totalCost];
+        }
+
+        $ordersByDaysStatistics = json_encode($ordersByDaysStatistics);
+        $costsByDaysStatistics = json_encode($costsByDaysStatistics);
+
+
+        $lawyers = User::where('type', User::$LAWYER_TYPE)
+                        ->where('active', false)
+                        ->get();
+
+        
+        // $chat = false;
+        // if($order->status != Order::$NEW_STATUS) {
+        //     $chat = Firebase::get('/messages/'.$order->client->id.'/'.$order->client->id.$order->lawyer->id.$order->id,['print' => 'pretty', 'orderBy' => '"$key"', 'limitToLast' => 1]);
+        //     $chat = (($chat));
+        //     echo "<pre>";
+        //     var_dump(($chat));
+        //     exit;
+        // }
+
+        return view('backend.backend', compact('breadcrumb', 'lawyers', 'ordersByDaysStatistics', 'costsByDaysStatistics'));
     }
 
     public function jsonErrorResponses($msg = '') {

@@ -9,6 +9,7 @@ use Datatables;
 use Session;
 use JsValidator;
 use App\Order;
+use Firebase;
 
 /**
  * @author Ahmad Gamal <eng.asgamal@gmail.com>
@@ -217,7 +218,16 @@ class OrderController extends BackendController {
                 ['name' => 'Show ' . $this->className]
             ]
         ];
-        return view('backend.order.show', compact('order', 'breadcrumb'));
+
+        $chat = false;
+        if($order->status != Order::$NEW_STATUS) {
+            $chat = Firebase::get('/messages/'.$order->client->id.'/'.$order->client->id.$order->lawyer->id.$order->id,['print' => 'pretty']);
+            $chat = (json_decode($chat));
+            // echo "<pre>";
+            // var_dump(($chat));
+            // exit;
+        }
+        return view('backend.order.show', compact('order', 'breadcrumb', 'chat'));
     }
 
 }

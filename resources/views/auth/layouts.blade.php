@@ -32,7 +32,7 @@
     <body class=" login">
         <!-- BEGIN LOGO -->
         <div class="logo">
-            <h2>{{config('app.name')}}</h2>
+            <img  height="150" src="{{asset('backend-assets//layouts/layout4/img/playstore-icon.png')}}" alt="logo" class="logo-default">
         </div>
         <div class="content">
             @yield('content')

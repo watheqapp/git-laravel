@@ -76,6 +76,8 @@ return [
     'lawyerType' => 'النوع',
     'authorized' => 'موثق',
     'clerk' => 'ناكح',
+    'credit' => 'الرصيد',
+    'Add credit' => 'إضافة رصيد',
     
     // General
     'Add' => 'إضافة',
@@ -114,6 +116,8 @@ return [
     
     // Prices
     'deliveryFees' => 'تكلفة التوصيل للمنزل',
+    'orderFeesRate' => 'نسبة خصم العملية الواحدة',
+    'orderAllowedTimes' => 'عدد مرات السماح بإجراء طلب جديد',
     
     // Socials
     'SOCIAL_FACEBOOK' => 'فيس بوك',
