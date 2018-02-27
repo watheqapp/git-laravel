@@ -128,6 +128,7 @@ return [
     'terms' => 'الشروط والاحكام ',
     'help' => ' سياسة الخصوصية',
     'privacy' => ' سياسة الخصوصية',
+    'questions' => 'الاسئلة المكررة',
     
     
     // Datatables
@@ -160,6 +161,7 @@ return [
     'List new order' => 'قائمة الطلبات الجديدة',
     'List pending order' => 'قائمة الطلبات الجارية',
     'List closed order' => 'قائمة الطلبات المغلقة',
+    'List support order' => 'قائمة طلبات الدعم',
     'The Order' => 'الطلب',
     'Show order' => 'معلومات الطلب',
     'status' => 'حالة الطلب',

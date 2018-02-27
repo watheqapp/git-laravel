@@ -22,7 +22,7 @@
         <div class="container">
             <div class="header clearfix">
                 <div style="text-align: center">
-                    <img src="{{asset('img/logo.jpg')}}" />
+                    <img class="img-responsive" src="{{asset('backend-assets//layouts/layout4/img/playstore-icon.png')}}" />
                     <h4 style="text-align: center">‎تطبيق وثق -سياسية الخصوصية </h4>
                 </div>
             </div>

@@ -53,5 +53,15 @@ class HomeController extends Controller {
         return view('help', compact('page'));
     }
 
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function questions() {
+        $page = \App\StaticPage::where('page', 'questions')->first();
+        return view('questions', compact('page'));
+    }
+
 
 }

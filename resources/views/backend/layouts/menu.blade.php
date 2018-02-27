@@ -76,6 +76,13 @@
                     <span class="badge badge-success">{{Assets::closedOrderCount()}}</span>
                 </a>
             </li>
+            <li class="nav-item {{ strpos(Route::currentRouteName(), 'support') !== false ? 'active' : '' }} ">
+                <a href="{{route('backend.order.support')}}" class="nav-link"> 
+                    <em class="icon-camcorder"></em> 
+                    <span class="title">{{__('backend.List support order')}}</span>
+                    <span class="badge badge-success">{{Assets::supportOrderCount()}}</span>
+                </a>
+            </li>
             @endif
             
             

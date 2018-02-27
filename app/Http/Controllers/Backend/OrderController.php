@@ -189,6 +189,66 @@ class OrderController extends BackendController {
         ];
     }
 
+
+
+    public function supportOrders(Request $request) {
+        $breadcrumb = [
+            'pageLable' => 'List support order',
+            'links' => [
+                ['name' => 'List support order']
+            ]
+        ];
+        $this->listData = [
+            'listName' => 'order_support_list',
+            'listNameSingle' => 'order',
+            'listAjaxRoute' => 'backend.order.supportAjax',
+        ];
+        $this->listData['breadcrumb'] = $breadcrumb;
+        $this->listData['columns'] = $this->supportOrderColumns();
+        $this->listData['totalCount'] = Order::where('support', true)->count();
+
+        return view('backend.layouts.list', $this->listData);
+    }
+
+    public function supportOrdersData(Request $request) {
+        $items = Order::select($this->closedOrderColumns())
+                ->where('support', true)
+                ->latest();
+        return Datatables::of($items)
+                        ->addColumn('actions', function ($item) {
+                            return
+                                    '<a class="btn btn-sm yellow btn-outline" href="' . route('backend.order.show', ['id' => $item->id]) . '"><i class="fa fa-eye"></i> ' . __('backend.View') . '</a> ' .
+                                    '<a class="btn btn-sm red btn-outline dev-list-ajax-action" title="' . __('backend.Delete') . '" data-name="(' . __('backend.The Order') . ')" href="javascript:void(0)" data-href="' . route('backend.order.delete', ['id' => $item->id]) . '"><i class="fa fa-trash"></i> ' . __('backend.Delete') . '</a>';
+                        })
+                        ->editColumn('client_id', function ($item) {
+                            return $item->client ? $item->client->name : '--';
+                        })
+                        ->editColumn('lawyer_id', function ($item) {
+                            return $item->lawyer ? $item->lawyer->name : '--';
+                        })
+                        ->editColumn('category_id', function ($item) {
+                            return $item->category ? $item->category->nameAr : '--';
+                        })
+                        ->editColumn('cost', function ($item) {
+                            return $item->cost . ' ' . __('backend.SAR');
+                        })
+                        ->escapeColumns(['actions'])
+                        ->removeColumn('id')
+                        ->make();
+    }
+
+    private function supportOrderColumns() {
+        return [
+            'id',
+            'client_id',
+            'lawyer_id',
+            'category_id',
+            'cost',
+            'accepted_at',
+            'closed_at',
+        ];
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -220,7 +280,7 @@ class OrderController extends BackendController {
         ];
 
         $chat = false;
-        if($order->status != Order::$NEW_STATUS) {
+        if($order->status != Order::$NEW_STATUS && $order->lawyer) {
             $chat = Firebase::get('/messages/'.$order->client->id.'/'.$order->client->id.$order->lawyer->id.$order->id,['print' => 'pretty']);
             $chat = (json_decode($chat));
             // echo "<pre>";

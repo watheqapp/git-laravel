@@ -18,7 +18,8 @@ class StaticPagesTableSeeder extends Seeder
         
         $termsContent = 'شروط الاستخدام';
         $helpContent = 'طريقة الاستخدام ';
-        
+        $questionsContent = 'الاسئلة المكررة ';
+
         DB::table('static_pages')->insert([
             'page' => 'terms',
             'content' => $termsContent,
@@ -27,6 +28,11 @@ class StaticPagesTableSeeder extends Seeder
         DB::table('static_pages')->insert([
             'page' => 'help',
             'content' => $helpContent,
+            'created_at' => date('Y-m-m H:i:s')
+        ]);
+        DB::table('static_pages')->insert([
+            'page' => 'questions',
+            'content' => $questionsContent,
             'created_at' => date('Y-m-m H:i:s')
         ]);
     }
