@@ -75,7 +75,7 @@ return [
     'Delete lawyer' => 'حذف موثق',
     'lawyerType' => 'النوع',
     'authorized' => 'موثق',
-    'clerk' => 'ناكح',
+    'clerk' => 'مأذون',
     'credit' => 'الرصيد',
     'Add credit' => 'إضافة رصيد',
     
