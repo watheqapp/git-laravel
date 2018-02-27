@@ -186,6 +186,8 @@ return [
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
         JeroenNoten\LaravelCkEditor\ServiceProvider::class,
         SafeStudio\Firebase\FirebaseServiceProvider::class,
+        Toin0u\Geotools\GeotoolsServiceProvider::class,
+
 
 
 
@@ -251,6 +253,8 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Assets' => App\Helpers\Assets::class,
         'Firebase' => SafeStudio\Firebase\Facades\FirebaseFacades::class,
+        'Geotools' => Toin0u\Geotools\Facade\Geotools::class,
+
 
     ],
 

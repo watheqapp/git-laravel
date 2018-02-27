@@ -14,6 +14,7 @@ use App\Setting;
 use App\Helpers\OrderOperations;
 use App\LogOrderProcess as OrderLogger;
 use DB;
+use Geotools;
 
 /**
  * Handle api Clients auth
@@ -280,6 +281,15 @@ class OrderController extends ApiBaseController {
         $lawyers = $query->get();
         
         return $this->getSuccessJsonResponse($lawyers);
+    }
+
+    private function calculateOrderDistance($coordA, $coordB) {
+        $coordA   = Geotools::coordinate($coordA);
+        $coordB   = Geotools::coordinate($coordB);
+        $distance = Geotools::distance()->setFrom($coordA)->setTo($coordB);
+
+        // $distance->flat(); // 659166.50038742 (meters)
+        return round($distance->in('km')->haversine()); // 659.02190812846
     }
 
 }

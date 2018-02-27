@@ -163,6 +163,8 @@ class ClientOrderController extends OrderController {
         $order->lawyer_id = $lawyer->id;
         $order->status = Order::$PENDING_STATUS;
         $order->accepted_at = date('Y-m-d H:i:s');
+        $order->distance = $this->calculateOrderDistance([$order->latitude, $order->longitude], [$lawyer->latitude, $lawyer->longitude]);
+
         $order->save();
 
         $lawyer->totalOrders = $lawyer->totalOrders + 1;

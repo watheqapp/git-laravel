@@ -87,6 +87,7 @@ class LawyerOrderController extends OrderController {
         $order->lawyer_id = $user->id;
         $order->status = Order::$PENDING_STATUS;
         $order->accepted_at = date('Y-m-d H:i:s');
+        $order->distance = $this->calculateOrderDistance([$order->latitude, $order->longitude], [$user->latitude, $user->longitude]);
         $order->save();
 
         $user->totalOrders = $user->totalOrders + 1;
@@ -101,7 +102,6 @@ class LawyerOrderController extends OrderController {
         $order = Order::find($order->id);
         return $this->getSuccessJsonResponse($this->prepareOrderDetails($order));
     }
-    
     
     
     /**

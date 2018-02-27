@@ -16,6 +16,7 @@
         "laravelcollective/html": "^5.3",
         "proengsoft/laravel-jsvalidation": "^2.1",
         "safestudio/firebase-laravel": "^1.0",
+        "toin0u/geotools-laravel": "^1.0",
         "yajra/laravel-datatables-oracle": "^7.9",
         "zizaco/entrust": "^1.9"
     },
