@@ -283,7 +283,7 @@ class OrderController extends ApiBaseController {
         return $this->getSuccessJsonResponse($lawyers);
     }
 
-    private function calculateOrderDistance($coordA, $coordB) {
+    protected function calculateOrderDistance($coordA, $coordB) {
         $coordA   = Geotools::coordinate($coordA);
         $coordB   = Geotools::coordinate($coordB);
         $distance = Geotools::distance()->setFrom($coordA)->setTo($coordB);
