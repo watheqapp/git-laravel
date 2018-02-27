@@ -433,6 +433,53 @@
                 }
             }
         },
+        "/api/auth/client/order/moveToSupport": {
+            "get": {
+                "tags": [
+                    "Client"
+                ],
+                "summary": "Move order to support",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "X-Api-Language",
+                        "in": "header",
+                        "description": "['ar','en'] default is 'ar'",
+                        "type": "string"
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Logged in User access token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "orderId",
+                        "in": "query",
+                        "description": "Client order id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Invalid input"
+                    },
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/OrderResponses"
+                        }
+                    }
+                }
+            }
+        },
         "/api/auth/client/order/selectLaywer": {
             "get": {
                 "tags": [
