@@ -57,6 +57,7 @@ class LawyerController extends BackendController {
             'lawyerType',
             'credit',
             'created_at',
+            'lastLoginDate',
             'active',
         ];
     }
@@ -76,6 +77,9 @@ class LawyerController extends BackendController {
                         ->escapeColumns(['actions'])
                         ->editColumn('active', function ($item) {
                             return $item->getActivateTxt();
+                        })
+                        ->editColumn('lastLoginDate', function ($item) {
+                            return $item->lastLoginDate ? $item->lastLoginDate : __('backend.Not login yet');
                         })
                         ->editColumn('lawyerType', function ($item) {
                             return '<span class="label label-sm label-'.($item->lawyerType == "clerk" ? 'warning' : 'success').'">'.$item->getLawyerTypeTxt()."</span>";

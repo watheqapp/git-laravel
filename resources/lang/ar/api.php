@@ -16,7 +16,8 @@ return [
     */
     
     // User API'S
-    'Deactivated Account' => 'حساب غير مفعل',    
+    'Deactivated Account' => 'حساب غير مفعل',
+    'User is deactivated from admin' => 'هذا الحساب موقوف من قبل الإدارة',
 
     // Logging order process
     'order_created_log' => 'تم إضافة طلب جديد  بواسطة المستخدم :user',

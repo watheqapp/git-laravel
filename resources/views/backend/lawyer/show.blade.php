@@ -50,6 +50,10 @@
                     <td>{{$user->created_at}}</td>
                 </tr>
                 <tr>
+                    <th class="col-md-2">{{__('backend.lastLoginDate')}}</th>
+                    <td>{{$user->lastLoginDate}}</td>
+                </tr>
+                <tr>
                     <th class="col-md-2">{{__('backend.files')}}</th>
                     <td>
                         @if($user->IDCardFile)

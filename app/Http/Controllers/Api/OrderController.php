@@ -268,6 +268,7 @@ class OrderController extends ApiBaseController {
         $query = \App\Lawyer::select(DB::raw('users.*,' . $distanceSelect))
                 ->where('type', User::$LAWYER_TYPE)
                 ->where('active', true)
+                ->where('isOnline', true)
                 ->where('lawyerType', $order->getCategoryType($order->category))
                 ->orderBy('distance', 'DESC');   
         

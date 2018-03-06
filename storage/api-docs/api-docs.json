@@ -873,6 +873,55 @@
                 }
             }
         },
+        "/api/auth/lawyer/updateVisibility": {
+            "post": {
+                "tags": [
+                    "Lawyer"
+                ],
+                "summary": "Update lawyer visibility 1 fot online or 0 for offline",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "X-Api-Language",
+                        "in": "header",
+                        "description": "['ar','en'] default is 'ar'",
+                        "type": "string"
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Logged in User access token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Request body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/LawyerUpdateVisibilityRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Invalid input"
+                    },
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/LawyerLoginResponses"
+                        }
+                    }
+                }
+            }
+        },
         "/api/auth/lawyer/updateProfile": {
             "post": {
                 "tags": [
@@ -1683,6 +1732,21 @@
             "type": "object",
             "xml": {
                 "name": "LawyerUpdateProfileRequest"
+            }
+        },
+        "LawyerUpdateVisibilityRequest": {
+            "properties": {
+                "isOnline": {
+                    "type": "boolean",
+                    "enum": [
+                        0,
+                        1
+                    ]
+                }
+            },
+            "type": "object",
+            "xml": {
+                "name": "LawyerUpdateVisibilityRequest"
             }
         },
         "ListNotificationResponses": {

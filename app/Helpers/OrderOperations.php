@@ -150,6 +150,7 @@ class OrderOperations {
                 ->having('distance', '<', $distanceBetween[1])
                 ->where('type', User::$LAWYER_TYPE)
                 ->where('active', true)
+                ->where('isOnline', true)
                 ->where('lawyerType', $order->getCategoryType($order->category))
                 ->orderBy('distance', 'ASC')
                 ->get();

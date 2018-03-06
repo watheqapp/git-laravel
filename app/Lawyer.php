@@ -39,7 +39,10 @@ class Lawyer extends Model  {
         'latitude',
         'longitude',
         'credit',
-        'totalOrders'
+        'totalOrders',
+        'isOnline',
+        'migrated',
+        'lastLoginDate'
     ];
     protected $appends = [
         'isCompleteProfile',
@@ -87,7 +90,7 @@ class Lawyer extends Model  {
      * @return boolean
      */
     public function getIsCompleteFilesAttribute() {
-        return $this->IDCardFile ? 1 : 0;
+        return $this->IDCardFile ? 1 : ($this->migrated);
     }
 
     /**

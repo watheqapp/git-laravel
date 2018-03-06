@@ -78,6 +78,8 @@ return [
     'clerk' => 'مأذون',
     'credit' => 'الرصيد',
     'Add credit' => 'إضافة رصيد',
+    'Not login yet' => 'لم يدخل بعد',
+    'lastLoginDate' => 'اخر دخول',
     
     // General
     'Add' => 'إضافة',

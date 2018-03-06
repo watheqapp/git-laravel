@@ -58,14 +58,29 @@ class LawyerController extends ApiBaseController {
             return $this->getErrorJsonResponse($validator->errors()->all());
         }
 
-        $lawyer = Lawyer::firstOrCreate([
+        $lawyer = Lawyer::where([
+            'phone' => $request->phone,
+            'type' => Lawyer::$LAWYER_TYPE,
+            ]
+        )->first();
+
+        $lawyer->lastLoginDate = date('Y-d-m H:i');
+        $lawyer->save();
+
+        if($lawyer) {
+            return $this->getSuccessJsonResponse($lawyer);
+        }
+
+        $lawyer = Lawyer::Create([
                     'phone' => $request->phone,
                     'type' => Lawyer::$LAWYER_TYPE,
-                        ], ['active' => 0]);
+                    'active' => 0,
+                    'lastLoginDate' => date('Y-d-m H:i')
+                ]);
 
         $lawyer = Lawyer::find($lawyer->id);
-
         return $this->getSuccessJsonResponse($lawyer);
+
     }
 
     /**
@@ -171,6 +186,59 @@ class LawyerController extends ApiBaseController {
 
     /**
      * @SWG\Post(
+     *     path="/api/auth/lawyer/updateVisibility",
+     *     summary="Update lawyer visibility 1 fot online or 0 for offline",
+     *     tags={"Lawyer"},
+     *     consumes={"application/json"},
+     *     produces={"application/json"},
+     *     @SWG\Parameter(
+     *          in="header", name="X-Api-Language", description="['ar','en'] default is 'ar'", type="string",
+     *      ),
+     *     @SWG\Parameter(
+     *          in="header", name="Authorization", description="Logged in User access token", required=true, type="string",
+     *      ),
+     *     @SWG\Parameter(
+     *          in="body",
+     *          name="body",
+     *          description="Request body",
+     *          required=true,
+     *          @SWG\Schema(ref="#/definitions/LawyerUpdateVisibilityRequest"),
+     *      ),
+     *   @SWG\Response(response="405",description="Invalid input"),
+     *      @SWG\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @SWG\Schema(ref="#/definitions/LawyerLoginResponses")
+     *     ),
+     *     @SWG\SecurityScheme(
+     *         securityDefinition="X-Api-Token",
+     *         type="apiKey",
+     *         in="header",
+     *         name="X-Api-Token"
+     *    ),
+     * )
+     */
+    public function updateVisibility(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'isOnline' => 'required|in:1,0'
+        ]);
+
+        if ($validator->fails()) {
+            return $this->getErrorJsonResponse($validator->errors()->all());
+        }
+
+        $lawyer = Auth()->user();
+
+        $lawyer->isOnline = $request->isOnline;
+        $lawyer->save();
+
+        $lawyer = Lawyer::find($lawyer->id);
+
+        return $this->getSuccessJsonResponse($lawyer);
+    }
+
+    /**
+     * @SWG\Post(
      *     path="/api/auth/lawyer/updateProfile",
      *     summary="Update lawyer profile",
      *     tags={"Lawyer"},
@@ -265,7 +333,7 @@ class LawyerController extends ApiBaseController {
             }
         }
         
-        $lawyer->active = true;
+//        $lawyer->active = true;
         $lawyer->save();
 
         return Lawyer::find($lawyer->id);

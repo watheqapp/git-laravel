@@ -17,6 +17,7 @@ return [
     
     // User API'S
     'Deactivated Account' => 'This account is disabled',
+    'User is deactivated from admin' => 'This account is disabled',
     'Access token and access token secret are required' => 'Access token and access token secret are required.',
     
    'success' => 'Done successfuly',

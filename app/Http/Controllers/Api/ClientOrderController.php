@@ -152,6 +152,7 @@ class ClientOrderController extends OrderController {
 
         $lawyer = \App\Lawyer::where('id', $request->lawyerId)
                 ->where('active', true)
+                ->where('isOnline', true)
                 ->where('type', User::$LAWYER_TYPE)
                 ->where('lawyerType', $order->getCategoryType($order->category))
                 ->first();

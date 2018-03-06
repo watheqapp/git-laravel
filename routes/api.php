@@ -39,6 +39,7 @@ Route::group(['middleware' => ['CheckApiAuth']], function() {
         // Laywer
         Route::post('lawyer/completeProfile', 'Api\LawyerController@completeProfile');
         Route::post('lawyer/completeFiles', 'Api\LawyerController@completeFiles');
+        Route::post('lawyer/updateVisibility', 'Api\LawyerController@updateVisibility');
         Route::post('lawyer/updateProfile', 'Api\LawyerController@updateProfile');
         Route::post('lawyer/registerDeviceToken', 'Api\LawyerController@registerDevice');
         Route::post('lawyer/logout', 'Api\LawyerController@logout');
