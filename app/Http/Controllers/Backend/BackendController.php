@@ -47,6 +47,7 @@ class BackendController extends BaseController {
 
         $lawyers = User::where('type', User::$LAWYER_TYPE)
                         ->where('active', false)
+                        ->take(25)
                         ->get();
 
         
