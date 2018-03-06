@@ -48,35 +48,37 @@ class LawyerController extends ApiBaseController {
      *    ),
      * )
      */
-    public function login(Request $request) {
+    public function login(Request $request)
+    {
         $validator = Validator::make($request->all(), [
 //                    'phone' => 'required|saudi_phone',
-                    'phone' => 'required|numeric',
-            ]);
+            'phone' => 'required|numeric',
+        ]);
 
         if ($validator->fails()) {
             return $this->getErrorJsonResponse($validator->errors()->all());
         }
 
         $lawyer = Lawyer::where([
-            'phone' => $request->phone,
-            'type' => Lawyer::$LAWYER_TYPE,
+                'phone' => $request->phone,
+                'type' => Lawyer::$LAWYER_TYPE,
             ]
         )->first();
 
-        $lawyer->lastLoginDate = date('Y-d-m H:i');
-        $lawyer->save();
-
-        if($lawyer) {
-            return $this->getSuccessJsonResponse($lawyer);
+        if ($lawyer) {
+            if($lawyer->migrated) {
+                $lawyer->active = true;
+            }
+            $lawyer->lastLoginDate = date('Y-m-d H:i');
+            $lawyer->save();
+        } else {
+            $lawyer = Lawyer::Create([
+                'phone' => $request->phone,
+                'type' => Lawyer::$LAWYER_TYPE,
+                'active' => 0,
+                'lastLoginDate' => date('Y-m-d H:i')
+            ]);
         }
-
-        $lawyer = Lawyer::Create([
-                    'phone' => $request->phone,
-                    'type' => Lawyer::$LAWYER_TYPE,
-                    'active' => 0,
-                    'lastLoginDate' => date('Y-d-m H:i')
-                ]);
 
         $lawyer = Lawyer::find($lawyer->id);
         return $this->getSuccessJsonResponse($lawyer);

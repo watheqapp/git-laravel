@@ -26776,6 +26776,7 @@ class LawyersTableSeeder extends Seeder {
 
             $lawyer['phone'] = preg_replace('/\s+/', '', $lawyer['phone']);
             $lawyer['migrated'] = true;
+            $lawyer['active'] = false;
             \App\User::create($lawyer);
         }
 
