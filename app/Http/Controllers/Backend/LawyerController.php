@@ -89,7 +89,7 @@ class LawyerController extends BackendController {
                         })
                         ->removeColumn('id')
                         ->setRowClass(function ($item) {
-                            return $item->lastLoginDate == '' ? 'lawyer-notlogin' : '';
+                            return $item->lastLoginDate == '' ? 'lawyer-notlogin' : 'lawyer-login';
                         })
                         ->make();
     }
