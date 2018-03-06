@@ -46,7 +46,7 @@ class LawyerController extends BackendController {
         $this->listData['columns'] = $this->dataColumns();
         $this->listData['totalCount'] = User::where(['type' => User::$LAWYER_TYPE])->count();
 
-        return view('backend.lawyer.list', $this->listData);
+        return view('backend.layouts.list', $this->listData);
     }
 
     private function dataColumns() {
@@ -76,29 +76,29 @@ class LawyerController extends BackendController {
                                 '<a class="btn btn-sm red btn-outline dev-list-ajax-action" title="' . __('backend.Delete') . '" data-name="(' . $item->name . ')" href="javascript:void(0)" data-href="' . route('backend.lawyer.delete', ['id' => $item->id]) . '"><i class="fa fa-trash"></i> ' . __('backend.Delete') . '</a>';
                         })
                         ->escapeColumns(['actions'])
-                        ->editColumn('name', function ($item) {
-                            $color='';
-                            if($item->lawyerType == Lawyer::$LAWYER_CLERK_SUBTYPE) {
-                                $color = '#F1C40F';
-                            } elseif ($item->lawyerType == Lawyer::$LAWYER_AUTHORIZED_SUBTYPE){
-                                $color = '#36c6d3';
-                            }
-                            return '<p class="td-bg" data-color="'.$color.'">'.$item->name.'</p>';
-                        })
+//                        ->editColumn('name', function ($item) {
+//                            $color='';
+//                            if($item->lawyerType == Lawyer::$LAWYER_CLERK_SUBTYPE) {
+//                                $color = '#F1C40F';
+//                            } elseif ($item->lawyerType == Lawyer::$LAWYER_AUTHORIZED_SUBTYPE){
+//                                $color = '#36c6d3';
+//                            }
+//                            return '<p class="td-bg" data-color="'.$color.'">'.$item->name.'</p>';
+//                        })
                         ->editColumn('active', function ($item) {
                             return $item->getActivateTxt();
                         })
                         ->editColumn('lastLoginDate', function ($item) {
-                            $date = $item->lastLoginDate ? $item->lastLoginDate : '';
-                            $color='';
-                            if($item->lastLoginDate) {
-                                $date = $item->lastLoginDate;
-                                $color = '#ccc';
-                            } else {
-                                $date = __('backend.Not login yet');
-                                $color = 'red';
-                            }
-                            return '<p class="td-bg" data-color="'.$color.'">'.$date.'</p>';
+                            return $item->lastLoginDate ? $item->lastLoginDate : '';
+//                            $color='';
+//                            if($item->lastLoginDate) {
+//                                $date = $item->lastLoginDate;
+//                                $color = '#ccc';
+//                            } else {
+//                                $date = __('backend.Not login yet');
+//                                $color = 'red';
+//                            }
+//                            return '<p class="td-bg" data-color="'.$color.'">'.$date.'</p>';
                         })
                         ->editColumn('lawyerType', function ($item) {
                             return '<span class="label label-sm label-'.($item->lawyerType == "clerk" ? 'warning' : 'success').'">'.$item->getLawyerTypeTxt()."</span>";
