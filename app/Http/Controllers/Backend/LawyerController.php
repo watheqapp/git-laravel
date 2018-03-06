@@ -93,10 +93,10 @@ class LawyerController extends BackendController {
                             $color='';
                             if($item->lastLoginDate) {
                                 $date = $item->lastLoginDate;
-                                $color = 'red';
+                                $color = '#ccc';
                             } else {
                                 $date = __('backend.Not login yet');
-                                $color = '#ccc';
+                                $color = 'red';
                             }
                             return '<p class="td-bg" data-color="'.$color.'">'.$date.'</p>';
                         })
