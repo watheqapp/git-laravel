@@ -57,6 +57,16 @@ class PermissionTableSeeder extends Seeder {
                 'description' => 'Manage pages settings',
                 'module' => 'pages'
             ],
+            [
+                'name' => 'role-clientContact',
+                'description' => 'List clientContact',
+                'module' => 'clientContact'
+            ],
+            [
+                'name' => 'role-lawyerContact',
+                'description' => 'List lawyerContact',
+                'module' => 'lawyerContact'
+            ],
            
 
         ];

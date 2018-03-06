@@ -179,7 +179,21 @@ return [
     'office' => 'المكتب',
     'clientRate' => 'تقييم المستخدم',
 
-    
+    // Contact us
+    'Contact us messages' => 'رسائل اتصل بنا',
+    'List clientContact' => 'قائمة رسائل الاعضاء',
+    'Manage clientContact' => 'قائمة رسائل الاعضاء',
+    'List client contact us messages' => 'قائمة رسائل الاعضاء',
+    'List lawyerContact' => 'قائمة رسائل الموثقين',
+    'Manage lawyerContact' => 'قائمة رسائل الموثقين',
+    'List lawyer contact us messages' => 'قائمة رسائل الموثقين',
+    'title' => 'العنوان',
+    'content' => 'المحتوى',
+    'user_id' => 'العضو',
+    'role-clientContact' => 'قائمة رسائل الاعضاء',
+    'role-lawyerContact' => 'قائمة رسائل الموثقين',
+
+
     // Messages
     'Added successfuly' => 'تمت عملية الادخال بنجاح',
     'Updated successfuly' => 'تمت عملية التعديل بنجاح',

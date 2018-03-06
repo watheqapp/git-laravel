@@ -27,7 +27,7 @@ class ContactUs extends Model {
      * Get users record associated to message.
      */
     public function user() {
-        return $this->hasMany('App\User', 'user_id')->get();
+        return $this->belongsTo('App\User', 'user_id')->withTrashed();
     }
 
 }

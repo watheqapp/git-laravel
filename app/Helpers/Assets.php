@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use App\ContactUs;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Auth;
@@ -53,6 +54,14 @@ class Assets {
 
     public static function latestThreeClients() {
         return User::where('type', User::$CLIENT_TYPE)->take(3)->latest()->get();
+    }
+
+    public static function clientContactCount() {
+        return ContactUs::where(['user_type' => User::$CLIENT_TYPE])->count();
+    }
+
+    public static function lawyerContactCount() {
+        return ContactUs::where(['user_type' => User::$LAWYER_TYPE])->count();
     }
 
     public static function countTotalOrdersCost() {
@@ -207,7 +216,7 @@ class Assets {
                 ->having('distance', '<', $distanceBetween[1])
                 ->where('type', User::$LAWYER_TYPE)
                 ->where('active', true)
-                ->where('isOnline', true)
+                ->where('isOnline', false)
                 ->where('lawyerType', $order->getCategoryType($order->category))
                 ->orderBy('distance', 'ASC')
                 ->get();

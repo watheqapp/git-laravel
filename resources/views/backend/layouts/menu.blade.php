@@ -84,7 +84,30 @@
                 </a>
             </li>
             @endif
-            
+
+
+            <li class="heading">
+                <h3 class="uppercase"> {{__('backend.Contact us messages')}}</h3>
+            </li>
+            @if(Auth::user()->hasPermission('role-clientContact'))
+                <li class="nav-item {{ strpos(Route::currentRouteName(), 'clientContact') !== false ? 'active' : '' }} ">
+                    <a href="{{route('backend.clientContact.index')}}" class="nav-link">
+                        <em class="icon-camcorder"></em>
+                        <span class="title">{{__('backend.List clientContact')}}</span>
+                        <span class="badge badge-success">{{Assets::clientContactCount()}}</span>
+                    </a>
+                </li>
+            @endif
+
+            @if(Auth::user()->hasPermission('role-lawyerContact'))
+                <li class="nav-item {{ strpos(Route::currentRouteName(), 'lawyerContact') !== false ? 'active' : '' }} ">
+                    <a href="{{route('backend.lawyerContact.index')}}" class="nav-link">
+                        <em class="icon-camcorder"></em>
+                        <span class="title">{{__('backend.List lawyerContact')}}</span>
+                        <span class="badge badge-success">{{Assets::lawyerContactCount()}}</span>
+                    </a>
+                </li>
+            @endif
             
             <li class="heading">
                 <h3 class="uppercase"> {{__('backend.Setting Managment')}}</h3>

@@ -118,6 +118,15 @@ Route::group(['prefix' => 'backend', 'middleware' => ['auth', 'backendUser']], f
     Route::get('/order/list-support-data', 'Backend\OrderController@supportOrdersData')->name('backend.order.supportAjax')->middleware(['permission:role-order']);
     Route::get('/order/show/{id}', 'Backend\OrderController@show')->name('backend.order.show')->middleware(['permission:role-order']);
     Route::get('/order/delete/{id}', 'Backend\OrderController@destroy')->name('backend.order.delete')->middleware(['permission:role-order']);
+
+    // Client Contact messages
+    Route::get('/clientContact/list', 'Backend\ClientContactController@index')->name('backend.clientContact.index')->middleware(['permission:role-clientContact']);
+    Route::get('/clientContact/list-data', 'Backend\ClientContactController@listData')->name('backend.clientContact.listAjax')->middleware(['permission:role-clientContact']);
+
+    // Lawyer Contact messages
+    Route::get('/lawyerContact/list', 'Backend\LawyerContactController@index')->name('backend.lawyerContact.index')->middleware(['permission:role-lawyerContact']);
+    Route::get('/lawyerContact/list-data', 'Backend\LawyerContactController@listData')->name('backend.lawyerContact.listAjax')->middleware(['permission:role-lawyerContact']);
+
 });
 
 //Auth::routes();
