@@ -3,6 +3,9 @@
 namespace App\Helpers;
 
 use App\ContactUs;
+use App\LogNotification;
+use App\LogOrderProcess;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Auth;
@@ -357,4 +360,15 @@ class Assets {
         return Setting::where('setting', 'ORDER_FEES_RATE')->first()->value;
     }
 
+    // Backend Notitifications
+    public static function latestAdminNotifications() {
+        Carbon::setLocale('ar');
+        return LogOrderProcess::where('type', LogOrderProcess::$CREATE_TYPE)->take(10)->latest()->get();
+    }
+    public static function countNewlAdminNotifications() {
+        return LogOrderProcess::where('type', LogOrderProcess::$CREATE_TYPE)
+            ->where('isRead', false)
+            ->get()
+            ->count();
+    }
 }

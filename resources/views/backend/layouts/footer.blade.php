@@ -108,6 +108,13 @@ $(document).ready(function () {
     $('#clickmewow').click(function () {
         $('#radio1003').attr('checked', 'checked');
     });
+
+    $('.dev-notification-btn').click(function(){
+        $(this).find('.badge.badge-success').text('0');
+        $.ajax({
+           url: '{{route("backend.notification.read")}}',
+        });
+    });
 })
 </script>
 </body>

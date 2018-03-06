@@ -10,7 +10,8 @@ class LogOrderProcess extends Model {
     protected $fillable = [
         'order_id',
         'type',
-        'message'
+        'message',
+        'isRead',
     ];
     public static $CREATE_TYPE = 'createdOrder';
     public static $ACCEPT_TYPE = 'acceptOrder';

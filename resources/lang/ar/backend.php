@@ -29,6 +29,10 @@ return [
 //    'Email' => '',
 //    'Email' => '',
     'activeted' => 'مفعل',
+    'Order number' => 'طلب رقم',
+    'order_id' => 'رقم الطلب',
+    'List notification messages' => 'قائمة الاشعارات',
+    'message' => 'الاشعار',
     
     // Roles
     'role' => 'دور',

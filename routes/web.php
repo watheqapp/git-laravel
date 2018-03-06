@@ -127,6 +127,17 @@ Route::group(['prefix' => 'backend', 'middleware' => ['auth', 'backendUser']], f
     Route::get('/lawyerContact/list', 'Backend\LawyerContactController@index')->name('backend.lawyerContact.index')->middleware(['permission:role-lawyerContact']);
     Route::get('/lawyerContact/list-data', 'Backend\LawyerContactController@listData')->name('backend.lawyerContact.listAjax')->middleware(['permission:role-lawyerContact']);
 
+
+    // Lawyer Contact messages
+    Route::get('/notification/list', 'Backend\LawyerContactController@index')->name('backend.lawyerContact.index')->middleware(['permission:role-lawyerContact']);
+    Route::get('/lawyerContact/list-data', 'Backend\LawyerContactController@listData')->name('backend.lawyerContact.listAjax')->middleware(['permission:role-lawyerContact']);
+
+    // Admin notifications messages
+    Route::get('/notification/list', 'Backend\NotificationController@index')->name('backend.notification.index');
+    Route::get('/notification/list-data', 'Backend\NotificationController@listData')->name('backend.notification.listAjax');
+    Route::get('/notification/read', 'Backend\NotificationController@read')->name('backend.notification.read');
+
+
 });
 
 //Auth::routes();
