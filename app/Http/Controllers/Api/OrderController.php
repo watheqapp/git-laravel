@@ -157,7 +157,7 @@ class OrderController extends ApiBaseController {
             'id' => $order->id,
             'status' => $order->status,
             'cost' => $order->cost,
-            'delivery' => $order->delivery,
+            'delivery' => __('api.'.$order->delivery),
             'clientName' => $order->clientName,
             'representativeName' => $order->representativeName,
             'clientNationalID' => $order->clientNationalID,

@@ -142,17 +142,17 @@ class CategoriesTableSeeder extends Seeder {
                 'cost' => 600,
                 'created_at' => date('Y-m-m H:i:s')
             ],
-            [
-                'id' => '12',
-                'nameAr' => 'لا داعي لها',
-                'nameEn' => 'Validate of company contract',
-                'descriptionAr' => '',
-                'descriptionEn' => '',
-                'leave' => true,
-                'parent' => 10,
-                'cost' => 200,
-                'created_at' => date('Y-m-m H:i:s')
-            ],
+//            [
+//                'id' => '12',
+//                'nameAr' => 'لا داعي لها',
+//                'nameEn' => 'Validate of company contract',
+//                'descriptionAr' => '',
+//                'descriptionEn' => '',
+//                'leave' => true,
+//                'parent' => 10,
+//                'cost' => 200,
+//                'created_at' => date('Y-m-m H:i:s')
+//            ],
             // --------------------- عقد زواج---------------------------
             [
                 'id' => '13',

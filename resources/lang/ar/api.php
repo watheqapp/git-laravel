@@ -79,6 +79,8 @@ return [
     'Order available accept period finished' => 'تم انهاء هذا الطلب',
     'Order must not in pending status' => 'الطلب ليس في حالة الانتظار',
     'Wrong category id' => 'تصنيف غير صحيح',
-    
+
+    'home' => 'المنزل',
+    'office' => 'المكتب',
     
     ];

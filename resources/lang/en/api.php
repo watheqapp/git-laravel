@@ -56,5 +56,8 @@ return [
     'Order available accept period finished' => 'Available order acceptance finished',
     'Order must not in pending status' => 'Must not be in pending status',
     'Wrong category id' => 'Wrong category ID',
+
+    'home' => 'Home',
+    'office' => 'Office',
     
 ];
