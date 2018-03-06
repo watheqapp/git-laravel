@@ -27,7 +27,8 @@ return [
     'Back' => 'رجوع',
 //    'Email' => '',
 //    'Email' => '',
-//    'Email' => '',    
+//    'Email' => '',
+    'activeted' => 'مفعل',
     
     // Roles
     'role' => 'دور',

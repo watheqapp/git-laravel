@@ -46,7 +46,7 @@ class LawyerController extends BackendController {
         $this->listData['columns'] = $this->dataColumns();
         $this->listData['totalCount'] = User::where(['type' => User::$LAWYER_TYPE])->count();
 
-        return view('backend.layouts.list', $this->listData);
+        return view('backend.lawyer.list', $this->listData);
     }
 
     private function dataColumns() {
