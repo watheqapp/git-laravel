@@ -88,6 +88,9 @@ class LawyerController extends BackendController {
                             return '<img class="img-responsive" src="' . ($item->image ? asset('uploads/' . $item->image) : '/backend-assets/apps/img/profile.jpg') . '" />';
                         })
                         ->removeColumn('id')
+                        ->setRowClass(function ($item) {
+                            return $item->lastLoginDate == '' ? 'lawyer-notlogin' : '';
+                        })
                         ->make();
     }
 

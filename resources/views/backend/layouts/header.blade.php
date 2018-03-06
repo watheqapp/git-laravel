@@ -45,6 +45,9 @@
             .dashboard-stat .details .number, .dashboard-stat .details .desc {
                 text-align: right;
             }
+            .lawyer-notlogin {
+                background: #ccc !important;
+            }
         </style>
 
         <link rel="shortcut icon" href="favicon.ico">
