@@ -121,6 +121,11 @@
                 "sSortAscending": ": {{__('backend.activate to sort column ascending')}}",
                         "sSortDescending": ": {{__('backend.activate to sort column descending')}}"
                 }
+            },
+            "drawCallback": function( settings ) {
+                $('p.td-bg').each(function(e, v){
+                    $(this).parent().css('background-color', $(this).attr('data-color'));
+                });
             }
         });
     

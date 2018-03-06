@@ -108,6 +108,9 @@ return [
     'phone' => 'الجوال',
     'files' => 'الملفات',
     'Location' => 'الموقع',
+    'view all' => 'عرض الجميع',
+    'pending' => 'غير مقروء',
+    'notifications' => 'اشعار',
     
     // Menu
     'Users Managment' => 'إدارة المستخدمين',

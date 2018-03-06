@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Backend\BackendController;
 use App\Http\Requests;
+use App\Lawyer;
 use Illuminate\Http\Request;
 use Datatables;
 use Session;
@@ -75,11 +76,29 @@ class LawyerController extends BackendController {
                                 '<a class="btn btn-sm red btn-outline dev-list-ajax-action" title="' . __('backend.Delete') . '" data-name="(' . $item->name . ')" href="javascript:void(0)" data-href="' . route('backend.lawyer.delete', ['id' => $item->id]) . '"><i class="fa fa-trash"></i> ' . __('backend.Delete') . '</a>';
                         })
                         ->escapeColumns(['actions'])
+                        ->editColumn('name', function ($item) {
+                            $color='';
+                            if($item->lawyerType == Lawyer::$LAWYER_CLERK_SUBTYPE) {
+                                $color = '#F1C40F';
+                            } elseif ($item->lawyerType == Lawyer::$LAWYER_AUTHORIZED_SUBTYPE){
+                                $color = '#36c6d3';
+                            }
+                            return '<p class="td-bg" data-color="'.$color.'">'.$item->name.'</p>';
+                        })
                         ->editColumn('active', function ($item) {
                             return $item->getActivateTxt();
                         })
                         ->editColumn('lastLoginDate', function ($item) {
-                            return $item->lastLoginDate ? $item->lastLoginDate : __('backend.Not login yet');
+                            $date = $item->lastLoginDate ? $item->lastLoginDate : '';
+                            $color='';
+                            if($item->lastLoginDate) {
+                                $date = $item->lastLoginDate;
+                                $color = 'red';
+                            } else {
+                                $date = __('backend.Not login yet');
+                                $color = '#ccc';
+                            }
+                            return '<p class="td-bg" data-color="'.$color.'">'.$date.'</p>';
                         })
                         ->editColumn('lawyerType', function ($item) {
                             return '<span class="label label-sm label-'.($item->lawyerType == "clerk" ? 'warning' : 'success').'">'.$item->getLawyerTypeTxt()."</span>";
@@ -88,9 +107,9 @@ class LawyerController extends BackendController {
                             return '<img class="img-responsive" src="' . ($item->image ? asset('uploads/' . $item->image) : '/backend-assets/apps/img/profile.jpg') . '" />';
                         })
                         ->removeColumn('id')
-                        ->setRowClass(function ($item) {
-                            return $item->lastLoginDate == '' ? 'lawyer-notlogin' : 'lawyer-login';
-                        })
+//                        ->setRowClass(function ($item) {
+//                            return $item->lastLoginDate == '' ? 'lawyer-notlogin' : 'lawyer-login';
+//                        })
                         ->make();
     }
 
