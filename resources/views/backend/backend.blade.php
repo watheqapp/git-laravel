@@ -153,7 +153,7 @@ var costs = JSON.parse("{{$costsByDaysStatistics}}".replace(/&quot;/g, '"'));
         <div class="portlet light bordered">
             <div class="portlet-title tabbable-line">
                 <div class="caption"><em class=" icon-social-twitter font-dark hide"></em> <span class="caption-subject font-dark bold uppercase">موثقين بانتظار الموافقة</span></div>
-                
+
             </div>
             <div class="portlet-body">
                 <div class="tab-content">
@@ -167,7 +167,7 @@ var costs = JSON.parse("{{$costsByDaysStatistics}}".replace(/&quot;/g, '"'));
                             @endif
                             @foreach($lawyers as $lawyer)
                             <div class="mt-action">
-                                <div class="mt-action-img"> 
+                                <div class="mt-action-img">
                                     <img class="img-responsive" src="{{asset($lawyer->image ? 'uploads/'.$lawyer->image : 'backend-assets/pages/media/profile/profile.jpg')}}">
                                 </div>
                                 <div class="mt-action-body">
@@ -181,7 +181,7 @@ var costs = JSON.parse("{{$costsByDaysStatistics}}".replace(/&quot;/g, '"'));
                                             </div>
                                         </div>
                                         <div class="mt-action-datetime "> <span class="mt-action-dot bg-green"></span>
-                                            <span class="mt=action-time">{{date('Y-m-d', strtotime($lawyer->created_at))}}</span> 
+                                            <span class="mt=action-time">{{date('Y-m-d', strtotime($lawyer->created_at))}}</span>
                                         </div>
                                         <div class="mt-action-buttons ">
                                             <div class="btn-group "> <button
@@ -205,7 +205,7 @@ var costs = JSON.parse("{{$costsByDaysStatistics}}".replace(/&quot;/g, '"'));
 <div class="portlet light bordered">
     <div class="portlet-title">
         <div class="caption"><em class="icon-bubble font-dark hide"></em> <span class="caption-subject font-hide bold uppercase">مستخدمون جدد</span></div>
-        
+
     </div>
     <div class="portlet-body">
         <div class="row">

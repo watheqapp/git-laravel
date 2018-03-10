@@ -74,7 +74,8 @@ Route::group(['prefix' => 'backend', 'middleware' => ['auth', 'backendUser']], f
     Route::post('/client/update/{id}', 'Backend\ClientController@update')->name('backend.client.update')->middleware(['permission:role-client']);
     Route::get('/client/delete/{id}', 'Backend\ClientController@destroy')->name('backend.client.delete')->middleware(['permission:role-client']);
     Route::get('/client/toggleActive/{id}/{active}', 'Backend\ClientController@toggleActive')->name('backend.client.toggleActive')->middleware(['permission:role-client']);
-    
+    Route::get('client/map', 'Backend\ClientController@clientsMap')->name('backend.client.map');
+
     // Client
     Route::get('/lawyer/list', 'Backend\LawyerController@index')->name('backend.lawyer.index')->middleware(['permission:role-lawyer']);
     Route::get('/lawyer/list-data', 'Backend\LawyerController@listData')->name('backend.lawyer.listAjax')->middleware(['permission:role-lawyer']);
@@ -83,7 +84,8 @@ Route::group(['prefix' => 'backend', 'middleware' => ['auth', 'backendUser']], f
     Route::post('/lawyer/update/{id}', 'Backend\LawyerController@update')->name('backend.lawyer.update')->middleware(['permission:role-lawyer']);
     Route::get('/lawyer/delete/{id}', 'Backend\LawyerController@destroy')->name('backend.lawyer.delete')->middleware(['permission:role-lawyer']);
     Route::get('/lawyer/toggleActive/{id}/{active}', 'Backend\LawyerController@toggleActive')->name('backend.lawyer.toggleActive')->middleware(['permission:role-lawyer']);
-    
+    Route::get('lawyer/map', 'Backend\LawyerController@clientsMap')->name('backend.lawyer.map');
+
     //roles
     Route::get('/role/list', 'Backend\RoleController@index')->name('backend.role.index')->middleware(['permission:role-role']);
     Route::get('/role/list-data', 'Backend\RoleController@listData')->name('backend.role.listAjax');
@@ -118,6 +120,7 @@ Route::group(['prefix' => 'backend', 'middleware' => ['auth', 'backendUser']], f
     Route::get('/order/list-support-data', 'Backend\OrderController@supportOrdersData')->name('backend.order.supportAjax')->middleware(['permission:role-order']);
     Route::get('/order/show/{id}', 'Backend\OrderController@show')->name('backend.order.show')->middleware(['permission:role-order']);
     Route::get('/order/delete/{id}', 'Backend\OrderController@destroy')->name('backend.order.delete')->middleware(['permission:role-order']);
+    Route::get('order/map', 'Backend\OrderController@ordersMap')->name('backend.order.map');
 
     // Client Contact messages
     Route::get('/clientContact/list', 'Backend\ClientContactController@index')->name('backend.clientContact.index')->middleware(['permission:role-clientContact']);

@@ -210,4 +210,33 @@ class LawyerController extends BackendController {
 
         return $this->jsonSuccessResponses();
     }
+
+    public function clientsMap(Request $request) {
+        $breadcrumb = [
+            'pageLable' => 'Lawyer concentration map',
+            'links' => [
+                ['name' => 'Lawyer concentration map']
+            ]
+        ];
+
+        $items = User::where('type', User::$LAWYER_TYPE)
+                ->latest()
+                ->get();
+
+        $lawyers = [];
+        foreach ($items as $lawyer) {
+            if(!$lawyer->latitude)
+                continue;
+            $lawyers[] = [
+                $lawyer->latitude,
+                $lawyer->longitude
+            ];
+        }
+
+        // echo "<pre>";
+        // print_r($lawyers);
+        // exit;
+
+        return view('backend.lawyer.map', compact('lawyers', 'breadcrumb'));
+    }
 }

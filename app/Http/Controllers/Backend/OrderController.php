@@ -290,4 +290,26 @@ class OrderController extends BackendController {
         return view('backend.order.show', compact('order', 'breadcrumb', 'chat'));
     }
 
+    public function ordersMap(Request $request) {
+        $breadcrumb = [
+            'pageLable' => 'Order concentration map',
+            'links' => [
+                ['name' => 'Order concentration map']
+            ]
+        ];
+
+        $items = Order::select('*')
+                ->latest()
+                ->get();
+
+        $orders = [];
+        foreach ($items as $key => $item) {
+            $orders[] = [
+                $item->latitude,
+                $item->longitude
+            ];
+        }
+        return view('backend.order.map', compact('orders', 'breadcrumb'));
+    }
+
 }

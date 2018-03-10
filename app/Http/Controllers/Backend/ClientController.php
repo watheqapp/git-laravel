@@ -162,4 +162,34 @@ class ClientController extends BackendController {
 
         return $this->jsonSuccessResponses();
     }
+
+    public function clientsMap(Request $request) {
+        $breadcrumb = [
+            'pageLable' => 'Client concentration map',
+            'links' => [
+                ['name' => 'Client concentration map']
+            ]
+        ];
+
+        $items = User::where('type', User::$CLIENT_TYPE)
+                ->latest()
+                ->get();
+
+        $clients = [];
+        foreach ($items as $client) {
+            if(!$client->latitude)
+                continue;
+            
+            $clients[] = [
+                $client->latitude,
+                $client->longitude
+            ];
+        }
+
+        // echo "<pre>";
+        // print_r($clients);
+        // exit;
+
+        return view('backend.client.map', compact('clients', 'breadcrumb'));
+    }
 }

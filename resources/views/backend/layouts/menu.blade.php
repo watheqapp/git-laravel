@@ -3,10 +3,15 @@
         <br>
         <ul class="page-sidebar-menu   " data-keep-expanded="false" data-auto-scroll="true"
             data-slide-speed="200">
-            <li class="nav-item start active open"><a href="javascript:;" class="nav-link nav-toggle"> <em class="icon-home"></em> <span class="title">لوحة التحكم</span><span class="selected"></span></a>
+            <li class="nav-item start active open"><a href="javascript:;" class="nav-link nav-toggle"> <em class="icon-home"></em> <span class="title">{{__('backend.Dashboard')}}</span><span class="selected"></span></a>
                 <ul class="sub-menu">
                     <li class="nav-item start "> </li>
-                    <li class="nav-item start active open"> <a href="{{url('/backend')}}" class="nav-link "> <em class="icon-bulb"></em> <span class="title">التقارير</span><span class="selected"></span> </a></li>
+                    <li class="nav-item start {{ strpos(Route::currentRouteName(), 'backend.map') !== false ? 'active open' : '' }}"> <a href="{{url('/backend')}}" class="nav-link "> <em class="icon-bulb"></em> <span class="title">{{__('backend.Statistics')}}</span><span class="selected"></span> </a></li>
+                    <li class="nav-item start {{ strpos(Route::currentRouteName(), 'order.map') !== false ? 'active open' : '' }} "> <a href="{{route('backend.order.map')}}" class="nav-link "> <em class="icon-map"></em> <span class="title">{{__('backend.Order concentration map')}}</span><span class="selected"></span> </a></li>
+                    <li class="nav-item start {{ strpos(Route::currentRouteName(), 'client.map') !== false ? 'active open' : '' }} "> <a href="{{route('backend.client.map')}}" class="nav-link "> <em class="icon-map"></em> <span class="title">{{__('backend.Client concentration map')}}</span><span class="selected"></span> </a></li>
+                     <li class="nav-item start {{ strpos(Route::currentRouteName(), 'lawyer.map') !== false ? 'active open' : '' }} "> <a href="{{route('backend.lawyer.map')}}" class="nav-link "> <em class="icon-map"></em> <span class="title">{{__('backend.Lawyer concentration map')}}</span><span class="selected"></span> </a></li>
+
+
                     <li class="nav-item start "> </li>
                 </ul>
             </li>

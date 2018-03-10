@@ -33,7 +33,12 @@ return [
     'order_id' => 'رقم الطلب',
     'List notification messages' => 'قائمة الاشعارات',
     'message' => 'الاشعار',
-    
+    'Statistics' => 'الاحصائيات',
+    'Order concentration map' => 'خريطة تركيز الطلبات',
+    'Client concentration map' => 'خريطة تركيز المستخدمين',
+    'Lawyer concentration map' => 'خريطة تركيز الموثقين',
+
+
     // Roles
     'role' => 'دور',
     'List role' => 'قائمة الادوار',
