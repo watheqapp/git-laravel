@@ -3,4 +3,5 @@
 @include('backend.common.fields.text', ['name' => 'email'])
 @include('backend.common.fields.text', ['name' => 'phone'])
 @include('backend.common.fields.text', ['name' => 'credit'])
+@include('backend.common.fields.select', ['name' => 'lawyerType', 'value' => $lawyerTypes])
 @include('backend.common.fields.submit')

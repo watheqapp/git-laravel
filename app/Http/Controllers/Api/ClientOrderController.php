@@ -154,7 +154,7 @@ class ClientOrderController extends OrderController {
                 ->where('active', true)
                 ->where('isOnline', true)
                 ->where('type', User::$LAWYER_TYPE)
-                ->where('lawyerType', $order->getCategoryType($order->category))
+                ->whereIn('lawyerType', $order->getCategoryType($order->category))
                 ->first();
 
         if (!$lawyer) {

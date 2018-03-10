@@ -66,6 +66,10 @@
         .lawyer-login {
             background: #369636 !important;
         }
+
+        select {
+            padding: 1px 10px !important;
+        }
     </style>
 
     <link rel="shortcut icon" href="favicon.ico">

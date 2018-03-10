@@ -46,7 +46,8 @@ class Order extends Model {
     }
     
     public function getCategoryType($category) {
-        return $category->id == 13 ? Lawyer::$LAWYER_CLERK_SUBTYPE : Lawyer::$LAWYER_AUTHORIZED_SUBTYPE;
+        $type = $category->id == 13 ? Lawyer::$LAWYER_CLERK_SUBTYPE : Lawyer::$LAWYER_AUTHORIZED_SUBTYPE;
+        return [$type, Lawyer::$LAWYER_BOTH_SUBTYPE];
     }
 
 }

@@ -26,6 +26,7 @@ class LawyerController extends BackendController {
     protected $createValidationRules = [
         'name' => 'required|min:3|max:150',
         'email' => 'required|email|unique:users,email,NULL,id,type,2',
+        'lawyerType' => 'required',
         'phone' => 'required|numeric|unique:users,phone,NULL,id,type,2',
         'image' => 'nullable|image|mimes:png,jpg,jpeg,gif|max:8192',
     ];
@@ -57,7 +58,7 @@ class LawyerController extends BackendController {
             'phone',
             'lawyerType',
             'credit',
-            'created_at',
+            // 'created_at',
             'lastLoginDate',
             'active',
         ];
@@ -119,7 +120,8 @@ class LawyerController extends BackendController {
         $this->createValidationRules ['phone'] = 'required|unique:users,phone,'.$document->id.',id,type,2';
         $this->createValidationRules ['credit'] = 'required|numeric';
         $validator = JsValidator::make($this->createValidationRules, [], [], '.form-horizontal');
-        return compact('document', 'validator');
+        $lawyerTypes = Lawyer::lawyerTypesArr();
+        return compact('document', 'validator', 'lawyerTypes');
     }
     
     /**
@@ -143,6 +145,7 @@ class LawyerController extends BackendController {
         $lawyer->phone = $request->phone;
         $lawyer->email = $request->email;
         $lawyer->credit = $request->credit;
+        $lawyer->lawyerType = $request->lawyerType;
 
         if ($request->hasFile('image')) {
             $uploadPath = public_path('/uploads/');

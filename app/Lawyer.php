@@ -18,6 +18,7 @@ class Lawyer extends Model  {
     
     public static $LAWYER_AUTHORIZED_SUBTYPE = 'authorized';
     public static $LAWYER_CLERK_SUBTYPE = 'clerk';
+    public static $LAWYER_BOTH_SUBTYPE = 'both';
 
     /**
      * The attributes that are mass assignable.
@@ -148,5 +149,16 @@ class Lawyer extends Model  {
     public function getCreatedAtAttribute() {
         return strtotime($this->attributes['created_at']);
     }
+
+    public static function lawyerTypesArr() {
+        return [
+            self::$LAWYER_BOTH_SUBTYPE => __('backend.' . self::$LAWYER_BOTH_SUBTYPE),
+            self::$LAWYER_AUTHORIZED_SUBTYPE => __('backend.' . self::$LAWYER_AUTHORIZED_SUBTYPE),
+            self::$LAWYER_CLERK_SUBTYPE => __('backend.' . self::$LAWYER_CLERK_SUBTYPE)
+        ];
+    }
+
+
+
 
 }

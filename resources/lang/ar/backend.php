@@ -37,6 +37,7 @@ return [
     'Order concentration map' => 'خريطة تركيز الطلبات',
     'Client concentration map' => 'خريطة تركيز المستخدمين',
     'Lawyer concentration map' => 'خريطة تركيز الموثقين',
+    'both' => 'موثق ومآذون',
 
 
     // Roles

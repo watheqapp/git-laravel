@@ -269,7 +269,7 @@ class OrderController extends ApiBaseController {
                 ->where('type', User::$LAWYER_TYPE)
                 ->where('active', true)
                 ->where('isOnline', true)
-                ->where('lawyerType', $order->getCategoryType($order->category))
+                ->whereIn('lawyerType', $order->getCategoryType($order->category))
                 ->orderBy('distance', 'DESC');   
         
         $limit = $request->get('limit', 10);
