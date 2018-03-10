@@ -172,14 +172,12 @@ class ClientController extends BackendController {
         ];
 
         $items = User::where('type', User::$CLIENT_TYPE)
+                ->where('latitude', '!=', '')
                 ->latest()
                 ->get();
 
         $clients = [];
         foreach ($items as $client) {
-            if(!$client->latitude)
-                continue;
-            
             $clients[] = [
                 $client->latitude,
                 $client->longitude

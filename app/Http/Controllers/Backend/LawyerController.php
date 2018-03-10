@@ -223,13 +223,12 @@ class LawyerController extends BackendController {
         ];
 
         $items = User::where('type', User::$LAWYER_TYPE)
+                ->where('latitude', '!=', '')
                 ->latest()
                 ->get();
 
         $lawyers = [];
         foreach ($items as $lawyer) {
-            if(!$lawyer->latitude)
-                continue;
             $lawyers[] = [
                 $lawyer->latitude,
                 $lawyer->longitude
