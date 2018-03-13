@@ -60,7 +60,7 @@ class ClientController extends ApiBaseController {
 
         $client = Client::firstOrCreate([
                     'phone' => $request->phone,
-                    'type' => Client::$CLIENT_TYPE,],
+                    'type' => Client::$CLIENT_TYPE
                 ], [
                     'lastLoginDate' => date('Y-m-d H:i')
                 ]);
