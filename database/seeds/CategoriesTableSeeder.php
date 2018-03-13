@@ -125,23 +125,23 @@ class CategoriesTableSeeder extends Seeder {
                 'nameEn' => 'Validate the contract',
                 'descriptionAr' => '',
                 'descriptionEn' => '',
-                'leave' => false,
-                'parent' => NULL,
-                'cost' =>0,
-                'created_at' => date('Y-m-m H:i:s')
-            ],
-            // ---------------------اصناف تصديق عقد---------------------------
-            [
-                'id' => '11',
-                'nameAr' => 'تصديق عقود تأسيس الشركات ',
-                'nameEn' => 'Validation of company establishment',
-                'descriptionAr' => 'أو توثيق القرارات الصادرة منها',
-                'descriptionEn' => 'Or stamping their contracts',
                 'leave' => true,
-                'parent' => 10,
+                'parent' => NULL,
                 'cost' => 600,
                 'created_at' => date('Y-m-m H:i:s')
             ],
+            // ---------------------اصناف تصديق عقد---------------------------
+            // [
+            //     'id' => '11',
+            //     'nameAr' => 'تصديق عقود تأسيس الشركات ',
+            //     'nameEn' => 'Validation of company establishment',
+            //     'descriptionAr' => 'أو توثيق القرارات الصادرة منها',
+            //     'descriptionEn' => 'Or stamping their contracts',
+            //     'leave' => true,
+            //     'parent' => 10,
+            //     'cost' => 600,
+            //     'created_at' => date('Y-m-m H:i:s')
+            // ],
 //            [
 //                'id' => '12',
 //                'nameAr' => 'لا داعي لها',
