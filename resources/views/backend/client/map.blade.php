@@ -8,7 +8,7 @@
                 <div class="caption"><em class="icon-bar-chart font-dark hide"></em> <span
                             class="caption-subject font-dark bold uppercase">{{__('backend.Client concentration map')}}</span>
                     <span
-                            class="caption-helper"> <span class="badge badge-danger">{{count($clients)}}</span></span></div>
+                            class="caption-helper"> <span class="badge badge-danger">{{count($items)}}</span></span></div>
             </div>
             <div class="portlet-body">
                 <div id="map" style=" height: 500px;">
@@ -30,9 +30,12 @@
                 coords: [24.774265, 46.738586], // Map center (optional)
             });
 
-            @foreach($clients as  $client)
+            @foreach($items as  $item)
                 $("#map").addMarker({
-                    coords: ['{{$client[0]}}', '{{$client[1]}}']
+                    coords: ['{{$item->latitude}}', '{{$item->longitude}}'],
+                    title: ' ',
+                    text:  '<h4><a href="{{route("backend.client.show", ["id" => $item->id])}}" target="__blank">{{$item->name}}</a></h4>'
+
                 });
             @endforeach
         })

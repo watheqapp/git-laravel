@@ -176,18 +176,18 @@ class ClientController extends BackendController {
                 ->latest()
                 ->get();
 
-        $clients = [];
-        foreach ($items as $client) {
-            $clients[] = [
-                $client->latitude,
-                $client->longitude
-            ];
-        }
+        // $clients = [];
+        // foreach ($items as $client) {
+        //     $clients[] = [
+        //         $client->latitude,
+        //         $client->longitude
+        //     ];
+        // }
 
         // echo "<pre>";
         // print_r($clients);
         // exit;
 
-        return view('backend.client.map', compact('clients', 'breadcrumb'));
+        return view('backend.client.map', compact('items', 'breadcrumb'));
     }
 }

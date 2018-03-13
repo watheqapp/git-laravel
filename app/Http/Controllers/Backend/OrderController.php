@@ -302,14 +302,14 @@ class OrderController extends BackendController {
                 ->latest()
                 ->get();
 
-        $orders = [];
-        foreach ($items as $key => $item) {
-            $orders[] = [
-                $item->latitude,
-                $item->longitude
-            ];
-        }
-        return view('backend.order.map', compact('orders', 'breadcrumb'));
+        // $orders = [];
+        // foreach ($items as $key => $item) {
+        //     $orders[] = [
+        //         $item->latitude,
+        //         $item->longitude
+        //     ];
+        // }
+        return view('backend.order.map', compact('items', 'breadcrumb'));
     }
 
 }

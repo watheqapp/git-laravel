@@ -227,18 +227,19 @@ class LawyerController extends BackendController {
                 ->latest()
                 ->get();
 
-        $lawyers = [];
-        foreach ($items as $lawyer) {
-            $lawyers[] = [
-                $lawyer->latitude,
-                $lawyer->longitude
-            ];
-        }
+        // $lawyers = [];
+        // foreach ($items as $lawyer) {
+        //     $lawyers[] = [
+        //         'latitude' => $lawyer->latitude,
+        //         'longitude' => $lawyer->longitude,
+
+        //     ];
+        // }
 
         // echo "<pre>";
         // print_r($lawyers);
         // exit;
 
-        return view('backend.lawyer.map', compact('lawyers', 'breadcrumb'));
+        return view('backend.lawyer.map', compact('items', 'breadcrumb'));
     }
 }
