@@ -185,10 +185,10 @@ class OrderController extends ApiBaseController {
 
     protected function prepareCategoryDetails($category) {
         return [
-            'id' => $category->id,
-            'name' => $category->getNameLocal(),
-            'discription' => $category->getDiscriptionLocal(),
-            'cost' => $category->cost
+            'id' => $category ? $category->id : '--',
+            'name' => $category ? $category->getNameLocal() : '--',
+            'discription' => $category ? $category->getDiscriptionLocal() : '--',
+            'cost' => $category ? $category->cost : '--'
         ];
     }
 
