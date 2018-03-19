@@ -189,7 +189,7 @@ class OrderController extends ApiBaseController {
         }elseif(!$category->parent) {
             $categoryFullName = $category->getNameLocal();
         }else{
-            $categoryFullName = $category->getParent()->getNameLocal().'-'.$category->getNameLocal();
+            $categoryFullName = $category->parentCategory->getNameLocal().'-'.$category->getNameLocal();
         }
 
         return [
