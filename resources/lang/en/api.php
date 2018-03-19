@@ -59,5 +59,8 @@ return [
 
     'home' => 'Home',
     'office' => 'Office',
+    '1 hours' => '1 hours',
+    '2 hours' => '2 hours',
+    '3 hours' => '3 hours',
     
 ];

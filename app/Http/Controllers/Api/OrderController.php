@@ -169,7 +169,7 @@ class OrderController extends ApiBaseController {
             'clientLat' => $order->latitude,
             'clientLong' => $order->longitude,
             'address' => $order->address,
-            'time' => $order->time,
+            'time' => __('api.'.$order->time),
             'distance' => $order->distance,
             'category' => $this->prepareCategoryDetails($order->category),
             'lawyer' => $order->lawyer ? $this->prepareUserDetails($order->lawyer) : null,
@@ -184,9 +184,17 @@ class OrderController extends ApiBaseController {
     }
 
     protected function prepareCategoryDetails($category) {
+        if(!$category) {
+            $categoryFullName = '';
+        }elseif(!$category->parent) {
+            $categoryFullName = $category->getNameLocal();
+        }else{
+            $categoryFullName = $category->getParent()->getNameLocal().'-'.$category->getNameLocal();
+        }
+
         return [
             'id' => $category ? $category->id : '--',
-            'name' => $category ? $category->getNameLocal() : '--',
+            'name' => $categoryFullName,
             'discription' => $category ? $category->getDiscriptionLocal() : '--',
             'cost' => $category ? $category->cost : '--'
         ];
