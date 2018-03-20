@@ -170,7 +170,7 @@ class OrderController extends ApiBaseController {
             'clientLong' => $order->longitude,
             'address' => $order->address,
             'time' => strpos($order->time, 'Hour') !== false ? __('api.'.$order->time) : $order->time,
-            'distance' => $order->distance,
+            'distance' => $this->getOrderDistanceBtwClientAndLawyer($order),
             'category' => $this->prepareCategoryDetails($order->category),
             'lawyer' => $order->lawyer ? $this->prepareUserDetails($order->lawyer) : null,
             'client' => $order->client ? $this->prepareUserDetails($order->client) : null,
@@ -181,6 +181,15 @@ class OrderController extends ApiBaseController {
             'closed_at' => $order->closed_at ? strtotime($order->closed_at) : null,
             'created_at' => $order->created_at_timestamp
         ];
+    }
+
+    private function getOrderDistanceBtwClientAndLawyer($order) {
+        $user = Auth()->user();
+        if($order->status == Order::$NEW_STATUS && $user->type == User::$LAWYER_TYPE) {
+            return $this->calculateOrderDistance([$order->latitude, $order->longitude], [$user->latitude, $user->longitude]);
+        }
+
+        return $order->distance;
     }
 
     protected function prepareCategoryDetails($category) {
