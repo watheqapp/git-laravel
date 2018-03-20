@@ -62,5 +62,6 @@ return [
     'oneHour' => 'One hour',
     'twoHours' => 'Two hours',
     'threeHours' => 'Three hours',
+    'Kilometer' => 'Kilometer',
     
 ];

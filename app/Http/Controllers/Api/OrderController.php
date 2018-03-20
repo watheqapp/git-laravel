@@ -153,6 +153,9 @@ class OrderController extends ApiBaseController {
     }
 
     protected function prepareOrderDetails($order) {
+        $distance = $this->getOrderDistanceBtwClientAndLawyer($order);
+        $distance =  $distance ? $distance : 0;
+        $distance .= ' '.__('api.Kilometer') : 
         return [
             'id' => $order->id,
             'status' => $order->status,
@@ -170,7 +173,7 @@ class OrderController extends ApiBaseController {
             'clientLong' => $order->longitude,
             'address' => $order->address,
             'time' => strpos($order->time, 'Hour') !== false ? __('api.'.$order->time) : $order->time,
-            'distance' => $this->getOrderDistanceBtwClientAndLawyer($order),
+            'distance' => $distance,
             'category' => $this->prepareCategoryDetails($order->category),
             'lawyer' => $order->lawyer ? $this->prepareUserDetails($order->lawyer) : null,
             'client' => $order->client ? $this->prepareUserDetails($order->client) : null,
