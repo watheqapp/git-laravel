@@ -37,10 +37,10 @@ class ProcessOrderRequests extends Command {
      * @return mixed
      */
     public function handle() {
-        // while (true) {
-        //     $this->processClientRequests();
-        //     sleep(1);
-        // }
+        while (true) {
+            $this->processClientRequests();
+            sleep(1);
+        }
     }
 
     private function processClientRequests() {
