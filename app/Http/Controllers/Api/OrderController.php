@@ -169,7 +169,7 @@ class OrderController extends ApiBaseController {
             'clientLat' => $order->latitude,
             'clientLong' => $order->longitude,
             'address' => $order->address,
-            'time' => __('api.'.$order->time),
+            'time' => strpos($order->time, 'hour') !== false ? __('api.'.$order->time) : $order->time,
             'distance' => $order->distance,
             'category' => $this->prepareCategoryDetails($order->category),
             'lawyer' => $order->lawyer ? $this->prepareUserDetails($order->lawyer) : null,
