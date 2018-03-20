@@ -155,7 +155,7 @@ class OrderController extends ApiBaseController {
     protected function prepareOrderDetails($order) {
         $distance = $this->getOrderDistanceBtwClientAndLawyer($order);
         $distance =  $distance ? $distance : 0;
-        $distance .= ' '.__('api.Kilometer') : 
+        $distance .= ' '.__('api.Kilometer');
         return [
             'id' => $order->id,
             'status' => $order->status,
