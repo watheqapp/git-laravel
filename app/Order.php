@@ -29,9 +29,11 @@ class Order extends Model {
         'marriageDate',
         'marriageTime'
     ];
+
     public static $NEW_STATUS = 'New';
     public static $PENDING_STATUS = 'Pending';
     public static $CLOSED_STATUS = 'Closed';
+    public static $REMOVED_STATUS = 'Removed';
 
     public function client() {
         return $this->belongsTo('App\User', 'client_id')->withTrashed();

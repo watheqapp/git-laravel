@@ -480,6 +480,53 @@
                 }
             }
         },
+        "/api/auth/client/order/remove": {
+            "get": {
+                "tags": [
+                    "Client"
+                ],
+                "summary": "Remove order before lawyer accept it",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "X-Api-Language",
+                        "in": "header",
+                        "description": "['ar','en'] default is 'ar'",
+                        "type": "string"
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Logged in User access token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "orderId",
+                        "in": "query",
+                        "description": "Client order id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Invalid input"
+                    },
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/OrderResponses"
+                        }
+                    }
+                }
+            }
+        },
         "/api/auth/client/order/selectLaywer": {
             "get": {
                 "tags": [
@@ -639,6 +686,57 @@
                     "Client"
                 ],
                 "summary": "List client closed orders",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "X-Api-Language",
+                        "in": "header",
+                        "description": "['ar','en'] default is 'ar'",
+                        "type": "string"
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Logged in User access token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Optional Page Number",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Optional limit of results | Ignored if page is not set",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Invalid input"
+                    },
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/OrderResponses"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/client/order/listRemovedOrders": {
+            "get": {
+                "tags": [
+                    "Client"
+                ],
+                "summary": "List client removed orders",
                 "produces": [
                     "application/json"
                 ],
@@ -1063,6 +1161,53 @@
                 }
             }
         },
+        "/api/auth/lawyer/order/remove": {
+            "get": {
+                "tags": [
+                    "Lawyer"
+                ],
+                "summary": "Remove order after accept it",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "X-Api-Language",
+                        "in": "header",
+                        "description": "['ar','en'] default is 'ar'",
+                        "type": "string"
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Logged in User access token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "orderId",
+                        "in": "query",
+                        "description": "Client order id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Invalid input"
+                    },
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/OrderResponses"
+                        }
+                    }
+                }
+            }
+        },
         "/api/auth/lawyer/order/accept": {
             "get": {
                 "tags": [
@@ -1214,6 +1359,57 @@
                     "Lawyer"
                 ],
                 "summary": "List lawyer closed orders",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "X-Api-Language",
+                        "in": "header",
+                        "description": "['ar','en'] default is 'ar'",
+                        "type": "string"
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Logged in User access token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Optional Page Number",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Optional limit of results | Ignored if page is not set",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Invalid input"
+                    },
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/OrderResponses"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/lawyer/order/listRemovedOrders": {
+            "get": {
+                "tags": [
+                    "Lawyer"
+                ],
+                "summary": "List lawyer removed orders",
                 "produces": [
                     "application/json"
                 ],

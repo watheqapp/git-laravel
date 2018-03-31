@@ -16,6 +16,7 @@ class LogOrderProcess extends Model {
     public static $CREATE_TYPE = 'createdOrder';
     public static $ACCEPT_TYPE = 'acceptOrder';
     public static $CLOSED_TYPE = 'closeOrder';
+    public static $REMOVED_TYPE = 'removOrder';
     public static $FORCE_SELECT_LAWYER_TYPE = 'forceSelectLawyer';
     public static $NOTIFY_LAWYER_FORCE_SELECT_TYPE = 'notifyForceSelectLawyer';
     public static $NOTIFY_LAWYER_TYPE = 'notifyLawyer';

@@ -29,6 +29,7 @@ return [
     'force_select_lawyer_log' => 'تم اختيار الموثق :lawyer من قبل المستخدم',
     'notify_lawyer_force_select_log' => 'تم اشعار الموثق :lawyer باختياره يدويا من قبل المستخدم',
     'order_close_log' => 'تم غلق الطلب من قبل الموثق :lawyer ',
+    'order_remove_log' => 'تم حذف الطلب من قبل :removedBy ',
     'No log for this order request' => 'ﻻ توجد نتائج لهذا الطلب',
     'createdOrder' => 'إضافة الطلب',
     'acceptOrder' => 'قبول الطلب',
@@ -71,6 +72,7 @@ return [
     'Wrong order id' => 'رقم طلب خاطئ',
     'Order accepted before' => 'تم الموافقة على هذا الطلب سابقاً',
     'Order still in lawyer accept period' => 'لم يوافق الموثق على هذا الطلب بعد',
+    'Order accepted by some laywer' => 'ﻻ يمكنك حذف الطلب حيث انه تم قبوله بواسطة موثق.',
     'Lawyer not found' => 'لم يتم العثور على الموثق',
     'Order must be closed to rate it' => 'يجب أن يكون الطلب منتهياً',
     'Rate done before' => 'تم التقييم سابقاً',
@@ -79,6 +81,7 @@ return [
     'Order available accept period finished' => 'تم انهاء هذا الطلب',
     'Order must not in pending status' => 'الطلب ليس في حالة الانتظار',
     'Wrong category id' => 'تصنيف غير صحيح',
+    'Order must be pending' => 'يجب أن يكون الطلب قيد المعالجة',
 
     'home' => 'المنزل',
     'office' => 'المكتب',
@@ -86,5 +89,7 @@ return [
     'twoHours' => 'ساعتان',
     'threeHours' => 'ثلاث ساعات',
     'Kilometer' => 'كيلومتر',
-    
+    'client' => 'العميل',
+    'lawyer' => 'الموثق',
+
     ];

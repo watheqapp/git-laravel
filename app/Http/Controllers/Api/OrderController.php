@@ -180,8 +180,10 @@ class OrderController extends ApiBaseController {
             'clientRate' => $order->clientRate,
             'isInAcceptLawyerPeriod' => $order->lock ? 0 : 1,
             'support' => $order->support,
+            'removed_by' => $order->removed_by ? __('api.'.$order->removed_by) : null,
             'accepted_at' => $order->accepted_at ? strtotime($order->accepted_at) : null,
             'closed_at' => $order->closed_at ? strtotime($order->closed_at) : null,
+            'removed_at' => $order->removed_at ? strtotime($order->removed_at) : null,
             'created_at' => $order->created_at_timestamp
         ];
     }

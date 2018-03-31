@@ -54,15 +54,19 @@ Route::group(['middleware' => ['CheckApiAuth']], function() {
         Route::get('client/order/listNewOrders', 'Api\ClientOrderController@listNewOrders');
         Route::get('client/order/listPendingOrders', 'Api\ClientOrderController@listPendingOrders');
         Route::get('client/order/listClosedOrders', 'Api\ClientOrderController@listClosedOrders');
+        Route::get('client/order/listRemovedOrders', 'Api\ClientOrderController@listRemovedOrders');
         Route::post('client/order/rate', 'Api\ClientOrderController@rateOrder');
         Route::get('client/order/moveToSupport', 'Api\ClientOrderController@moveOrderToSupport');
+        Route::get('client/order/remove', 'Api\ClientOrderController@removeOrder');
 
         // Laywer-Order
         Route::get('lawyer/order/accept', 'Api\LawyerOrderController@acceptOrder');
         Route::get('lawyer/order/close', 'Api\LawyerOrderController@closeOrder');
         Route::get('lawyer/order/listPendingOrders', 'Api\LawyerOrderController@listPendingOrders');
         Route::get('lawyer/order/listClosedOrders', 'Api\LawyerOrderController@listClosedOrders');
-        
+        Route::get('lawyer/order/listRemovedOrders', 'Api\LawyerOrderController@listRemovedOrders');
+        Route::get('lawyer/order/remove', 'Api\LawyerOrderController@removeOrder');
+
         // General
         Route::post('contactus/create', 'Api\ApiBaseController@contactUs');
         Route::get('social/links', 'Api\ApiBaseController@socialLinks');

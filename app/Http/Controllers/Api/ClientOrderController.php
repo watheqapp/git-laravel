@@ -87,6 +87,73 @@ class ClientOrderController extends OrderController {
         return $this->getSuccessJsonResponse($this->prepareOrderDetails($order));
     }
 
+
+    /**
+     * @SWG\Get(
+     *     path="/api/auth/client/order/remove",
+     *     summary="Remove order before lawyer accept it",
+     *     tags={"Client"},
+     *     consumes={"application/json"},
+     *     produces={"application/json"},
+     *     @SWG\Parameter(
+     *          in="header", name="X-Api-Language", description="['ar','en'] default is 'ar'", type="string",
+     *      ),
+     *     @SWG\Parameter(
+     *          in="header", name="Authorization", description="Logged in User access token", required=true, type="string",
+     *      ),
+     *     @SWG\Parameter(
+     *          in="query", name="orderId", description="Client order id", required=true, type="string",
+     *      ),
+     *     @SWG\Response(response="405",description="Invalid input"),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @SWG\Schema(ref="#/definitions/OrderResponses")
+     *     ),
+     *     @SWG\SecurityScheme(
+     *         securityDefinition="X-Api-Token",
+     *         type="apiKey",
+     *         in="header",
+     *         name="X-Api-Token"
+     *    ),
+     * )
+     */
+    public function removeOrder(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'orderId' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return $this->getErrorJsonResponse($validator->errors()->all());
+        }
+
+        $user = Auth()->user();
+        if ($user->type !== User::$CLIENT_TYPE) {
+            return $this->getErrorJsonResponse([], __('api.Must be a client'));
+        }
+
+        $order = Order::find($request->orderId);
+        if (!$order) {
+            return $this->getErrorJsonResponse([], __('api.Wrong order id'));
+        }
+
+        if ($order->lock) {
+            return $this->getErrorJsonResponse([], __('api.Order accepted by some laywer'));
+        }
+
+        $order->status = Order::$REMOVED_STATUS;
+        $order->removed_by = 'client';
+        $order->removed_at = date('Y-m-d H:i:s');
+        $order->save();
+
+        $order = Order::find($order->id);
+
+        $orderOperations = new OrderOperations();
+        $orderOperations->logOrderProcess($order, OrderLogger::$REMOVED_TYPE);
+
+        return $this->getSuccessJsonResponse($this->prepareOrderDetails($order));
+    }
+
     /**
      * @SWG\GET(
      *     path="/api/auth/client/order/selectLaywer",
@@ -331,6 +398,57 @@ class ClientOrderController extends OrderController {
         
         $ordersList = $this->listOrderByStatus($request, Order::$CLOSED_STATUS);
         
+        return $this->getSuccessJsonResponse($ordersList);
+    }
+
+    /**
+     * @SWG\GET(
+     *     path="/api/auth/client/order/listRemovedOrders",
+     *     summary="List client removed orders",
+     *     tags={"Client"},
+     *     produces={"application/json"},
+     *     @SWG\Parameter(
+     *          in="header", name="X-Api-Language", description="['ar','en'] default is 'ar'", type="string",
+     *      ),
+     *     @SWG\Parameter(
+     *          in="header", name="Authorization", description="Logged in User access token", required=true, type="string",
+     *      ),
+     * 	   @SWG\Parameter(
+     * 		name="page",
+     * 		in="query",
+     * 		required=false,
+     * 		type="integer",
+     * 		description="Optional Page Number",
+     * 	   ),
+     * 	   @SWG\Parameter(
+     * 		name="limit",
+     * 		in="query",
+     * 		required=false,
+     * 		type="integer",
+     * 		description="Optional limit of results | Ignored if page is not set",
+     * 	   ),
+     *     @SWG\Response(response="405",description="Invalid input"),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @SWG\Schema(ref="#/definitions/OrderResponses")
+     *     ),
+     *     @SWG\SecurityScheme(
+     *         securityDefinition="X-Api-Token",
+     *         type="apiKey",
+     *         in="header",
+     *         name="X-Api-Token"
+     *    ),
+     * )
+     */
+    public function listRemovedOrders(Request $request) {
+        $user = Auth()->user();
+        if ($user->type !== User::$CLIENT_TYPE) {
+            return $this->getErrorJsonResponse([], __('api.Must be a client'));
+        }
+
+        $ordersList = $this->listOrderByStatus($request, Order::$REMOVED_STATUS);
+
         return $this->getSuccessJsonResponse($ordersList);
     }
     

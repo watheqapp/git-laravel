@@ -48,6 +48,7 @@ return [
     'Wrong order id' => 'Wrong order ID',
     'Order accepted before' => 'Order accepted already',
     'Order still in lawyer accept period' => 'still in lawyer acceptance period',
+    'Order accepted by some laywer' => 'Order accepted by some laywer',
     'Lawyer not found' => 'Lawyer not found',
     'Order must be closed to rate it' => 'Order must be closed to rate',
     'Rate done before' => 'Rate done before',
@@ -56,6 +57,7 @@ return [
     'Order available accept period finished' => 'Available order acceptance finished',
     'Order must not in pending status' => 'Must not be in pending status',
     'Wrong category id' => 'Wrong category ID',
+    'Order must be pending' => 'Order must be under process',
 
     'home' => 'Home',
     'office' => 'Office',
@@ -63,5 +65,7 @@ return [
     'twoHours' => 'Two hours',
     'threeHours' => 'Three hours',
     'Kilometer' => 'Kilometer',
+    'client' => 'Client',
+    'lawyer' => 'Lawyer',
     
 ];

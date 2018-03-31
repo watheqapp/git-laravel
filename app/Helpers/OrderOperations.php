@@ -58,6 +58,13 @@ class OrderOperations {
                     ], 'ar');
                 break;
 
+            case OrderLogger::$REMOVED_TYPE:
+                $lawyer = $order->lawyer;
+                $message = __('api.order_remove_log', [
+                    'removedBy' => __('api.'.$order->removed_by),
+                ], 'ar');
+                break;
+
             case OrderLogger::$FORCE_SELECT_LAWYER_TYPE:
                 $lawyer = $order->lawyer;
                 $message = __('api.force_select_lawyer_log', [
