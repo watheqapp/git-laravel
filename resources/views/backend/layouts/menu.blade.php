@@ -9,9 +9,7 @@
                     <li class="nav-item start {{ strpos(Route::currentRouteName(), 'backend.map') !== false ? 'active open' : '' }}"> <a href="{{url('/backend')}}" class="nav-link "> <em class="icon-bulb"></em> <span class="title">{{__('backend.Statistics')}}</span><span class="selected"></span> </a></li>
                     <li class="nav-item start {{ strpos(Route::currentRouteName(), 'order.map') !== false ? 'active open' : '' }} "> <a href="{{route('backend.order.map')}}" class="nav-link "> <em class="icon-map"></em> <span class="title">{{__('backend.Order concentration map')}}</span><span class="selected"></span> </a></li>
                     <li class="nav-item start {{ strpos(Route::currentRouteName(), 'client.map') !== false ? 'active open' : '' }} "> <a href="{{route('backend.client.map')}}" class="nav-link "> <em class="icon-map"></em> <span class="title">{{__('backend.Client concentration map')}}</span><span class="selected"></span> </a></li>
-                     <li class="nav-item start {{ strpos(Route::currentRouteName(), 'lawyer.map') !== false ? 'active open' : '' }} "> <a href="{{route('backend.lawyer.map')}}" class="nav-link "> <em class="icon-map"></em> <span class="title">{{__('backend.Lawyer concentration map')}}</span><span class="selected"></span> </a></li>
-
-
+                    <li class="nav-item start {{ strpos(Route::currentRouteName(), 'lawyer.map') !== false ? 'active open' : '' }} "> <a href="{{route('backend.lawyer.map')}}" class="nav-link "> <em class="icon-map"></em> <span class="title">{{__('backend.Lawyer concentration map')}}</span><span class="selected"></span> </a></li>
                     <li class="nav-item start "> </li>
                 </ul>
             </li>
@@ -79,6 +77,13 @@
                     <em class="icon-camcorder"></em> 
                     <span class="title">{{__('backend.List closed order')}}</span>
                     <span class="badge badge-success">{{Assets::closedOrderCount()}}</span>
+                </a>
+            </li>
+            <li class="nav-item {{ strpos(Route::currentRouteName(), 'removed') !== false ? 'active' : '' }} ">
+                <a href="{{route('backend.order.removed')}}" class="nav-link">
+                    <em class="icon-camcorder"></em>
+                    <span class="title">{{__('backend.List removed order')}}</span>
+                    <span class="badge badge-success">{{Assets::removedOrderCount()}}</span>
                 </a>
             </li>
             <li class="nav-item {{ strpos(Route::currentRouteName(), 'support') !== false ? 'active' : '' }} ">

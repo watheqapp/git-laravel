@@ -35,6 +35,10 @@ class Assets {
         return self::countOrdersByStatus(Order::$CLOSED_STATUS);
     }
 
+    public static function removedOrderCount() {
+        return self::countOrdersByStatus(Order::$REMOVED_STATUS);
+    }
+
     public static function supportOrderCount() {
         return Order::where('support', true)->count();
     }

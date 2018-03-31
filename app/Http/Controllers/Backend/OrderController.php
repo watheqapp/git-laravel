@@ -191,6 +191,70 @@ class OrderController extends BackendController {
 
 
 
+
+    public function removedOrders(Request $request) {
+        $breadcrumb = [
+            'pageLable' => 'List removed order',
+            'links' => [
+                ['name' => 'List removed order']
+            ]
+        ];
+        $this->listData = [
+            'listName' => 'order_removed_list',
+            'listNameSingle' => 'order',
+            'listAjaxRoute' => 'backend.order.removedAjax',
+        ];
+        $this->listData['breadcrumb'] = $breadcrumb;
+        $this->listData['columns'] = $this->removedOrderColumns();
+        $this->listData['totalCount'] = Order::where('status', Order::$REMOVED_STATUS)->count();
+
+        return view('backend.layouts.list', $this->listData);
+    }
+
+    public function removedOrdersData(Request $request) {
+        $items = Order::select($this->removedOrderColumns())
+            ->where('status', Order::$REMOVED_STATUS)
+            ->latest();
+        return Datatables::of($items)
+            ->addColumn('actions', function ($item) {
+                return
+                    '<a class="btn btn-sm yellow btn-outline" href="' . route('backend.order.show', ['id' => $item->id]) . '"><i class="fa fa-eye"></i> ' . __('backend.View') . '</a> ' .
+                    '<a class="btn btn-sm red btn-outline dev-list-ajax-action" title="' . __('backend.Delete') . '" data-name="(' . __('backend.The Order') . ')" href="javascript:void(0)" data-href="' . route('backend.order.delete', ['id' => $item->id]) . '"><i class="fa fa-trash"></i> ' . __('backend.Delete') . '</a>';
+            })
+            ->editColumn('client_id', function ($item) {
+                return $item->client ? $item->client->name : '--';
+            })
+            ->editColumn('lawyer_id', function ($item) {
+                return $item->lawyer ? $item->lawyer->name : '--';
+            })
+            ->editColumn('category_id', function ($item) {
+                return $item->category ? $item->category->nameAr : '--';
+            })
+            ->editColumn('cost', function ($item) {
+                return $item->cost . ' ' . __('backend.SAR');
+            })
+            ->editColumn('removed_by', function ($item) {
+                return __('api.'.$item->removed_by);
+            })
+            ->escapeColumns(['actions'])
+            ->removeColumn('id')
+            ->make();
+    }
+
+    private function removedOrderColumns() {
+        return [
+            'id',
+            'client_id',
+            'lawyer_id',
+            'category_id',
+            'cost',
+            'removed_by',
+            'removed_at',
+        ];
+    }
+
+
+
     public function supportOrders(Request $request) {
         $breadcrumb = [
             'pageLable' => 'List support order',

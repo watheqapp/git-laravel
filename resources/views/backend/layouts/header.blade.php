@@ -70,6 +70,11 @@
         select {
             padding: 1px 10px !important;
         }
+        @media (min-width: 992px) {
+            .page-sidebar {
+                width: 250px;
+            }
+        }
     </style>
 
     <link rel="shortcut icon" href="favicon.ico">

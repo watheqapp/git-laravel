@@ -116,6 +116,8 @@ Route::group(['prefix' => 'backend', 'middleware' => ['auth', 'backendUser']], f
     Route::get('/order/list-pending-data', 'Backend\OrderController@PendingOrdersData')->name('backend.order.pendingAjax')->middleware(['permission:role-order']);
     Route::get('/order/list-closed', 'Backend\OrderController@closedOrders')->name('backend.order.closed')->middleware(['permission:role-order']);
     Route::get('/order/list-closed-data', 'Backend\OrderController@closedOrdersData')->name('backend.order.closedAjax')->middleware(['permission:role-order']);
+    Route::get('/order/list-removed', 'Backend\OrderController@removedOrders')->name('backend.order.removed')->middleware(['permission:role-order']);
+    Route::get('/order/list-removed-data', 'Backend\OrderController@removedOrdersData')->name('backend.order.removedAjax')->middleware(['permission:role-order']);
     Route::get('/order/list-support', 'Backend\OrderController@supportOrders')->name('backend.order.support')->middleware(['permission:role-order']);
     Route::get('/order/list-support-data', 'Backend\OrderController@supportOrdersData')->name('backend.order.supportAjax')->middleware(['permission:role-order']);
     Route::get('/order/show/{id}', 'Backend\OrderController@show')->name('backend.order.show')->middleware(['permission:role-order']);
