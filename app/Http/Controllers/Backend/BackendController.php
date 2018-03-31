@@ -63,12 +63,16 @@ class BackendController extends BaseController {
         return view('backend.backend', compact('breadcrumb', 'lawyers', 'ordersByDaysStatistics', 'costsByDaysStatistics'));
     }
 
-    public function jsonErrorResponses($msg = '') {
-        return response()->json(['status' => 'error', 'message' => $msg ? __('backend.' . $msg) : __('backend.error occurred')]);
+    public function jsonErrorResponses($msg = '', $translator='backend') {
+        return response()->json(['status' => 'error', 'message' => $msg ? __($translator.'.' . $msg) : __('backend.error occurred')]);
     }
 
-    public function jsonSuccessResponses($msg = '') {
-        return response()->json(['status' => 'success', 'message' => $msg ? __('backend.' . $msg) : __('backend.done successfuly')]);
+    public function jsonSuccessResponses($msg = '', $translator='backend') {
+        return response()->json(['status' => 'success', 'message' => $msg ? __($translator.'.' . $msg) : __('backend.done successfuly')]);
+    }
+
+    public function jsonViewResponses($view) {
+        return response()->json(['status' => 'success', 'view' => $view ]);
     }
 
     /**

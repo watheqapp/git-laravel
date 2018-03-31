@@ -188,6 +188,7 @@ return [
     'Removed' => 'محذوفة',
     'removed_by' => 'حذفة بواسطة',
     'removed_at' => 'تاريخ الحذف',
+    'Assign lawyer' => 'إسناد إلى موثق',
     'clientName' => 'الموكل',
     'clientNationalID' => 'رقم الموكل',
     'representativeName' => 'الوكيل',
@@ -196,6 +197,8 @@ return [
     'home' => 'المنزل',
     'office' => 'المكتب',
     'clientRate' => 'تقييم المستخدم',
+    'lawyerId' => ' الموثق',
+    'Assign' => 'إسناد',
 
     // Contact us
     'Contact us messages' => 'رسائل اتصل بنا',

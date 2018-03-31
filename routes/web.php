@@ -122,6 +122,8 @@ Route::group(['prefix' => 'backend', 'middleware' => ['auth', 'backendUser']], f
     Route::get('/order/list-support-data', 'Backend\OrderController@supportOrdersData')->name('backend.order.supportAjax')->middleware(['permission:role-order']);
     Route::get('/order/show/{id}', 'Backend\OrderController@show')->name('backend.order.show')->middleware(['permission:role-order']);
     Route::get('/order/delete/{id}', 'Backend\OrderController@destroy')->name('backend.order.delete')->middleware(['permission:role-order']);
+    Route::get('/order/assignLawyer/{id}', 'Backend\OrderController@assignLawyerModel')->name('backend.order.assignLawyerModal')->middleware(['permission:role-order']);
+    Route::post('/order/assignLawyer', 'Backend\OrderController@assignLawyer')->name('backend.order.assignLawyer')->middleware(['permission:role-order']);
     Route::get('order/map', 'Backend\OrderController@ordersMap')->name('backend.order.map');
 
     // Client Contact messages
