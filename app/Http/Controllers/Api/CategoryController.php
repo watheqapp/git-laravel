@@ -96,6 +96,8 @@ class CategoryController extends ApiBaseController {
         }
 
         $responses->categories = $categories;
+        $fees = Setting::where('setting', 'DELIVER_REQUEST_TO_HOME')->first();
+        $responses->deliverToHomeFees = $fees ? $fees->value: 0;
         return $this->getSuccessJsonResponse($responses);
     }
 }
