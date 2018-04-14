@@ -116,8 +116,8 @@ class LawyerController extends BackendController {
 
     public function preparedEditForm($id) {
         $document = User::where(['type' => User::$LAWYER_TYPE])->findOrFail($id);
-        $this->createValidationRules ['email'] = 'required|email|unique:users,email,'.$document->id.',id,type,2';
-        $this->createValidationRules ['phone'] = 'required|unique:users,phone,'.$document->id.',id,type,2';
+        $this->createValidationRules ['email'] = 'required|email|unique:users,email,'.$document->id.',id,type,2,deleted_at,NULL';
+        $this->createValidationRules ['phone'] = 'required|unique:users,phone,'.$document->id.',id,type,2,deleted_at,NULL';
         $this->createValidationRules ['credit'] = 'required|numeric';
         $validator = JsValidator::make($this->createValidationRules, [], [], '.form-horizontal');
         $lawyerTypes = Lawyer::lawyerTypesArr();
@@ -135,8 +135,8 @@ class LawyerController extends BackendController {
     public function update(Request $request, $id) {
         $lawyer = User::where(['type' => User::$LAWYER_TYPE])->findOrFail($id);
         
-        $this->createValidationRules ['email'] = 'required|email|unique:users,email,'.$lawyer->id.',id,type,2';
-        $this->createValidationRules ['phone'] = 'required|unique:users,phone,'.$lawyer->id.',id,type,2';
+        $this->createValidationRules ['email'] = 'required|email|unique:users,email,'.$lawyer->id.',id,type,2,deleted_at,NULL';
+        $this->createValidationRules ['phone'] = 'required|unique:users,phone,'.$lawyer->id.',id,type,2,deleted_at,NULL';
         $this->createValidationRules ['credit'] = 'required|numeric';
         
         $this->validate($request, $this->createValidationRules);
