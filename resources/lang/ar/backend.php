@@ -96,6 +96,7 @@ return [
     'Not available' => 'غير متاح',
     'Active Lawyers' => 'الموثقين المفعلين',
     'Active Authorized' => 'المأذونين المفعلين',
+    'Change order status' => 'تغيير حالة الطلب',
     
     // General
     'Add' => 'إضافة',

@@ -33,6 +33,11 @@ class OrderController extends BackendController
         'lawyerId' => 'required'
     ];
 
+    public $changeStatusValidationRules = [
+        'orderId' => 'required',
+        'status' => 'required'
+    ];
+
     public function newOrders(Request $request)
     {
         $breadcrumb = [
@@ -49,7 +54,7 @@ class OrderController extends BackendController
         $this->listData['breadcrumb'] = $breadcrumb;
         $this->listData['columns'] = $this->newOrderColumns();
         $this->listData['totalCount'] = Order::where('status', Order::$NEW_STATUS)->count();
-
+        $this->listData['availableStatus'] = [];
         return view('backend.order.list', $this->listData);
     }
 
@@ -64,6 +69,7 @@ class OrderController extends BackendController
                     '<a class="btn btn-sm yellow btn-outline" href="' . route('backend.order.show', ['id' => $item->id]) . '"><i class="fa fa-eye"></i> ' . __('backend.View') . '</a> ' .
                     '<a class="btn btn-sm blue btn-outline dev-assign-lawyer-action" title="' . __('backend.Assign lawyer') . '" href="javascript:void(0)" data-href="' . route('backend.order.assignLawyerModal', ['id' => $item->id]) . '"><i class="fa fa-user"></i> ' . __('backend.Assign lawyer') . '</a>' .
                     '<a class="btn btn-sm red btn-outline dev-list-ajax-action" title="' . __('backend.Delete') . '" data-name="(' . __('backend.The Order') . ')" href="javascript:void(0)" data-href="' . route('backend.order.delete', ['id' => $item->id]) . '"><i class="fa fa-trash"></i> ' . __('backend.Delete') . '</a>';
+
             })
             ->editColumn('client_id', function ($item) {
                 return $item->client ? $item->client->name : '--';
@@ -107,7 +113,12 @@ class OrderController extends BackendController
         $this->listData['columns'] = $this->pendingOrderColumns();
         $this->listData['totalCount'] = Order::where('status', Order::$PENDING_STATUS)->count();
 
-        return view('backend.layouts.list', $this->listData);
+        $this->listData['availableStatus'] = [
+            Order::$NEW_STATUS => __('backend.'.Order::$NEW_STATUS ),
+            Order::$CLOSED_STATUS => __('backend.'.Order::$CLOSED_STATUS ),
+            Order::$REMOVED_STATUS => __('backend.'.Order::$REMOVED_STATUS ),
+        ];
+        return view('backend.order.list', $this->listData);
     }
 
     public function PendingOrdersData(Request $request)
@@ -119,6 +130,7 @@ class OrderController extends BackendController
             ->addColumn('actions', function ($item) {
                 return
                     '<a class="btn btn-sm yellow btn-outline" href="' . route('backend.order.show', ['id' => $item->id]) . '"><i class="fa fa-eye"></i> ' . __('backend.View') . '</a> ' .
+                    '<a class="btn btn-sm green btn-outline dev-change-status-action" data-id="' . $item->id . '" title="' . __('backend.Change order status') . '" href="javascript:void(0)"><i class="fa fa-mm"></i> ' . __('backend.Change order status') . '</a>' .
                     '<a class="btn btn-sm red btn-outline dev-list-ajax-action" title="' . __('backend.Delete') . '" data-name="(' . __('backend.The Order') . ')" href="javascript:void(0)" data-href="' . route('backend.order.delete', ['id' => $item->id]) . '"><i class="fa fa-trash"></i> ' . __('backend.Delete') . '</a>';
             })
             ->editColumn('client_id', function ($item) {
@@ -166,8 +178,12 @@ class OrderController extends BackendController
         $this->listData['breadcrumb'] = $breadcrumb;
         $this->listData['columns'] = $this->closedOrderColumns();
         $this->listData['totalCount'] = Order::where('status', Order::$CLOSED_STATUS)->count();
-
-        return view('backend.layouts.list', $this->listData);
+        $this->listData['availableStatus'] = [
+            Order::$NEW_STATUS => __('backend.'.Order::$NEW_STATUS ),
+            Order::$PENDING_STATUS => __('backend.'.Order::$PENDING_STATUS ),
+            Order::$REMOVED_STATUS => __('backend.'.Order::$REMOVED_STATUS ),
+        ];
+        return view('backend.order.list', $this->listData);
     }
 
     public function closedOrdersData(Request $request)
@@ -179,6 +195,7 @@ class OrderController extends BackendController
             ->addColumn('actions', function ($item) {
                 return
                     '<a class="btn btn-sm yellow btn-outline" href="' . route('backend.order.show', ['id' => $item->id]) . '"><i class="fa fa-eye"></i> ' . __('backend.View') . '</a> ' .
+                    '<a class="btn btn-sm green btn-outline dev-change-status-action" data-id="' . $item->id . '" title="' . __('backend.Change order status') . '" href="javascript:void(0)"><i class="fa fa-mm"></i> ' . __('backend.Change order status') . '</a>' .
                     '<a class="btn btn-sm red btn-outline dev-list-ajax-action" title="' . __('backend.Delete') . '" data-name="(' . __('backend.The Order') . ')" href="javascript:void(0)" data-href="' . route('backend.order.delete', ['id' => $item->id]) . '"><i class="fa fa-trash"></i> ' . __('backend.Delete') . '</a>';
             })
             ->editColumn('client_id', function ($item) {
@@ -228,8 +245,12 @@ class OrderController extends BackendController
         $this->listData['breadcrumb'] = $breadcrumb;
         $this->listData['columns'] = $this->removedOrderColumns();
         $this->listData['totalCount'] = Order::where('status', Order::$REMOVED_STATUS)->count();
-
-        return view('backend.layouts.list', $this->listData);
+        $this->listData['availableStatus'] = [
+            Order::$NEW_STATUS => __('backend.'.Order::$NEW_STATUS ),
+            Order::$PENDING_STATUS => __('backend.'.Order::$PENDING_STATUS ),
+            Order::$CLOSED_STATUS => __('backend.'.Order::$CLOSED_STATUS ),
+        ];
+        return view('backend.order.list', $this->listData);
     }
 
     public function removedOrdersData(Request $request)
@@ -241,6 +262,7 @@ class OrderController extends BackendController
             ->addColumn('actions', function ($item) {
                 return
                     '<a class="btn btn-sm yellow btn-outline" href="' . route('backend.order.show', ['id' => $item->id]) . '"><i class="fa fa-eye"></i> ' . __('backend.View') . '</a> ' .
+                    '<a class="btn btn-sm green btn-outline dev-change-status-action" data-id="' . $item->id . '" title="' . __('backend.Change order status') . '" href="javascript:void(0)"><i class="fa fa-mm"></i> ' . __('backend.Change order status') . '</a>' .
                     '<a class="btn btn-sm red btn-outline dev-list-ajax-action" title="' . __('backend.Delete') . '" data-name="(' . __('backend.The Order') . ')" href="javascript:void(0)" data-href="' . route('backend.order.delete', ['id' => $item->id]) . '"><i class="fa fa-trash"></i> ' . __('backend.Delete') . '</a>';
             })
             ->editColumn('client_id', function ($item) {
@@ -489,6 +511,45 @@ class OrderController extends BackendController
         $orderOperations->logOrderProcess($order, OrderLogger::$FORCE_SELECT_LAWYER_TYPE);
 
         $orderOperations->sendLawyerForceAcceptNotification([$lawyer], $order);
+
+        return $this->jsonSuccessResponses();
+    }
+
+
+    public function changeStatus(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            $this->changeStatusValidationRules
+        ]);
+
+//        if ($validator->fails()) {
+//            return $this->jsonErrorResponses($validator->errors()->all());
+//        }
+
+        $order = Order::whereId($request->orderId)->first();
+
+        if (!$order) {
+            return $this->jsonErrorResponses(__('Wrong order id'), 'api');
+        }
+
+        if ($order->status == Order::$NEW_STATUS) {
+            return $this->jsonErrorResponses(__('Order should not be new to change it\'s status'), 'api');
+        }
+
+        if ($order->status == Order::$NEW_STATUS) {
+            return $this->jsonErrorResponses(__('Order should not be new to change it\'s status'), 'api');
+        }
+
+        $order->status = $request->status;
+        if($request->status == Order::$NEW_STATUS) {
+            $order->lawyer_id = null;
+        }
+
+        $order->save();
+
+//        $orderOperations = new OrderOperations();
+//        $orderOperations->logOrderProcess($order, OrderLogger::$FORCE_SELECT_LAWYER_TYPE);
+//        $orderOperations->sendLawyerForceAcceptNotification([$lawyer], $order);
 
         return $this->jsonSuccessResponses();
     }

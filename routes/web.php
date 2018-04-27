@@ -128,6 +128,7 @@ Route::group(['prefix' => 'backend', 'middleware' => ['auth', 'backendUser']], f
     Route::get('/order/delete/{id}', 'Backend\OrderController@destroy')->name('backend.order.delete')->middleware(['permission:role-order']);
     Route::get('/order/assignLawyer/{id}', 'Backend\OrderController@assignLawyerModel')->name('backend.order.assignLawyerModal')->middleware(['permission:role-order']);
     Route::post('/order/assignLawyer', 'Backend\OrderController@assignLawyer')->name('backend.order.assignLawyer')->middleware(['permission:role-order']);
+    Route::post('/order/change-status', 'Backend\OrderController@changeStatus')->name('backend.order.changeStatus')->middleware(['permission:role-order']);
     Route::get('order/map', 'Backend\OrderController@ordersMap')->name('backend.order.map');
 
     // Client Contact messages
