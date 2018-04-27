@@ -94,6 +94,8 @@ return [
     'isOnline' => 'الإتاحة',
     'Available' => 'متاح',
     'Not available' => 'غير متاح',
+    'Active Lawyers' => 'الموثقين المفعلين',
+    'Active Authorized' => 'المأذونين المفعلين',
     
     // General
     'Add' => 'إضافة',

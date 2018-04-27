@@ -45,8 +45,13 @@ class LawyerController extends BackendController {
         ];
         $this->listData['breadcrumb'] = $breadcrumb;
         $this->listData['columns'] = $this->dataColumns();
-        $this->listData['totalCount'] = User::where('type', User::$LAWYER_TYPE)
+        $this->listData['totalActiveLawyer'] = User::where('type', User::$LAWYER_TYPE)
+            ->where('active', true)
             ->whereIn('lawyerType', [Lawyer::$LAWYER_AUTHORIZED_SUBTYPE, Lawyer::$LAWYER_BOTH_SUBTYPE])
+            ->count();
+        $this->listData['totalActiveAuthorized'] = User::where('type', User::$LAWYER_TYPE)
+            ->where('active', true)
+            ->whereIn('lawyerType', [Lawyer::$LAWYER_CLERK_SUBTYPE, Lawyer::$LAWYER_BOTH_SUBTYPE])
             ->count();
 
         return view('backend.lawyer.list', $this->listData);
@@ -66,7 +71,12 @@ class LawyerController extends BackendController {
         ];
         $this->listData['breadcrumb'] = $breadcrumb;
         $this->listData['columns'] = $this->dataColumns();
-        $this->listData['totalCount'] = User::where('type', User::$LAWYER_TYPE)
+        $this->listData['totalActiveLawyer'] = User::where('type', User::$LAWYER_TYPE)
+            ->where('active', true)
+            ->whereIn('lawyerType', [Lawyer::$LAWYER_AUTHORIZED_SUBTYPE, Lawyer::$LAWYER_BOTH_SUBTYPE])
+            ->count();
+        $this->listData['totalActiveAuthorized'] = User::where('type', User::$LAWYER_TYPE)
+            ->where('active', true)
             ->whereIn('lawyerType', [Lawyer::$LAWYER_CLERK_SUBTYPE, Lawyer::$LAWYER_BOTH_SUBTYPE])
             ->count();
         return view('backend.lawyer.list', $this->listData);
