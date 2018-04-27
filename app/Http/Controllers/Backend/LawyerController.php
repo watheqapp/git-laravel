@@ -109,6 +109,7 @@ class LawyerController extends BackendController {
                 Lawyer::$LAWYER_BOTH_SUBTYPE
             ])
             ->orderBy('isOnline', 'DESC')
+            ->orderBy('active', 'DESC')
             ->latest();
 
         return $this->listData($items);
