@@ -31,7 +31,7 @@ class LawyerController extends BackendController {
         'image' => 'nullable|image|mimes:png,jpg,jpeg,gif|max:8192',
     ];
 
-    public function index(Request $request) {
+    public function lawyersList(Request $request) {
         $breadcrumb = [
             'pageLable' => 'List lawyer',
             'links' => [
@@ -45,9 +45,31 @@ class LawyerController extends BackendController {
         ];
         $this->listData['breadcrumb'] = $breadcrumb;
         $this->listData['columns'] = $this->dataColumns();
-        $this->listData['totalCount'] = User::where(['type' => User::$LAWYER_TYPE])->count();
+        $this->listData['totalCount'] = User::where('type', User::$LAWYER_TYPE)
+            ->whereIn('lawyerType', [Lawyer::$LAWYER_AUTHORIZED_SUBTYPE, Lawyer::$LAWYER_BOTH_SUBTYPE])
+            ->count();
 
-        return view('backend.layouts.list', $this->listData);
+        return view('backend.lawyer.list', $this->listData);
+    }
+
+    public function authorizedList(Request $request) {
+        $breadcrumb = [
+            'pageLable' => 'List authorized',
+            'links' => [
+                ['name' => 'List authorized']
+            ]
+        ];
+        $this->listData = [
+            'listName' => 'authorized_list',
+            'listNameSingle' => 'authorized',
+            'listAjaxRoute' => 'backend.authorized.listAjax',
+        ];
+        $this->listData['breadcrumb'] = $breadcrumb;
+        $this->listData['columns'] = $this->dataColumns();
+        $this->listData['totalCount'] = User::where('type', User::$LAWYER_TYPE)
+            ->whereIn('lawyerType', [Lawyer::$LAWYER_CLERK_SUBTYPE, Lawyer::$LAWYER_BOTH_SUBTYPE])
+            ->count();
+        return view('backend.lawyer.list', $this->listData);
     }
 
     private function dataColumns() {
@@ -60,14 +82,40 @@ class LawyerController extends BackendController {
             'credit',
             // 'created_at',
             'lastLoginDate',
+            'isOnline',
             'active',
         ];
     }
 
-    public function listData(Request $request) {
+    public function listLawyerData(Request $request) {
         $items = User::select($this->dataColumns())
-                ->where(['type' => User::$LAWYER_TYPE])
-                ->latest();
+            ->where('type', User::$LAWYER_TYPE)
+            ->whereIn('lawyerType', [
+                Lawyer::$LAWYER_AUTHORIZED_SUBTYPE,
+                Lawyer::$LAWYER_BOTH_SUBTYPE
+            ])
+            ->orderBy('isOnline', 'DESC')
+            ->orderBy('active', 'DESC')
+            ->latest();
+
+        return $this->listData($items);
+    }
+
+    public function listAuthorizedData(Request $request) {
+        $items = User::select($this->dataColumns())
+            ->where('type', User::$LAWYER_TYPE)
+            ->whereIn('lawyerType', [
+                Lawyer::$LAWYER_CLERK_SUBTYPE,
+                Lawyer::$LAWYER_BOTH_SUBTYPE
+            ])
+            ->orderBy('isOnline', 'DESC')
+            ->latest();
+
+        return $this->listData($items);
+    }
+
+
+    public function listData($items) {
         return Datatables::of($items)
                         ->addColumn('actions', function ($item) {
                             return 
@@ -89,8 +137,11 @@ class LawyerController extends BackendController {
                         ->editColumn('active', function ($item) {
                             return $item->getActivateTxt();
                         })
+                        ->editColumn('isOnline', function ($item) {
+                            return '<span class="label label-sm label-'.($item->isOnline ? 'success' : 'danger').'">'.__($item->isOnline ? 'backend.Available' : 'backend.Not available')."</span>";
+                        })
                         ->editColumn('lastLoginDate', function ($item) {
-                            return $item->lastLoginDate ? $item->lastLoginDate : '';
+                            return $item->lastLoginDate ? $item->lastLoginDate : '--';
 //                            $color='';
 //                            if($item->lastLoginDate) {
 //                                $date = $item->lastLoginDate;
@@ -102,7 +153,7 @@ class LawyerController extends BackendController {
 //                            return '<p class="td-bg" data-color="'.$color.'">'.$date.'</p>';
                         })
                         ->editColumn('lawyerType', function ($item) {
-                            return '<span class="label label-sm label-'.($item->lawyerType == "clerk" ? 'warning' : 'success').'">'.$item->getLawyerTypeTxt()."</span>";
+                            return '<span class="label label-sm label-'.($item->lawyerType == "clerk" ? 'info' : ($item->lawyerType == "authorized" ? 'success' : 'danger')).'">'.$item->getLawyerTypeTxt()."</span>";
                         })
                         ->editColumn('image', function ($item) {
                             return '<img class="img-responsive" src="' . ($item->image ? asset('uploads/' . $item->image) : '/backend-assets/apps/img/profile.jpg') . '" />';

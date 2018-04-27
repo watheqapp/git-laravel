@@ -91,6 +91,9 @@ return [
     'Add credit' => 'إضافة رصيد',
     'Not login yet' => 'لم يدخل بعد',
     'lastLoginDate' => 'اخر دخول',
+    'isOnline' => 'الإتاحة',
+    'Available' => 'متاح',
+    'Not available' => 'غير متاح',
     
     // General
     'Add' => 'إضافة',
@@ -129,6 +132,8 @@ return [
     'Setting Managment' => 'الاعدادات',
     'Edit social' => 'تعديل مواقع التواصل ',
     'Edit pages' => 'تعديل صفحات الشروط والمساعدة',
+    'List Lawyers' => 'قائمة الموثقين',
+    'List authorized' => 'قائمة المأذونين',
     
     // Prices
     'deliveryFees' => 'تكلفة التوصيل للمنزل',

@@ -1,14 +1,19 @@
 @extends('backend.layouts.list')
 @section('listTable')
 
-<br />
-<div class="">
-    <span class="badge badge-roundless" style="background-color: #F1C40F;">{{__('backend.clerk')}}</span>
-    <span class="badge badge-roundless" style="background-color: #36c6d3;">{{__('backend.authorized')}}</span>
-    <span class="badge badge-roundless" style="background-color: #ccc;">{{__('backend.activeted')}}</span>
-    <span class="badge badge-roundless" style="background-color: red;">{{__('backend.Not login yet')}}</span>
-    <br /><br />
-    @parent
-</div>
+    <div class="tabbable">
+        <ul class="nav nav-tabs nav-tabs-highlight">
+            <li class="{{$listName == 'lawyer_list' ? 'active' : ''}}"><a
+                        href="{{route('backend.lawyer.index')}}">{{__('backend.List Lawyers')}}</a></li>
+            <li class="{{$listName == 'authorized_list' ? 'active' : ''}}"><a
+                        href="{{route('backend.authorized.index')}}">{{__('backend.List authorized')}}</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <br/>
+            <div class="clearfix"></div>
+            @parent
+        </div>
+    </div>
 
 @endsection
