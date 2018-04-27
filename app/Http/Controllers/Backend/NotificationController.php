@@ -56,7 +56,12 @@ class NotificationController extends BackendController
     public function listData(Request $request)
     {
         $items = LogOrderProcess::select($this->dataColumns())
-            ->where(['type' => LogOrderProcess::$CREATE_TYPE])
+            ->whereIn('type', [
+                LogOrderProcess::$CREATE_TYPE,
+                LogOrderProcess::$ACCEPT_TYPE,
+                LogOrderProcess::$CLOSED_TYPE,
+                LogOrderProcess::$REMOVED_TYPE,
+            ])
             ->latest();
 
         return Datatables::of($items)
@@ -73,6 +78,6 @@ class NotificationController extends BackendController
 
     public function read(Request $request)
     {
-        return LogOrderProcess::where('type', LogOrderProcess::$CREATE_TYPE)->update(['isRead' => true]);
+        return LogOrderProcess::where('isRead', false)->update(['isRead' => true]);
     }
 }

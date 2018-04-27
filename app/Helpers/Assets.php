@@ -21,83 +21,99 @@ use App\Setting;
 /**
  * @author Ahmad Gamal <ahmed.gamal@ibtikar.net.sa>
  */
-class Assets {
+class Assets
+{
 
-    public static function newOrderCount() {
+    public static function newOrderCount()
+    {
         return self::countOrdersByStatus(Order::$NEW_STATUS);
     }
-    
-    public static function pendingOrderCount() {
+
+    public static function pendingOrderCount()
+    {
         return self::countOrdersByStatus(Order::$PENDING_STATUS);
     }
-    
-    public static function closedOrderCount() {
+
+    public static function closedOrderCount()
+    {
         return self::countOrdersByStatus(Order::$CLOSED_STATUS);
     }
 
-    public static function removedOrderCount() {
+    public static function removedOrderCount()
+    {
         return self::countOrdersByStatus(Order::$REMOVED_STATUS);
     }
 
-    public static function supportOrderCount() {
+    public static function supportOrderCount()
+    {
         return Order::where('support', true)->count();
     }
-    
-    public static function countOrdersByStatus($status) {
+
+    public static function countOrdersByStatus($status)
+    {
         return Order::where('status', $status)->count();
     }
 
-    public static function countTotalOrders() {
+    public static function countTotalOrders()
+    {
         return Order::count();
     }
 
-    public static function countTotalClients() {
+    public static function countTotalClients()
+    {
         return User::where('type', User::$CLIENT_TYPE)->count();
     }
 
-    public static function countTotalLawyers() {
+    public static function countTotalLawyers()
+    {
         return User::where('type', User::$LAWYER_TYPE)->count();
     }
 
-    public static function latestThreeClients() {
+    public static function latestThreeClients()
+    {
         return User::where('type', User::$CLIENT_TYPE)->take(3)->latest()->get();
     }
 
-    public static function clientContactCount() {
+    public static function clientContactCount()
+    {
         return ContactUs::where(['user_type' => User::$CLIENT_TYPE])->count();
     }
 
-    public static function lawyerContactCount() {
+    public static function lawyerContactCount()
+    {
         return ContactUs::where(['user_type' => User::$LAWYER_TYPE])->count();
     }
 
-    public static function countTotalOrdersCost() {
+    public static function countTotalOrdersCost()
+    {
         $totalCost = Order::select(DB::raw('SUM(cost) as totalCost'))
-                    ->first();
+            ->first();
         return $totalCost ? $totalCost->totalCost : 0;
     }
 
-    public static function countTotalAuthorizationCost() {
+    public static function countTotalAuthorizationCost()
+    {
         $totalCost = Order::select(DB::raw('SUM(cost) as totalCost'))
-                    ->whereIn('category_id', Category::$authorizationCategories)
-                    ->first();
+            ->whereIn('category_id', Category::$authorizationCategories)
+            ->first();
         return $totalCost ? $totalCost->totalCost : 0;
     }
 
-    public static function countTotalContractCost() {
+    public static function countTotalContractCost()
+    {
         $totalCost = Order::select(DB::raw('SUM(cost) as totalCost'))
-                    ->whereIn('category_id', Category::$contracts)
-                    ->first();
+            ->whereIn('category_id', Category::$contracts)
+            ->first();
         return $totalCost ? $totalCost->totalCost : 0;
     }
 
-    public static function countTotalMarriageContractsCost() {
+    public static function countTotalMarriageContractsCost()
+    {
         $totalCost = Order::select(DB::raw('SUM(cost) as totalCost'))
-                    ->whereIn('category_id', Category::$marriageContracts)
-                    ->first();
+            ->whereIn('category_id', Category::$marriageContracts)
+            ->first();
         return $totalCost ? $totalCost->totalCost : 0;
     }
-
 
 
     /**
@@ -107,13 +123,14 @@ class Assets {
      * @param type $lawyers
      * @param type $distance
      */
-    public function logOrderProcess($order, $type, $lawyers = false, $distance = null) {
+    public function logOrderProcess($order, $type, $lawyers = false, $distance = null)
+    {
         $message = '';
         switch ($type) {
             case OrderLogger::$CREATE_TYPE:
                 $message = __('api.order_created_log', [
                     'user' => $order->client->name
-                        ], 'ar');
+                ], 'ar');
                 break;
 
             case OrderLogger::$ACCEPT_TYPE:
@@ -121,28 +138,28 @@ class Assets {
                 $message = __('api.order_accepted_log', [
                     'lawyer' => $lawyer ? $lawyer->name : '--',
                     'direction' => $lawyer ? "[" . $lawyer->latitude . ',' . $lawyer->longitude . "]" : '--'
-                        ], 'ar');
+                ], 'ar');
                 break;
-            
+
             case OrderLogger::$CLOSED_TYPE:
                 $lawyer = $order->lawyer;
                 $message = __('api.order_close_log', [
                     'lawyer' => $lawyer ? $lawyer->name : '--',
-                    ], 'ar');
+                ], 'ar');
                 break;
 
             case OrderLogger::$FORCE_SELECT_LAWYER_TYPE:
                 $lawyer = $order->lawyer;
                 $message = __('api.force_select_lawyer_log', [
                     'lawyer' => $lawyer ? $lawyer->name : '--',
-                        ], 'ar');
+                ], 'ar');
                 break;
-            
+
             case OrderLogger::$NOTIFY_LAWYER_FORCE_SELECT_TYPE:
                 $lawyer = $order->lawyer;
                 $message = __('api.notify_lawyer_force_select_log', [
                     'lawyer' => $lawyer ? $order->lawyer->name : '--',
-                        ], 'ar');
+                ], 'ar');
                 break;
 
             case OrderLogger::$NOTIFY_CLIENT_ACCEPT_TYPE:
@@ -150,21 +167,21 @@ class Assets {
                 $message = __('api.order_notify_client_accept_log', [
                     'lawyer' => $lawyer ? $order->lawyer->name : '--',
                     'client' => $order->client ? $order->client->name : '--',
-                        ], 'ar');
+                ], 'ar');
                 break;
-            
+
             case OrderLogger::$NOTIFY_CLIENT_CLOSE_TYPE:
                 $lawyer = $order->lawyer;
                 $message = __('api.order_notify_client_close_log', [
                     'lawyer' => $lawyer ? $order->lawyer->name : '--',
                     'client' => $order->client ? $order->client->name : '--',
-                        ], 'ar');
+                ], 'ar');
                 break;
 
             case OrderLogger::$NOTIFY_CLIENT_NOT_ACCEPT_TYPE:
                 $message = __('api.order_notify_client_not_accept_log', [
                     'client' => $order->client ? $order->client->name : '--',
-                        ], 'ar');
+                ], 'ar');
                 break;
 
             case OrderLogger::$NOTIFY_LAWYER_TYPE:
@@ -184,7 +201,7 @@ class Assets {
                     'lawyers' => $lawyerStr,
                     'lawyersCount' => $lawyers ? count($lawyers) : 0,
                     'distance' => $distance ? implode(',', $distance) : '--'
-                        ], 'ar');
+                ], 'ar');
                 break;
         }
 
@@ -207,26 +224,27 @@ class Assets {
      *  @return array
      */
 
-    public function getNearbyLawyers($order, $distanceBetween) {
+    public function getNearbyLawyers($order, $distanceBetween)
+    {
         $distance_select = sprintf(
-                "ROUND(( %d * acos( cos( radians(%s) ) " .
-                " * cos( radians(`latitude`) ) " .
-                " * cos( radians(`longitude`) - radians(%s) ) " .
-                " + sin( radians(%s) ) * sin( radians(`latitude`) ) " .
-                " ) " .
-                "), 2 )" .
-                "AS distance", 6371, $order->latitude, $order->longitude, $order->latitude
+            "ROUND(( %d * acos( cos( radians(%s) ) " .
+            " * cos( radians(`latitude`) ) " .
+            " * cos( radians(`longitude`) - radians(%s) ) " .
+            " + sin( radians(%s) ) * sin( radians(`latitude`) ) " .
+            " ) " .
+            "), 2 )" .
+            "AS distance", 6371, $order->latitude, $order->longitude, $order->latitude
         );
 
         $lawyers = User::select(DB::raw('users.*,' . $distance_select))
-                ->having('distance', '>=', $distanceBetween[0])
-                ->having('distance', '<', $distanceBetween[1])
-                ->where('type', User::$LAWYER_TYPE)
-                ->where('active', true)
-                ->where('isOnline', false)
-                ->whereIn('lawyerType', $order->getCategoryType($order->category))
-                ->orderBy('distance', 'ASC')
-                ->get();
+            ->having('distance', '>=', $distanceBetween[0])
+            ->having('distance', '<', $distanceBetween[1])
+            ->where('type', User::$LAWYER_TYPE)
+            ->where('active', true)
+            ->where('isOnline', false)
+            ->whereIn('lawyerType', $order->getCategoryType($order->category))
+            ->orderBy('distance', 'ASC')
+            ->get();
 
 //        echo '<pre>';
 //    	echo $query->toSQL();
@@ -245,7 +263,8 @@ class Assets {
      * @param type $orderId
      * @return boolean
      */
-    public function sendLawyerNotification($lawyers, $orderId) {
+    public function sendLawyerNotification($lawyers, $orderId)
+    {
         if (count($lawyers) == 0)
             return false;
 
@@ -260,14 +279,15 @@ class Assets {
 
         return $notificaiton->sendNotification($lawyers, $notificationData);
     }
-    
-    
+
+
     /**
      * @param type $lawyers
      * @param type $orderId
      * @return boolean
      */
-    public function sendLawyerForceAcceptNotification($lawyers, $order) {
+    public function sendLawyerForceAcceptNotification($lawyers, $order)
+    {
         if (count($lawyers) == 0)
             return false;
 
@@ -288,7 +308,8 @@ class Assets {
      * @param object $order
      * @return type
      */
-    public function sendClientNotAcceptNotification($order) {
+    public function sendClientNotAcceptNotification($order)
+    {
         $notificaiton = new Notification();
 
         $notificationData = [
@@ -306,7 +327,8 @@ class Assets {
      * @param object $order
      * @return type
      */
-    public function sendClientAcceptNotification($order) {
+    public function sendClientAcceptNotification($order)
+    {
         $notificaiton = new Notification();
 
         $notificationData = [
@@ -320,12 +342,13 @@ class Assets {
         $this->logOrderProcess($order, OrderLogger::$NOTIFY_CLIENT_ACCEPT_TYPE);
     }
 
-    
+
     /**
      * @param object $order
      * @return type
      */
-    public function sendClientCloseNotification($order) {
+    public function sendClientCloseNotification($order)
+    {
         $notificaiton = new Notification();
 
         $notificationData = [
@@ -343,34 +366,51 @@ class Assets {
      * @param type $order
      * @return boolean
      */
-    public function isOrderAccepted($order) {
+    public function isOrderAccepted($order)
+    {
         return Order::where([
-                            'id' => $order->id,
-                            'status' => Order::$NEW_STATUS
-                        ])
-                        ->count() == 0;
+                'id' => $order->id,
+                'status' => Order::$NEW_STATUS
+            ])
+                ->count() == 0;
     }
 
 
-    public static function checkLawyerHasCredit($lawyer) {
+    public static function checkLawyerHasCredit($lawyer)
+    {
         $fees = Setting::where('setting', 'ORDER_FEES_RATE')->first()->value;
         $permitTimes = Setting::where('setting', 'ORDER_ALLOWED_TIME')->first()->value;
 
-        return $lawyer->credit > -($fees*$permitTimes);
+        return $lawyer->credit > -($fees * $permitTimes);
 
     }
 
-    public static function orderFeesRate() {
+    public static function orderFeesRate()
+    {
         return Setting::where('setting', 'ORDER_FEES_RATE')->first()->value;
     }
 
     // Backend Notitifications
-    public static function latestAdminNotifications() {
+    public static function latestAdminNotifications()
+    {
         Carbon::setLocale('ar');
-        return LogOrderProcess::where('type', LogOrderProcess::$CREATE_TYPE)->take(10)->latest()->get();
+        return LogOrderProcess::whereIn('type', [
+                LogOrderProcess::$CREATE_TYPE,
+                LogOrderProcess::$ACCEPT_TYPE,
+                LogOrderProcess::$CLOSED_TYPE,
+                LogOrderProcess::$REMOVED_TYPE,
+            ]
+        )->take(10)->latest()->get();
     }
-    public static function countNewlAdminNotifications() {
-        return LogOrderProcess::where('type', LogOrderProcess::$CREATE_TYPE)
+
+    public static function countNewlAdminNotifications()
+    {
+        return LogOrderProcess::whereIn('type', [
+                LogOrderProcess::$CREATE_TYPE,
+                LogOrderProcess::$ACCEPT_TYPE,
+                LogOrderProcess::$CLOSED_TYPE,
+                LogOrderProcess::$REMOVED_TYPE,
+            ])
             ->where('isRead', false)
             ->get()
             ->count();
