@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\ProcessOrderRequests::class,
-
+        Commands\SendAdminOrdersNotiicationEmail::class,
     ];
 
     /**
@@ -29,6 +29,7 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
         
         $schedule->command('requests:process')->everyMinute()->withoutOverlapping();
+        $schedule->command('order-notification-email:send')->everyMinute()->withoutOverlapping();
     }
 
     /**

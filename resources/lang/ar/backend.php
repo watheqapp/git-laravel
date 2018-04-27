@@ -128,6 +128,7 @@ return [
     'view all' => 'عرض الجميع',
     'pending' => 'غير مقروء',
     'notifications' => 'اشعار',
+    'Change status notification' => 'تغيير حالة طلب ',
     
     // Menu
     'Users Managment' => 'إدارة المستخدمين',
