@@ -58,7 +58,7 @@ class SendAdminOrdersNotiicationEmail extends Command {
                 [
                     'username' => 'Watheq Admin',
                     'body' => $orderLog->message,
-                    'order' => $orderLog,
+                    'order' => $orderLog->order,
                 ], function ($m) {
                     $m->from(env('MAIL_USERNAME'), env('APP_NAME'));
                     $m->to(env('ADMIN_EMAIL'), 'sir')->subject(__('backend.Change status notification'));
