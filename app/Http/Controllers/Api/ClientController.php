@@ -10,6 +10,7 @@ use JWTAuth;
 use \App\Device;
 use \App\User;
 use \App\Client;
+use Propaganistas\LaravelPhone\PhoneNumber;
 
 /**
  * Handle api Clients auth
@@ -58,8 +59,10 @@ class ClientController extends ApiBaseController {
             return $this->getErrorJsonResponse($validator->errors()->all());
         }
 
+        $phone = str_replace('+', '', (string) PhoneNumber::make('+'.$request->phone));
+
         $client = Client::firstOrCreate([
-                    'phone' => $request->phone,
+                    'phone' => $phone,
                     'type' => Client::$CLIENT_TYPE
                 ], [
                     'lastLoginDate' => date('Y-m-d H:i')
@@ -175,9 +178,12 @@ class ClientController extends ApiBaseController {
      * @param type $request
      */
     private function updateUserObj($request) {
+        if($request->phone) {
+            $phone = str_replace('+', '', (string)PhoneNumber::make('+' . $request->phone));
+        }
         $client = Auth()->user();
         $client->name = $request->name ? $request->name : $client->name;
-        $client->phone = $request->phone ? $request->phone : $client->phone;
+        $client->phone = $request->phone ? $phone : $client->phone;
         $client->email = $request->email ? $request->email : $client->email;
         $client->language = $request->language ? $request->language : $client->language;
 

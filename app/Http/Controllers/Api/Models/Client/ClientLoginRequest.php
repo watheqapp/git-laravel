@@ -9,7 +9,7 @@ namespace App\Http\Controllers\Api\Models\Client;
 class ClientLoginRequest {
 
     /**
-     * @SWG\Property(example="0532579547")
+     * @SWG\Property(example="966532579547")
      * @var string
      */
     public $phone;

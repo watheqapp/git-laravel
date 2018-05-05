@@ -10,6 +10,7 @@ use JWTAuth;
 use \App\Device;
 use \App\User;
 use \App\Lawyer;
+use Propaganistas\LaravelPhone\PhoneNumber;
 
 /**
  * Handle api Lawyers auth
@@ -59,8 +60,10 @@ class LawyerController extends ApiBaseController {
             return $this->getErrorJsonResponse($validator->errors()->all());
         }
 
+        $phone = str_replace('+', '', (string)PhoneNumber::make('+' . $request->phone));
+
         $lawyer = Lawyer::where([
-                'phone' => $request->phone,
+                'phone' => $phone,
                 'type' => Lawyer::$LAWYER_TYPE,
             ]
         )->first();
@@ -73,7 +76,7 @@ class LawyerController extends ApiBaseController {
             $lawyer->save();
         } else {
             $lawyer = Lawyer::Create([
-                'phone' => $request->phone,
+                'phone' => $phone,
                 'type' => Lawyer::$LAWYER_TYPE,
                 'active' => 0,
                 'lastLoginDate' => date('Y-m-d H:i')
@@ -299,8 +302,12 @@ class LawyerController extends ApiBaseController {
     private function updateUserObj($request) {
         $lawyer = Auth()->user();
 
+        if($request->phone) {
+            $phone = str_replace('+', '', (string) PhoneNumber::make('+' . $request->phone));
+        }
+
         $lawyer->name = $request->name ? $request->name : $lawyer->name;
-        $lawyer->phone = $request->phone ? $request->phone : $lawyer->phone;
+        $lawyer->phone = $request->phone ? $phone : $lawyer->phone;
         $lawyer->email = $request->email ? $request->email : $lawyer->email;
         $lawyer->lawyerType = $request->lawyerType ? $request->lawyerType : $lawyer->lawyerType;
         $lawyer->language = $request->language ? $request->language : $lawyer->language;

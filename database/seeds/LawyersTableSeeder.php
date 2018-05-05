@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Propaganistas\LaravelPhone\PhoneNumber;
 
 class LawyersTableSeeder extends Seeder {
 
@@ -26774,7 +26775,10 @@ class LawyersTableSeeder extends Seeder {
                 $lawyer['lawyerType'] = 'clerk';
             }
 
-            $lawyer['phone'] = preg_replace('/\s+/', '', $lawyer['phone']);
+            $phone = preg_replace('/\s+/', '', $lawyer['phone']);
+            $phone = str_replace('+', '', (string) PhoneNumber::make('+966' . $phone));
+
+            $lawyer['phone'] = $phone;
             $lawyer['migrated'] = true;
             $lawyer['active'] = false;
             \App\User::create($lawyer);
