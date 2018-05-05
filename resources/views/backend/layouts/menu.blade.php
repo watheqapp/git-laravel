@@ -118,6 +118,18 @@
                     </a>
                 </li>
             @endif
+
+            <li class="heading">
+                <h3 class="uppercase"> {{__('backend.pushnotification')}}</h3>
+            </li>
+            @if(Auth::user()->hasPermission('role-pushnotification'))
+                <li class="nav-item  {{ strpos(Route::currentRouteName(), 'pushnotification') !== false ? 'active' : '' }}">
+                    <a href="{{route('backend.pushnotification.create')}}" class="nav-link">
+                        <em class="icon-users"></em>
+                        <span class="title">{{__('backend.Create pushnotification')}}</span>
+                    </a>
+                </li>
+            @endif
             
             <li class="heading">
                 <h3 class="uppercase"> {{__('backend.Setting Managment')}}</h3>

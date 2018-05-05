@@ -174,7 +174,8 @@ return [
         Yajra\Datatables\DatatablesServiceProvider::class,
         Proengsoft\JsValidation\JsValidationServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
-        
+        Propaganistas\LaravelPhone\PhoneServiceProvider::class,
+
         /*
          * Application Service Providers...
          */

@@ -67,6 +67,11 @@ class PermissionTableSeeder extends Seeder {
                 'description' => 'List lawyerContact',
                 'module' => 'lawyerContact'
             ],
+            [
+                'name' => 'role-pushnotification',
+                'description' => 'Send pushnotification',
+                'module' => 'pushnotification'
+            ],
            
 
         ];

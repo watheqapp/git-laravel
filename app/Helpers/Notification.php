@@ -42,6 +42,8 @@ class Notification {
     }
     
     public function logNotification($users, $data) {
+        var_dump($users);
+        exit;
         foreach ($users as $user) {
             $data['userId'] = $user->id;
             LogNotification::create($data);
@@ -54,6 +56,22 @@ class Notification {
         $tokens = $this->getUsersTokens($users);
 
         $this->logNotification($users, $data);
+        
+        $result = '';
+        if(!empty($tokens['ios'])) {
+            $result .= $this->sendIosNotification($tokens['ios'], $data);
+        }
+        
+        if(!empty($tokens['android'])) {
+            $result .= $this->sendAndroidNotification($tokens['android'], $data);
+        }
+        
+        return $result;
+    }
+
+
+    public function sendDirectNotification($users, $data) {
+        $tokens = $this->getUsersTokens($users);
         
         $result = '';
         if(!empty($tokens['ios'])) {

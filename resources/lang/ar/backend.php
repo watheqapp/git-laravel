@@ -233,4 +233,21 @@ return [
     'cant delete this role as it contain user'=>'عفوا لا يمكن الحذف حين انه يحتوى على مستخدمين',
     'Welcome message' => 'مرحبا بك  , يمكنك التحكم فى كل شى خاص بالموقع من هنا بسهولة :)',
     'File extension validation' => 'صيغة الملف    :extension',
-];
+
+    // Push notification
+    'all-lawyers' => 'كل الموثقين',
+    'one-lawyer' => 'موثق محدد',
+    'all-clerks' => 'كل المأذونين',
+    'one-clerk' => 'مأذون محدد',
+    'all-users' => 'كل المستخدمين',
+    'one-user' => 'مستخدم محدد',
+    'pushnotification' => 'اشعارات الجوال',
+    'Create pushnotification' => 'إرسال إشعار للجوال',
+    'userType' => 'نوع المستخدم',
+    'userId' => 'المستخدم',
+    'Manage pushnotification' => 'إدارة إشعارات الجوال',
+    'Sent successfuly' => 'تم إرسال الإشعار بنجاح',
+
+
+
+    ];

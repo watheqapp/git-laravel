@@ -100,6 +100,8 @@ type="text/javascript"></script>
 <script src="{{asset('backend-assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js')}}" type="text/javascript"></script>
 <script src="{{asset('backend-assets/global/plugins/bootstrap-toastr/toastr.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('backend-assets/pages/scripts/ui-toastr.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('backend-assets/global/plugins/select2/js/select2.full.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('backend-assets//pages/scripts/components-select2.min.js')}}" type="text/javascript"></script>
 
 @yield('js')
 <!-- END THEME LAYOUT SCRIPTS -->

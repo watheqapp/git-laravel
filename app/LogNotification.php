@@ -12,7 +12,9 @@ class LogNotification extends Model {
         'content',
         'type',
         'orderId',
-        'userId'
+        'userId',
+        'userType',
+        'isSend',
     ];
     
     public static $NOTIFY_LAWYER_FORCE_SELECT_TYPE = 'notifyForceSelectLawyer';
@@ -20,6 +22,14 @@ class LogNotification extends Model {
     public static $NOTIFY_CLIENT_ACCEPT_TYPE = 'notifyClientAccept';
     public static $NOTIFY_CLIENT_CLOSE_TYPE = 'notifyClientclose';
     public static $NOTIFY_CLIENT_NOT_ACCEPT_TYPE = 'notifyClientNotAccept';
+    public static $NOTIFY_INFO_TYPE = 'notifyInfo';
+
+    public static $NOTIFY_INFO_ALL_LAWYERS = 'all-lawyers';
+    public static $NOTIFY_INFO_ONE_LAWYER = 'one-lawyer';
+    public static $NOTIFY_INFO_ALL_CLERKS = 'all-clerks';
+    public static $NOTIFY_INFO_ONE_CLERK = 'one-clerk';
+    public static $NOTIFY_INFO_ALL_USERS = 'all-users';
+    public static $NOTIFY_INFO_ONE_USER = 'one-user';
 
     public function order() {
         return $this->belongsTo('App\Order', 'orderId')->withTrashed();
@@ -27,6 +37,25 @@ class LogNotification extends Model {
     
     public function user() {
         return $this->belongsTo('App\User', 'userId')->withTrashed();
+    }
+
+    public static function userTypes() {
+        return [
+            self::$NOTIFY_INFO_ALL_LAWYERS => __('backend.'.self::$NOTIFY_INFO_ALL_LAWYERS),
+            self::$NOTIFY_INFO_ONE_LAWYER => __('backend.'.self::$NOTIFY_INFO_ONE_LAWYER),
+            self::$NOTIFY_INFO_ALL_CLERKS => __('backend.'.self::$NOTIFY_INFO_ALL_CLERKS),
+            self::$NOTIFY_INFO_ONE_CLERK => __('backend.'.self::$NOTIFY_INFO_ONE_CLERK),
+            self::$NOTIFY_INFO_ALL_USERS => __('backend.'.self::$NOTIFY_INFO_ALL_USERS),
+            self::$NOTIFY_INFO_ONE_USER => __('backend.'.self::$NOTIFY_INFO_ONE_USER),
+            ];
+    }
+
+    public static function oneUsersTypes() {
+        return [
+            self::$NOTIFY_INFO_ONE_LAWYER => __('backend.'.self::$NOTIFY_INFO_ONE_LAWYER),
+            self::$NOTIFY_INFO_ONE_CLERK => __('backend.'.self::$NOTIFY_INFO_ONE_CLERK),
+            self::$NOTIFY_INFO_ONE_USER => __('backend.'.self::$NOTIFY_INFO_ONE_USER),
+            ];
     }
 
 }

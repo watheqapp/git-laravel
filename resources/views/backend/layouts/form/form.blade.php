@@ -45,6 +45,45 @@
     jQuery.validator.setDefaults({
         ignore: ''
      });
+
+    $(document).ready(function(){
+        $('select[name=userId]').select2({
+            'disabled': true,
+            'language': 'ar'
+        });
+
+        var spacificTypes = ['one-lawyer', 'one-clerk', 'one-user'];
+        $('select[name=userType]').change(function(){
+            $('select[name=userId]').html('').select2({data: [{id: '', text: ''}]});
+            if(jQuery.inArray( $(this).val(), spacificTypes ) == -1) {
+                $('select[name=userId]').select2({
+                    'disabled': true,
+                    'language': 'ar'
+                });
+            } else {
+                $('select[name=userId]').select2({
+                    'disabled': false,
+                    ajax: {
+                    url: "{{url('/backend/user/search')}}",
+                    dataType: 'json',
+                    quietMillis: 100,
+                    data: function (params) {
+                    var query = {
+                            search: params.term,
+                            type: $('select[name=userType]').val(),
+                        }
+                        return query;
+                    },
+                    processResults: function (data) {
+                      return {
+                        results: data
+                      };
+                    },
+                  }
+                });
+            }
+        });
+    });
  });
 </script>
 

@@ -36,7 +36,7 @@
                         </tr>
                         <tr>
                             <th style="width: 150px;">{{__('backend.cost')}}</th>
-                            <td>{{$order->cost.' '. __('backend.SAR')}}</span></td>
+                            <td>{{$order->cost.' '. __('backend.SAR')}}</td>
                         </tr>
                         <tr>
                             <th style="width: 150px;">{{__('backend.created_at')}}</th>
