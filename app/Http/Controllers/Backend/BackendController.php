@@ -36,6 +36,7 @@ class BackendController extends BaseController {
                           ->toArray();
 
         $ordersByDaysStatistics = [];
+        $costsByDaysStatistics = [];
         foreach ($ordersByDays as $day) {
             $ordersByDaysStatistics[] = [date('d-m', strtotime($day->date)), $day->totalOrders];
             $costsByDaysStatistics[] = [date('d-m', strtotime($day->date)), $day->totalCost];
