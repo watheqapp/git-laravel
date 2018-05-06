@@ -216,17 +216,21 @@
         });
 
         @foreach ($OutLawyers as $lawyer)
-            new google.maps.Marker({
+            var marker = new google.maps.Marker({
                 position: new google.maps.LatLng({lat: parseFloat('{{$lawyer->latitude}}'), lng: parseFloat('{{$lawyer->longitude}}')}),
                 map: map,
+                title: '{{$lawyer->name}}'
+
             });
         @endforeach
 
 
         @foreach ($inLawyers as $inLawyer)
-            new google.maps.Marker({
-                position: new google.maps.LatLng({lat: parseFloat('{{$inLawyer->latitude}}'), lng: parseFloat('{{$inLawyer->longitude}}')}),
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng({lat: parseFloat('{{$inLawyer->latitude}}'), lng: parseFloat('{{$inLawyer->longtitude}}')}),
                 map: map,
+                title: '{{$inLawyer->name}}'
+
             });
         @endforeach
 

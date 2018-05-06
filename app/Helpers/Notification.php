@@ -42,8 +42,6 @@ class Notification {
     }
     
     public function logNotification($users, $data) {
-        var_dump($users);
-        exit;
         foreach ($users as $user) {
             $data['userId'] = $user->id;
             LogNotification::create($data);

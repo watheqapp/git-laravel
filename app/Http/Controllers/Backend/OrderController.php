@@ -411,12 +411,9 @@ class OrderController extends BackendController
                         ->where('isOnline', true)
                         ->whereIn('lawyerType', $order->getCategoryType($order->category))
                         ->orderBy('distance', 'DESC')
-                        ->get()
-                        ->pluck('name', 'id')->toArray();
+                        ->get();
 
         $inLawyers = \App\OrderLawyersHistory::where('order_id', $order->id)->get();
-
-        // return view('backend.lawyer.map', compact('items', 'breadcrumb'));
 
         $chat = false;
         if ($order->status != Order::$NEW_STATUS && $order->lawyer) {

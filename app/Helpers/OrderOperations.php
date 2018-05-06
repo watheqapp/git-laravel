@@ -38,11 +38,11 @@ class OrderOperations {
                 'order_id' => $order->id,
                 'lawyer_id' => $lawyer->id,
                 'latitude' => $lawyer->latitude,
-                'longtitude' => $lawyer->longtitude,
+                'longtitude' => $lawyer->longitude,
             ];
         }
 
-        return OrderLawyersHistory::create($data);
+        return OrderLawyersHistory::insert($data);
 
     }
 

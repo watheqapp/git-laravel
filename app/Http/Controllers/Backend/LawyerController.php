@@ -220,7 +220,7 @@ class LawyerController extends BackendController {
         $lawyer->save();
 
         Session::flash('success', 'Updated successfuly');
-        return redirect('backend/lawyer/list');
+        return redirect('backend/lawyer/laywers-list');
     }
     
     public function show($id) {
