@@ -9,6 +9,7 @@ use App\Helpers\Notification;
 use App\User;
 use App\Order;
 use App\LogOrderProcess as OrderLogger;
+use App\OrderLawyersHistory;
 
 /**
  * @author Ahmad Gamal <ahmed.gamal@ibtikar.net.sa>
@@ -25,6 +26,24 @@ class OrderOperations {
             $this->sendLawyerNotification($lawyers, $order->id, $order->client_id);
         }
         $this->logOrderProcess($order, OrderLogger::$NOTIFY_LAWYER_TYPE, $lawyers, $distanceBetween);
+        $this->setOrderLawyersHistory($order, $lawyers);
+
+    }
+
+    public function setOrderLawyersHistory($order, $lawyers)
+    {
+        $data = [];
+        foreach ($lawyers as $lawyer) {
+            $data[] = [
+                'order_id' => $order->id,
+                'lawyer_id' => $lawyer->id,
+                'latitude' => $lawyer->latitude,
+                'longtitude' => $lawyer->longtitude,
+            ];
+        }
+
+        return OrderLawyersHistory::create($data);
+
     }
 
     /**

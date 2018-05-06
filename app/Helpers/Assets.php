@@ -17,6 +17,7 @@ use App\Client;
 use App\Lawyer;
 use App\Category;
 use App\Setting;
+use Geotools;
 
 /**
  * @author Ahmad Gamal <ahmed.gamal@ibtikar.net.sa>
@@ -414,5 +415,14 @@ class Assets
             ->where('isRead', false)
             ->get()
             ->count();
+    }
+
+    public static function calculateOrderDistance($coordA, $coordB) {
+        $coordA   = Geotools::coordinate($coordA);
+        $coordB   = Geotools::coordinate($coordB);
+        $distance = Geotools::distance()->setFrom($coordA)->setTo($coordB);
+
+        // $distance->flat(); // 659166.50038742 (meters)
+        return round($distance->in('km')->haversine()); // 659.02190812846
     }
 }

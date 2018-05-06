@@ -392,6 +392,32 @@ class OrderController extends BackendController
             ]
         ];
 
+        // List lawyers by nearby distance to client lat & lng
+        $distanceSelect = sprintf(
+            "ROUND(( %d * acos( cos( radians(%s) ) " .
+            " * cos( radians(`latitude`) ) " .
+            " * cos( radians(`longitude`) - radians(%s) ) " .
+            " + sin( radians(%s) ) * sin( radians(`latitude`) ) " .
+            " ) " .
+            "), 2 )" .
+            "AS distance", 6371, $order->latitude, $order->longitude, $order->latitude
+        );
+
+        $OutLawyers = \App\Lawyer::select(DB::raw('users.*,' . $distanceSelect))
+                        ->where('type', User::$LAWYER_TYPE)
+                        ->having('distance', '>', 20)
+                        ->having('distance', '<', 50)
+                        ->where('active', true)
+                        ->where('isOnline', true)
+                        ->whereIn('lawyerType', $order->getCategoryType($order->category))
+                        ->orderBy('distance', 'DESC')
+                        ->get()
+                        ->pluck('name', 'id')->toArray();
+
+        $inLawyers = \App\OrderLawyersHistory::where('order_id', $order->id)->get();
+
+        // return view('backend.lawyer.map', compact('items', 'breadcrumb'));
+
         $chat = false;
         if ($order->status != Order::$NEW_STATUS && $order->lawyer) {
             $chat = Firebase::get('/messages/' . $order->client->id . '/' . $order->client->id . $order->lawyer->id . $order->id, ['print' => 'pretty']);
@@ -400,7 +426,7 @@ class OrderController extends BackendController
             // var_dump(($chat));
             // exit;
         }
-        return view('backend.order.show', compact('order', 'breadcrumb', 'chat'));
+        return view('backend.order.show', compact('order', 'inLawyers', 'OutLawyers', 'breadcrumb', 'chat'));
     }
 
     public function ordersMap(Request $request)
