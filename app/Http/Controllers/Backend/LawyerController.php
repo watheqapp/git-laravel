@@ -185,7 +185,7 @@ class LawyerController extends BackendController {
             'email',
             Rule::unique('users')->where(function($query) use ($document) {
                                     $query->where('id', '!=', $document->id);
-                                    $query->where('type', 2);
+                                    $query->where('type', User::$LAWYER_TYPE);
                                     $query->where('deleted_at', NULL);
                                  }),
         ];
@@ -194,7 +194,7 @@ class LawyerController extends BackendController {
             'required',
             Rule::unique('users')->where(function($query) use ($document) {
                                     $query->where('id', '!=', $document->id);
-                                    $query->where('type', 2);
+                                    $query->where('type', User::$LAWYER_TYPE);
                                     $query->where('deleted_at', NULL);
                                  }),
         ];
@@ -221,7 +221,7 @@ class LawyerController extends BackendController {
             'email',
             Rule::unique('users')->where(function($query) use ($lawyer) {
                                     $query->where('id', '!=', $lawyer->id);
-                                    $query->where('type', 2);
+                                    $query->where('type', User::$LAWYER_TYPE);
                                     $query->where('deleted_at', NULL);
                                  }),
         ];
@@ -230,7 +230,7 @@ class LawyerController extends BackendController {
             'required',
             Rule::unique('users')->where(function($query) use ($lawyer) {
                                     $query->where('id', '!=', $lawyer->id);
-                                    $query->where('type', 2);
+                                    $query->where('type', User::$LAWYER_TYPE);
                                     $query->where('deleted_at', NULL);
                                  }),
         ];
