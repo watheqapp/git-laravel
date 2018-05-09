@@ -183,8 +183,8 @@ class LawyerController extends BackendController {
         $this->createValidationRules ['email'] = [
             'required',
             'email',
-            Rule::unique('users')->ignore($document->id)
-                                 ->where(function($query) {
+            Rule::unique('users')->where(function($query) {
+                                    $query->where('id', '!=', $document->id);
                                     $query->where('type', 2);
                                     $query->where('deleted_at', NULL);
                                  }),
@@ -192,13 +192,13 @@ class LawyerController extends BackendController {
 
         $this->createValidationRules ['phone'] = [
             'required',
-            Rule::unique('users')->ignore($document->id)
-                                 ->where(function($query) {
+            Rule::unique('users')->where(function($query) {
+                                    $query->where('id', '!=', $document->id);
                                     $query->where('type', 2);
                                     $query->where('deleted_at', NULL);
                                  }),
         ];
-        
+
         $this->createValidationRules ['credit'] = 'required|numeric';
         $validator = JsValidator::make($this->createValidationRules, [], [], '.form-horizontal');
         $lawyerTypes = Lawyer::lawyerTypesArr();
@@ -219,8 +219,8 @@ class LawyerController extends BackendController {
         $this->createValidationRules ['email'] = [
             'required',
             'email',
-            Rule::unique('users')->ignore($lawyer->id)
-                                 ->where(function($query) {
+            Rule::unique('users')->where(function($query) {
+                                    $query->where('id', '!=', $lawyer->id);
                                     $query->where('type', 2);
                                     $query->where('deleted_at', NULL);
                                  }),
@@ -228,8 +228,8 @@ class LawyerController extends BackendController {
 
         $this->createValidationRules ['phone'] = [
             'required',
-            Rule::unique('users')->ignore($lawyer->id)
-                                 ->where(function($query) {
+            Rule::unique('users')->where(function($query) {
+                                    $query->where('id', '!=', $lawyer->id);
                                     $query->where('type', 2);
                                     $query->where('deleted_at', NULL);
                                  }),
