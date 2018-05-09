@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Datatables;
 use Session;
 use JsValidator;
+use Illuminate\Validation\Rule;
 use App\User;
 
 /**
@@ -178,8 +179,26 @@ class LawyerController extends BackendController {
 
     public function preparedEditForm($id) {
         $document = User::where(['type' => User::$LAWYER_TYPE])->findOrFail($id);
-        $this->createValidationRules ['email'] = 'required|email|unique:users,email,'.$document->id.',id,type,2,deleted_at,NULL';
-        $this->createValidationRules ['phone'] = 'required|unique:users,phone,'.$document->id.',id,type,2,deleted_at,NULL';
+
+        $this->createValidationRules ['email'] = [
+            'required',
+            'email',
+            Rule::unique('users')->ignore($document->id)
+                                 ->where(function($query) {
+                                    $query->where('type', 2);
+                                    $query->where('deleted_at', NULL);
+                                 }),
+        ];
+
+        $this->createValidationRules ['phone'] = [
+            'required',
+            Rule::unique('users')->ignore($document->id)
+                                 ->where(function($query) {
+                                    $query->where('type', 2);
+                                    $query->where('deleted_at', NULL);
+                                 }),
+        ];
+        
         $this->createValidationRules ['credit'] = 'required|numeric';
         $validator = JsValidator::make($this->createValidationRules, [], [], '.form-horizontal');
         $lawyerTypes = Lawyer::lawyerTypesArr();
@@ -197,8 +216,25 @@ class LawyerController extends BackendController {
     public function update(Request $request, $id) {
         $lawyer = User::where(['type' => User::$LAWYER_TYPE])->findOrFail($id);
         
-        $this->createValidationRules ['email'] = 'required|email|unique:users,email,'.$lawyer->id.',id,type,2,deleted_at,NULL';
-        $this->createValidationRules ['phone'] = 'required|unique:users,phone,'.$lawyer->id.',id,type,2,deleted_at,NULL';
+        $this->createValidationRules ['email'] = [
+            'required',
+            'email',
+            Rule::unique('users')->ignore($lawyer->id)
+                                 ->where(function($query) {
+                                    $query->where('type', 2);
+                                    $query->where('deleted_at', NULL);
+                                 }),
+        ];
+
+        $this->createValidationRules ['phone'] = [
+            'required',
+            Rule::unique('users')->ignore($lawyer->id)
+                                 ->where(function($query) {
+                                    $query->where('type', 2);
+                                    $query->where('deleted_at', NULL);
+                                 }),
+        ];
+
         $this->createValidationRules ['credit'] = 'required|numeric';
         
         $this->validate($request, $this->createValidationRules);
