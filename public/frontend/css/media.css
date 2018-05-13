@@ -1,0 +1,165 @@
+/* Large Devices, Wide Screens */
+
+@media only screen and (max-width : 1280px)
+{	
+
+}
+
+@media only screen and (max-width : 1212px) 
+
+{
+	.add-home
+		{
+			margin-right:0px; 
+		}
+	.navbar-nav > li
+		{
+			padding:0 4px; 
+		}
+}
+
+@media only screen and (max-width : 1215px) 
+
+{
+	
+	
+	
+}
+
+@media  (max-width : 1340px) and (min-width : 1005px)
+
+{
+	.fixed-price
+	{
+		
+		right: 74%;
+
+	}
+
+}
+@media  (max-width : 850px) and (min-width : 780px)
+
+{
+	
+
+}
+
+@media only screen and (max-width : 1005px) 
+
+{
+	
+	
+}
+
+@media only screen and (max-width : 1000px) 
+
+{
+	
+	
+
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 767px) 
+	{
+		
+		.hideinlarge
+		{
+			display:block !important;
+		}
+		.hideinsmall
+		{
+			display:none !important;
+		}
+		
+		.paddinf_small
+		{
+			padding-right:40px;
+		}
+		
+		.logo
+		{
+			width:50%;
+			margin: 0 auto;
+		}
+		.imagesmall img
+		{
+			width:200px;
+			margin-top: -36px;
+		}
+		.padding_to_small
+		{
+			padding-top:10px !important;
+		}
+		.iconsmall
+		{
+			margin-bottom: 18px;
+			text-align: center;
+			margin-top: -14px;
+			margin-right: -28px;
+		}
+		.imagesmall2 img
+		{
+			width:200px;
+			margin:0 auto;
+		}
+	}
+
+/* Extra Small Devices, Phones */ 
+@media only screen and (max-width : 750px) 
+{
+	
+	
+}
+
+@media only screen and (max-width : 595px) 
+{
+	
+}
+
+@media only screen and (max-width : 550px) 
+{
+	
+}
+@media only screen and (max-width : 500px) 
+{
+	
+	
+	
+}
+
+@media only screen and (max-width : 480px) 
+{
+	
+	
+	
+}
+
+
+
+
+
+/* Extra Small Devices, Phones */ 
+@media only screen and (max-width : 320px) 
+{
+	
+}
+
+@media only screen and (max-width : 380px) 
+{
+	.navbar-toggle
+		{
+			margin-left:9px; 
+		}
+	
+}
+
+@media only screen and (max-width : 395px) 
+{
+	
+}
+
+@media only screen and (max-width: 320px)  
+{
+	
+}
