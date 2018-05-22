@@ -137,9 +137,9 @@ class LawyerOrderController extends OrderController {
             return $this->getErrorJsonResponse([], __('api.Wrong order id'));
         }
 
-        if (!Assets::checkLawyerHasCredit($user)) {
-            return $this->getErrorJsonResponse([], __('api.You don\'t has enough credit'));
-        }
+        // if (!Assets::checkLawyerHasCredit($user)) {
+        //     return $this->getErrorJsonResponse([], __('api.You don\'t has enough credit'));
+        // }
         
         if ($order->status != Order::$NEW_STATUS) {
             return $this->getErrorJsonResponse([], __('api.Order accepted by another lawyer'));
@@ -158,7 +158,7 @@ class LawyerOrderController extends OrderController {
         $order->save();
 
         $user->totalOrders = $user->totalOrders + 1;
-        $user->credit = $user->credit-Assets::orderFeesRate();
+        // $user->credit = $user->credit-Assets::orderFeesRate();
         $user->save();
                 
         $orderOperations = new OrderOperations();
