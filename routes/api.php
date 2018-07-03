@@ -20,7 +20,9 @@ use Illuminate\Http\Request;
 Route::group(['middleware' => ['CheckApiAuth']], function() {
     // Client
     Route::post('client/login', 'Api\ClientController@login');
-    
+
+    Route::post('user/send-login-sms', 'Api\ApiBaseController@sendLoginSMS');
+
     // Laywer
     Route::post('lawyer/login', 'Api\LawyerController@login');
     

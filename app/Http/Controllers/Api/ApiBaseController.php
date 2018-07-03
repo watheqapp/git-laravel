@@ -10,6 +10,7 @@ use Auth;
 use JWTAuth;
 use App\Device;
 use App\ContactUs;
+use App\SMSMESSAGE;
 use Validator;
 
 /**
@@ -237,6 +238,126 @@ class ApiBaseController extends BaseController {
         $responses->google   = $socials['SOCIAL_GOOGLE'];
         
         return $this->getSuccessJsonResponse($responses);
+    }
+
+
+    /**
+     * @SWG\Post(
+     *     path="/api/user/send-login-sms",
+     *     summary="Send login sms to verify phone number",
+     *     tags={"User"},
+     *     consumes={"application/json"},
+     *     @SWG\Parameter(
+     *          in="body",
+     *          name="phone",
+     *          description="phone", 
+     *          required=true,
+     *          @SWG\Schema(ref="#/definitions/SendSMSRequest"),
+     *      ),
+     *     @SWG\Response(response="405",description="Invalid input"),
+     *     @SWG\SecurityScheme(
+     *         securityDefinition="X-Api-Token",
+     *         type="apiKey",
+     *         in="header",
+     *         name="X-Api-Token"
+     *    ),
+     * )
+     */
+    public function sendLoginSMS(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'phone' => 'required|numeric',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->getErrorJsonResponse($validator->errors()->all());
+        }
+        
+        $phone = $request->input('phone');
+
+        $smsMsg = SMSMESSAGE::where('phone', $phone)
+                            ->where('expired', false)
+                            ->where('expiredDate', '>', time())
+                            ->first();
+
+        if($smsMsg) {
+            return $this->getSuccessJsonResponse(['code' => $smsMsg->code]);
+        }
+
+
+        $code = $this->generateAndSendPhoneCode($phone);
+        
+        if($code === 'failed') {
+            $msg = 'Something wrong with SMS gatway';
+            return $this->getErrorJsonResponse([], $msg);
+        }
+        
+        $sms = new SMSMESSAGE();
+        $sms->phone = $phone;
+        $sms->code = $code;
+        $sms->expiredDate = time()+300;
+
+        $sms->save();
+        return $this->getSuccessJsonResponse(['code' => $code]);
+    }
+
+    /**
+     * @param Object $user
+     * @return type
+     */
+    private function generateAndSendPhoneCode($phone) {
+        $msg = 'Welcome to Watheq APP, Your verification code is ';
+
+        $code = rand(1000, 9999);
+        
+        $msg .= ' ' .$code;
+
+        $result = $this->sendSMS($phone, $msg);
+        
+        if($result == 'failed') {
+            return $result;
+        }
+        
+        return $code;
+    }
+
+     /**
+     * Send SMS TO mobily.ws
+     * @param String $numbers
+     * @param String $msg
+     * @param Integer $MsgID
+     * @param Date|0 $sentDate
+     * @return String $result
+     */
+    function sendSMS($number, $msg) {
+        $API_KEY = env('NEXMO_API_KEY');
+        $API_SECRET = env('NEXMO_API_SECRET');
+        $sender = env('NEXMO_API_SECRET_SENDER');
+
+        $url = 'https://rest.nexmo.com/sms/json?' . http_build_query(
+            [
+              'api_key' =>  $API_KEY,
+              'api_secret' => $API_SECRET,
+              'to' => $number,
+              'from' => $sender,
+              'text' => $msg
+            ]
+        );
+
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+
+        $response = json_decode($response, true);
+        
+        
+        if ($response && isset($response['messages']) && $response['messages'][0]['status'] == "0") {
+            return 'SMS message sent successfully';
+        }
+
+        return 'failed';
+
+//        return $this->printStringResult(trim($result));
     }
 
 }

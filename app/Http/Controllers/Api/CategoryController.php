@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App;
 use App\Category;
 use App\Setting;
+use App\Lawyer;
 
 /**
  * Handle category operations
@@ -88,6 +89,9 @@ class CategoryController extends ApiBaseController {
 
         $categories = [];
         foreach ($parentCategories as $category) {
+            if(!in_array($user->lawyerType, $this->getCategoryType($category)))
+                continue;
+            
             $categories[] = [
                 'name' => $category->parentCategory ? $category->parentCategory->getNameLocal().'-'.$category->getNameLocal() : $category->getNameLocal(),
                 'discription' => $category->getDiscriptionLocal(),
@@ -95,9 +99,15 @@ class CategoryController extends ApiBaseController {
             ];
         }
 
+
         $responses->categories = $categories;
         $fees = Setting::where('setting', 'DELIVER_REQUEST_TO_HOME')->first();
         $responses->deliverToHomeFees = $fees ? $fees->value: 0;
         return $this->getSuccessJsonResponse($responses);
+    }
+
+    public function getCategoryType($category) {
+        $type = $category->id == 13 ? Lawyer::$LAWYER_CLERK_SUBTYPE : Lawyer::$LAWYER_AUTHORIZED_SUBTYPE;
+        return [$type, Lawyer::$LAWYER_BOTH_SUBTYPE];
     }
 }
