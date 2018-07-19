@@ -175,6 +175,7 @@ return [
         Proengsoft\JsValidation\JsValidationServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Propaganistas\LaravelPhone\PhoneServiceProvider::class,
+        Aloha\Twilio\Support\Laravel\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -255,6 +256,7 @@ return [
         'Assets' => App\Helpers\Assets::class,
         'Firebase' => SafeStudio\Firebase\Facades\FirebaseFacades::class,
         'Geotools' => Toin0u\Geotools\Facade\Geotools::class,
+        'Twilio' => Aloha\Twilio\Support\Laravel\Facade::class,
 
 
     ],

@@ -18,6 +18,7 @@ return [
     // User API'S
     'Deactivated Account' => 'حساب غير مفعل',
     'User is deactivated from admin' => 'هذا الحساب موقوف من قبل الإدارة',
+    'Welcome to Watheq APP, Your verification code is' => 'مرحباً في وثّق. كود التحقق هو : :code',
 
     // Logging order process
     'order_created_log' => 'تم إضافة طلب جديد  بواسطة المستخدم :user',

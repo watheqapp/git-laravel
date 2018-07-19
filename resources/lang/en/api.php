@@ -19,6 +19,8 @@ return [
     'Deactivated Account' => 'This account is disabled',
     'User is deactivated from admin' => 'This account is disabled',
     'Access token and access token secret are required' => 'Access token and access token secret are required.',
+    'Welcome to Watheq APP, Your verification code is' => 'مرحباً في وثّق. كود التحقق هو : :code',
+
     
    'success' => 'Done successfuly',
 
