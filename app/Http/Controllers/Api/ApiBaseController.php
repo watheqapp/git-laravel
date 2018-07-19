@@ -354,43 +354,11 @@ class ApiBaseController extends BaseController {
 
         $resp = curl_exec($ch);
         curl_close($ch);
-        var_dump(json_decode($resp,true));
-        exit;
 
 
 
 
                 
-        // $resp = Twilio::message($phone, $msg);
-
-        $API_URL = env('TWILIO_URL');
-        $API_ID = env('TWILIO_SID');
-        $API_SECRET = env('TWILIO_TOKEN');
-        $sender = env('TWILIO_FROM');
-
-        $url =  $API_URL.'/'.$API_ID.'/SMS/Messages';
-
-        $data = array (
-            'From' => env('TWILIO_FROM'),
-            'To' => $phone,
-            'Body' => $msg,
-        );
-
-        $post = http_build_query($data);
-
-        $x = curl_init($url);
-        curl_setopt($x, CURLOPT_POST, true);
-        curl_setopt($x, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($x, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($x, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        curl_setopt($x, CURLOPT_USERPWD, "$API_ID:$API_SECRET");
-        curl_setopt($x, CURLOPT_POSTFIELDS, $post);
-        $y = curl_exec($x);
-        curl_close($x);
-        // var_dump($post);
-        var_dump($y);
-
-        exit;
 
 
         // $API_KEY = env('NEXMO_API_KEY');
@@ -415,11 +383,11 @@ class ApiBaseController extends BaseController {
         // $response = json_decode($response, true);
         
         
-        if ($response && isset($response['messages']) && $response['messages'][0]['status'] == "0") {
+        // if ($response && isset($response['messages']) && $response['messages'][0]['status'] == "0") {
             return 'SMS message sent successfully';
-        }
+        // }
 
-        return 'failed';
+        // return 'failed';
 
 //        return $this->printStringResult(trim($result));
     }
