@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Base\BaseController;
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Ixudra\Curl\Facades\Curl;
 use Config;
 use Auth;
 use JWTAuth;
@@ -13,6 +14,7 @@ use App\ContactUs;
 use App\SMSMESSAGE;
 use Validator;
 use Twilio;
+
 
 /**
  * @SWG\Swagger(
@@ -331,32 +333,53 @@ class ApiBaseController extends BaseController {
     function sendSMS($phone, $msg) {
 
 
-        $ID = env('TWILIO_SID');
-        $token = env('TWILIO_TOKEN');
-        $service = env('TWILIO_SERVICE_ID');
-        $from = env('TWILIO_FROM');
-        $url = 'https://api.twilio.com/2010-04-01/Accounts/' . $ID . '/Messages.json';
+        // $ID = env('TWILIO_SID');
+        // $token = env('TWILIO_TOKEN');
+        // $service = env('TWILIO_SERVICE_ID');
+        // $from = env('TWILIO_FROM');
+        // $url = 'https://api.twilio.com/2010-04-01/Accounts/' . $ID . '/Messages.json';
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL,$url);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION,true);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER,true);
+        // $ch = curl_init();
+        // curl_setopt($ch, CURLOPT_URL,$url);
+        // curl_setopt($ch, CURLOPT_FOLLOWLOCATION,true);
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER,true);
 
-        curl_setopt($ch, CURLOPT_HTTPAUTH,CURLAUTH_BASIC);
-        curl_setopt($ch, CURLOPT_USERPWD,$ID . ':' . $token);
+        // curl_setopt($ch, CURLOPT_HTTPAUTH,CURLAUTH_BASIC);
+        // curl_setopt($ch, CURLOPT_USERPWD,$ID . ':' . $token);
 
-        curl_setopt($ch, CURLOPT_POST,true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS,
-            'To=' . rawurlencode($phone) .
-            // '&MessagingServiceSid=' . $service .
-            '&From=' . rawurlencode($from) .
-            '&Body=' . rawurlencode($msg));
+        // curl_setopt($ch, CURLOPT_POST,true);
+        // curl_setopt($ch, CURLOPT_POSTFIELDS,
+        //     'To=' . rawurlencode($phone) .
+        //     // '&MessagingServiceSid=' . $service .
+        //     '&From=' . rawurlencode($from) .
+        //     '&Body=' . rawurlencode($msg));
 
-        $resp = curl_exec($ch);
-        curl_close($ch);
+        // $resp = curl_exec($ch);
+        // curl_close($ch);
 
 
+        $username   = env('4JAWALY_USERNAME');
+        $password   = env('4JAWALY_PASSWORD');
+        $sender     = env('4JAWALY_SENDER_NAME');
 
+        // $message = urlencode( $msg);
+        $url = 'http://www.4jawaly.net/api/sendsms.php?' . http_build_query(
+            [
+              'username' =>  $username,
+              'password' => $password,
+              'numbers' => $phone,
+              'message' => $msg,
+              'sender' => $sender,
+              'unicode' => 'E',
+              'return' => 'full'
+            ]
+        );
+
+        
+
+        // Send a GET request to: http://www.foo.com/bar?foz=baz using JSON
+        $response = Curl::to($url)
+            ->get();
 
                 
 

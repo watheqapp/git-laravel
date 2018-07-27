@@ -189,6 +189,7 @@ return [
         JeroenNoten\LaravelCkEditor\ServiceProvider::class,
         SafeStudio\Firebase\FirebaseServiceProvider::class,
         Toin0u\Geotools\GeotoolsServiceProvider::class,
+        Ixudra\Curl\CurlServiceProvider::class,
 
 
 
@@ -257,7 +258,7 @@ return [
         'Firebase' => SafeStudio\Firebase\Facades\FirebaseFacades::class,
         'Geotools' => Toin0u\Geotools\Facade\Geotools::class,
         'Twilio' => Aloha\Twilio\Support\Laravel\Facade::class,
-
+        'Curl'          => Ixudra\Curl\Facades\Curl::class,
 
     ],
 

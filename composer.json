@@ -11,6 +11,7 @@
         "anhskohbo/no-captcha": "^3.0",
         "barryvdh/laravel-async-queue": "0.6.0",
         "brozot/laravel-fcm": "^1.2",
+        "ixudra/curl": "^6.16",
         "jeroennoten/laravel-ckeditor": "^3.8",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
