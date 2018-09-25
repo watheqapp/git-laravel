@@ -15,7 +15,7 @@
             ?>
             {!! Form::open($defaultFormAttribute) !!}
             {!! Form::hidden('orderId', $order->id) !!}
-            @include('backend.common.fields.select', ['name' => 'lawyerId', 'value' => $lawyers])
+            @include('backend.common.fields.select', ['name' => 'lawyerId', 'value' => $lawyersData])
             {!! Form::close() !!}
 
         </div>

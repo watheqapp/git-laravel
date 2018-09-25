@@ -109,6 +109,7 @@
                                 <tr>
                                     <th>الاسم</th>
                                     <th>المسافة</th>
+                                    <th>الجوال</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -121,7 +122,8 @@
                                 @foreach ($OutLawyers as $lawyer)
                                     <tr>
                                         <td>{{$lawyer->name}}</td>
-                                        <td>{{Assets::calculateOrderDistance([$order->latitude, $order->longitude], [$lawyer->latitude, $lawyer->longitude])}}</td>
+                                        <td>{{Assets::calculateOrderDistance([$order->latitude, $order->longitude], [$lawyer->latitude, $lawyer->longitude])}} {{__('backend.Kilo')}}</td>
+                                        <td>{{$lawyer->phone}}</td>
                                         <td>
                                             <a class="btn btn-sm blue btn-outline dev-assign-lawyer-action" title="{{__('backend.Assign lawyer')}}" href="javascript:void(0)" data-href="{{route('backend.order.assignLawyerModal', ['id' => $lawyer->id])}}">
                                                 <i class="fa fa-user"></i>

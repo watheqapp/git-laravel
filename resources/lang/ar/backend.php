@@ -208,6 +208,7 @@ return [
     'clientRate' => 'تقييم المستخدم',
     'lawyerId' => ' الموثق',
     'Assign' => 'إسناد',
+    'Kilo' => 'كيلو',
 
     // Contact us
     'Contact us messages' => 'رسائل اتصل بنا',

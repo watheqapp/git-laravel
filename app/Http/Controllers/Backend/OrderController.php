@@ -476,12 +476,17 @@ class OrderController extends BackendController
             ->where('isOnline', true)
             ->whereIn('lawyerType', $order->getCategoryType($order->category))
             ->orderBy('distance', 'DESC')
-            ->get()
-            ->pluck('name', 'id')->toArray();
+            ->get();
+
+
+        $lawyersData = [];
+        foreach ($lawyers as $lawyer) {
+            $lawyersData[$lawyer->id] = $lawyer->name.' - '.$this->calculateOrderDistance([$order->latitude, $order->longitude], [$lawyer->latitude, $lawyer->longitude]).' '.__('backend.Kilo').' - '.$lawyer->phone;
+        }
 
         $validator = JsValidator::make($this->assignLawyerValidationRules, [], [], '.form-horizontal');
 
-        $view = view('backend.order.assignLawyerModal', compact('order', 'lawyers', 'validator'))->render();
+        $view = view('backend.order.assignLawyerModal', compact('order', 'lawyersData', 'validator'))->render();
         return $this->jsonViewResponses($view);
     }
 
