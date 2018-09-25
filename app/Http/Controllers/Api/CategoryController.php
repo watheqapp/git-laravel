@@ -86,6 +86,8 @@ class CategoryController extends ApiBaseController {
         $responses = new \stdClass();
         $fees = Setting::where('setting', 'DELIVER_REQUEST_TO_HOME')->first();
         $responses->deliverToHomeFees = $fees ? $fees->value: 0;
+        
+        $user = Auth()->user();
 
         $categories = [];
         foreach ($parentCategories as $category) {
