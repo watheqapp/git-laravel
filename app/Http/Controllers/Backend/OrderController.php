@@ -405,13 +405,15 @@ class OrderController extends BackendController
 
         $OutLawyers = \App\Lawyer::select(DB::raw('users.*,' . $distanceSelect))
                         ->where('type', User::$LAWYER_TYPE)
-                        ->having('distance', '>', 20)
-                        ->having('distance', '<', 50)
+                        // ->having('distance', '>', 20)
+                        // ->having('distance', '<', 50)
                         ->where('active', true)
                         ->where('isOnline', true)
+                        ->whereNotNull('latitude')
                         ->whereIn('lawyerType', $order->getCategoryType($order->category))
-                        ->orderBy('distance', 'DESC')
+                        ->orderBy('distance', 'ASC')
                         ->get();
+
 
         $inLawyers = \App\OrderLawyersHistory::where('order_id', $order->id)->get();
 
@@ -475,14 +477,22 @@ class OrderController extends BackendController
             ->where('active', true)
             ->where('isOnline', true)
             ->whereIn('lawyerType', $order->getCategoryType($order->category))
-            ->orderBy('distance', 'DESC')
+            ->whereNotNull('latitude')
+            ->orderBy('distance', 'ASC')
             ->get();
 
 
         $lawyersData = [];
         foreach ($lawyers as $lawyer) {
-            $lawyersData[$lawyer->id] = $lawyer->name.' - '.$this->calculateOrderDistance([$order->latitude, $order->longitude], [$lawyer->latitude, $lawyer->longitude]).' '.__('backend.Kilo').' - '.$lawyer->phone;
+            $lawyersData[] = [
+                'id' => $lawyer->id,
+                'name' => $lawyer->name,
+                'distance' => $this->calculateOrderDistance([$order->latitude, $order->longitude], [$lawyer->latitude, $lawyer->longitude]).' '.__('backend.Kilo'),
+                'phone' => $lawyer->phone
+            ];
         }
+
+        $lawyersData = json_encode($lawyersData);
 
         $validator = JsValidator::make($this->assignLawyerValidationRules, [], [], '.form-horizontal');
 

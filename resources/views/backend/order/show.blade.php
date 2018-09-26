@@ -217,23 +217,48 @@
             icon: image
         });
 
+
         @foreach ($OutLawyers as $lawyer)
             var marker = new google.maps.Marker({
                 position: new google.maps.LatLng({lat: parseFloat('{{$lawyer->latitude}}'), lng: parseFloat('{{$lawyer->longitude}}')}),
                 map: map,
                 title: '{{$lawyer->name}}'
-
             });
+
+            var infowindow = new google.maps.InfoWindow();
+
+            var content = '<div class="well"><h4 class="block"><?=$lawyer->name?></h4><p>جوال: <?=$lawyer->phone?></p></div>';
+
+            google.maps.event.addListener(marker,'click', (function(marker, content, infowindow){ 
+                return function() {
+                    infowindow.setContent(content);
+                    infowindow.open(map, marker);
+                };
+            })(marker, content, infowindow)); 
+
         @endforeach
 
 
         @foreach ($inLawyers as $inLawyer)
-            var marker = new google.maps.Marker({
+
+            var inmarker = new google.maps.Marker({
                 position: new google.maps.LatLng({lat: parseFloat('{{$inLawyer->latitude}}'), lng: parseFloat('{{$inLawyer->longtitude}}')}),
                 map: map,
                 title: '{{$inLawyer->name}}'
 
             });
+
+            var infowindow = new google.maps.InfoWindow();
+
+            var content = '<div class="well"><h4 class="block">{{$inLawyer->lawyer->name}}</h4><p>جوال: {{$inLawyer->lawyer->phone}}</p></div>';
+
+            google.maps.event.addListener(inmarker,'click', (function(inmarker, content, infowindow){ 
+                return function() {
+                    infowindow.setContent(content);
+                    infowindow.open(map, inmarker);
+                };
+            })(inmarker, content, infowindow)); 
+
         @endforeach
 
 
